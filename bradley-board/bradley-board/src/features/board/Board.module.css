@@ -1,0 +1,18 @@
+.board {
+    --column-width: 150px;
+    display: grid;
+    grid-template: "province gold line pile1 pile2 pile3 pile4 pile5"
+        "duchy silver line pile6 pile7 pile8 pile9 pile10"
+        "estate copper line . . . . ."
+        "curse . line . . . . ." / var(--column-width) var(--column-width) 1px var(--column-width) var(--column-width) var(--column-width) var(--column-width) var(--column-width);
+
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.vr {
+    height: 100%;
+    width: 0px;
+    border: .5px solid black;
+    margin: 0;
+}
