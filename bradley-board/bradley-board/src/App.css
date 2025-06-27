@@ -1,39 +1,16 @@
 .App {
   text-align: center;
+  --card-normal-width: 100px;
+  --card-normal-name-size: 16px;
+  --card-normal-font-size: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
+.App-main {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template: ". status" 5% "board status" 50% "play-area play-area" 20% "player player" 25% / 1fr auto;
+  align-items: start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  justify-items: center;
+  font-size: calc(10px + 0.5vmin);
 }

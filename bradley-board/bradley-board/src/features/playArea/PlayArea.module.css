@@ -1,8 +1,8 @@
-.hud {
-    grid-area: player;
+.playArea {
+    grid-area: play-area;
     box-sizing: border-box;
     display: grid;
-    grid-template: "resources hand discard deck controls" 1fr / 2fr 10fr auto auto;
+    grid-template: "title" auto "in-play" 1fr / 1fr;
     width: 100%;
     height: 100%;
     gap: 1rem;
@@ -11,24 +11,15 @@
     justify-items: center;
 }
 
-.hand {
-    grid-area: hand;
+.inPlay {
+    grid-area: in-play;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: auto;
     grid-template-rows: 1fr;
     gap: 1rem;
-    justify-self: start;
 }
 
-.deck {
-    grid-area: deck;
-}
-
-.discard {
-    grid-area: discard;
-}
-
-.controls {
-    grid-area: controls;
+.title {
+    grid-area: title;
 }

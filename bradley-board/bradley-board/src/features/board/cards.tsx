@@ -1,3 +1,23 @@
+export type CardType = "treasure" | "action" | "curse" | "victory";
+
+export type CardZone = "supply" | "trash" | "deck" | "discard" | "hand";
+
+export type CardFilter = {
+    types?: CardType[];
+    minCost?: number;
+    maxCost?: number;
+}
+
+export type CardEffect = {
+    who: "me" | "opps" | "all",
+    what: "gain" | "move"
+    filter?: CardFilter,
+    from: CardZone,
+    to: CardZone,
+    count?: number,
+}
+
+export type CardResource = string | CardEffect;
 
 export type CardData = {
     id: number;
@@ -5,12 +25,26 @@ export type CardData = {
     text: string;
     cost: number;
     value?: number;
-    resources?: string[];
-    types: string[];
+    resources?: CardResource[];
+    types: CardType[];
     area?: string; // Optional area for default kingdom cards
     pileCount?: number; // Optional pile count for default kingdom cards
     startingCount?: number; // Optional starting count for default kingdom cards
 };
+
+// # in a string resource stands for "the nost recent count of cards moved / gained"
+// #card: Draw a number of cards equal to e.g. the number of cards you just chose to discard
+
+export const deckCard: CardData = {
+    "id": 0,
+    "name": "Deck",
+    "text": "",
+    "cost": 0,
+    "resources": [
+    ],
+    "types": [
+    ]
+}
 
 export const cards: CardData[] = [
     {
@@ -167,7 +201,14 @@ export const cards: CardData[] = [
         "cost": 1,
         "resources": [
             "1action",
-            "discardToDrawLimit0"
+            {
+                "who": "me",
+                "what": "move",
+                "from": "hand",
+                "to": "discard",
+                "count": -4
+            },
+            "#card"
         ],
         "types": [
             "action"

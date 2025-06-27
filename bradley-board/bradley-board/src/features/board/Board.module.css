@@ -1,10 +1,10 @@
 .board {
-    --column-width: 150px;
+    grid-area: board;
     display: grid;
-    grid-template: "province gold line pile1 pile2 pile3 pile4 pile5"
-        "duchy silver line pile6 pile7 pile8 pile9 pile10"
-        "estate copper line . . . . ."
-        "curse . line . . . . ." / var(--column-width) var(--column-width) 1px var(--column-width) var(--column-width) var(--column-width) var(--column-width) var(--column-width);
+    grid-template: "province gold line pile1 pile2 pile3 pile4 pile5" 1fr
+        "duchy silver line pile6 pile7 pile8 pile9 pile10" 1fr
+        "estate copper line . . . . ." 1fr
+        "curse . line . . . . ." 1fr / var(--card-normal-width) var(--card-normal-width) 1px var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
 
     gap: 1rem;
     padding: 1rem;

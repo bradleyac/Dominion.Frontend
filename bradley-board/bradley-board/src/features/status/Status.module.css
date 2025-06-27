@@ -1,0 +1,4 @@
+.status {
+    grid-area: status;
+    padding: 1rem;
+}
