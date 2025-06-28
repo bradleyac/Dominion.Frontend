@@ -21,6 +21,7 @@ export type CardResource = string | CardEffect;
 
 export type CardData = {
     id: number;
+    imgSrc: string;
     name: string;
     text: string;
     cost: number;
@@ -35,21 +36,11 @@ export type CardData = {
 // # in a string resource stands for "the nost recent count of cards moved / gained"
 // #card: Draw a number of cards equal to e.g. the number of cards you just chose to discard
 
-export const deckCard: CardData = {
-    "id": 0,
-    "name": "Deck",
-    "text": "",
-    "cost": 0,
-    "resources": [
-    ],
-    "types": [
-    ]
-}
-
 export const cards: CardData[] = [
     {
         "id": 1,
         "name": "Village",
+        "imgSrc": "src/card-images/village.jpg",
         "text": "+2 Actions +1 Card",
         "cost": 3,
         "resources": [
@@ -63,6 +54,7 @@ export const cards: CardData[] = [
     {
         "id": 2,
         "name": "Laboratory",
+        "imgSrc": "src/card-images/laboratory.jpg",
         "text": "+2 Cards +1 Action",
         "cost": 5,
         "resources": [
@@ -76,6 +68,7 @@ export const cards: CardData[] = [
     {
         "id": 3,
         "name": "Festival",
+        "imgSrc": "src/card-images/festival.jpg",
         "text": "+2 Actions +1 Buy +2 Coins",
         "cost": 5,
         "resources": [
@@ -90,6 +83,7 @@ export const cards: CardData[] = [
     {
         "id": 4,
         "name": "Market",
+        "imgSrc": "src/card-images/market.jpg",
         "text": "+1 Card +1 Action +1 Buy +1 Coin",
         "cost": 5,
         "resources": [
@@ -105,6 +99,7 @@ export const cards: CardData[] = [
     {
         "id": 5,
         "name": "Copper",
+        "imgSrc": "src/card-images/copper.jpg",
         "text": "+1 Coin",
         "cost": 0,
         "resources": [
@@ -120,6 +115,7 @@ export const cards: CardData[] = [
     {
         "id": 6,
         "name": "Silver",
+        "imgSrc": "src/card-images/silver.jpg",
         "text": "+2 Coins",
         "cost": 3,
         "resources": [
@@ -134,6 +130,7 @@ export const cards: CardData[] = [
     {
         "id": 7,
         "name": "Gold",
+        "imgSrc": "src/card-images/gold.jpg",
         "text": "+3 Coins",
         "cost": 6,
         "resources": [
@@ -148,6 +145,7 @@ export const cards: CardData[] = [
     {
         "id": 8,
         "name": "Estate",
+        "imgSrc": "src/card-images/estate.jpg",
         "text": "1 Victory Point",
         "cost": 2,
         "value": 1,
@@ -161,6 +159,7 @@ export const cards: CardData[] = [
     {
         "id": 9,
         "name": "Duchy",
+        "imgSrc": "src/card-images/duchy.jpg",
         "text": "3 Victory Points",
         "cost": 5,
         "value": 3,
@@ -173,6 +172,7 @@ export const cards: CardData[] = [
     {
         "id": 10,
         "name": "Province",
+        "imgSrc": "src/card-images/province.jpg",
         "text": "6 Victory Points",
         "cost": 8,
         "value": 6,
@@ -185,6 +185,7 @@ export const cards: CardData[] = [
     {
         "id": 11,
         "name": "Curse",
+        "imgSrc": "src/card-images/curse.jpg",
         "text": "-1 Victory Point",
         "cost": 0,
         "value": -1,
@@ -197,6 +198,7 @@ export const cards: CardData[] = [
     {
         "id": 12,
         "name": "Cellar",
+        "imgSrc": "src/card-images/cellar.jpg",
         "text": "+1 Action. Discard any number of cards. +1 Card per card discarded",
         "cost": 1,
         "resources": [
@@ -217,6 +219,7 @@ export const cards: CardData[] = [
     {
         "id": 13,
         "name": "Card Six",
+        "imgSrc": "src/card-images/library.jpg",
         "text": "+1 Action +1 Card",
         "cost": 1,
         "resources": [
@@ -230,6 +233,7 @@ export const cards: CardData[] = [
     {
         "id": 14,
         "name": "Card Seven",
+        "imgSrc": "src/card-images/remodel.jpg",
         "text": "+1 Action +1 Card",
         "cost": 1,
         "resources": [
@@ -243,6 +247,7 @@ export const cards: CardData[] = [
     {
         "id": 15,
         "name": "Card Eight",
+        "imgSrc": "src/card-images/sentry.jpg",
         "text": "+1 Action +1 Card",
         "cost": 1,
         "resources": [
@@ -256,6 +261,7 @@ export const cards: CardData[] = [
     {
         "id": 16,
         "name": "Card Nine",
+        "imgSrc": "src/card-images/witch.jpg",
         "text": "+1 Action +1 Card",
         "cost": 1,
         "resources": [
@@ -269,6 +275,7 @@ export const cards: CardData[] = [
     {
         "id": 17,
         "name": "Card Ten",
+        "imgSrc": "src/card-images/harbinger.jpg",
         "text": "+1 Action +1 Card",
         "cost": 1,
         "resources": [

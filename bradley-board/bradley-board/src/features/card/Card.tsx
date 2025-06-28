@@ -1,8 +1,7 @@
 import { JSX } from "react";
 import { CardInstance, CardPileState, selectDeck, selectDiscard } from "../board/boardSlice";
-import { deckCard, type CardData } from "../board/cards";
+import { type CardData } from "../board/cards";
 import styles from "./Card.module.css"
-import { useAppSelector } from "../../app/hooks";
 
 export const CardPile = ({ cardPile, gridArea, onClick }: { cardPile: CardPileState, gridArea: string, onClick: (cardId: number) => void }): JSX.Element => {
     return (
@@ -20,7 +19,7 @@ export const DiscardPile = ({ discard }: { discard: CardInstance[] }): JSX.Eleme
             <div className={styles.title}>Discard</div>
             {lastCard
                 ? <Card card={lastCard.card} isCompact={false} />
-                : <p>Empty</p>}
+                : <div className={`${styles.card} ${styles.white}`}></div>}
             <div className={styles.remaining}>{discard.length}</div>
         </div>
     );
@@ -30,19 +29,19 @@ export const Deck = ({ deck }: { deck: CardInstance[] }): JSX.Element => {
     return (
         <div className={styles.deck}>
             <div className={styles.title}>Deck</div>
-            <Card card={deckCard} isCompact={false} />
+            <div className={`${styles.card} ${deck.length === 0 ? styles.white : styles.cardBack}`}></div>
             <div className={styles.remaining}>{deck.length}</div>
-        </div>
+        </div >
     );
 }
 
 export const Card = ({ card, isCompact, onClick }: { card: CardData, isCompact: boolean, onClick?: () => void }): JSX.Element => {
     return (
-        <div className={`${styles.card} ${isCompact ? styles.compact : ""}`} onClick={onClick}>
-            <h1 className={styles.name}>{card.name}</h1>
+        <div className={`${styles.card} ${styles.cardFront} ${isCompact ? styles.compact : ""}`} style={{ backgroundImage: `url(${card.imgSrc})` }} onClick={onClick}>
+            {/* <h1 className={styles.name}>{card.name}</h1>
             <p className={styles.text}>{card.text}</p>
             <p className={styles.cost}>Cost: {card.cost}</p>
-            <p className={styles.types}>{card.types.join(", ")}</p>
+            <p className={styles.types}>{card.types.join(", ")}</p> */}
         </div>
     );
 }

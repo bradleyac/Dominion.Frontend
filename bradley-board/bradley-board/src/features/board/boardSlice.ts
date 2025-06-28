@@ -14,6 +14,7 @@ export type BoardSliceState = {
     currentPlayer: number,
     phase: "action" | "buy" | "cleanup",
     status: "idle" | "loading" | "failed",
+    log: string[],
 }
 
 export type CardPileState = {
@@ -68,6 +69,7 @@ const initialState: BoardSliceState = {
     status: "idle",
     trash: [],
     turn: 0,
+    log: []
 }
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -101,6 +103,7 @@ export const boardSlice = createAppSlice({
 
             state.phase = "action";
             state.turn = 1;
+            state.log.push("Game Started");
         }),
         endTurn: create.reducer(onEndTurn),
         buyCard: create.reducer((state, action: PayloadAction<number>) => {
@@ -108,11 +111,16 @@ export const boardSlice = createAppSlice({
             const cardPile = state.kingdomCards.find(pile => pile.card.id === cardId)
             const player = state.players[state.currentPlayer];
             if (cardPile && cardPile.remaining > 0 && player.resources.buys > 0 && player.resources.coins >= cardPile.card.cost) {
+                state.phase = "buy";
                 cardPile.remaining -= 1;
                 player.resources.buys -= 1;
                 player.resources.coins -= cardPile.card.cost;
                 const newCard = { id: nextId++, card: cardPile.card };
                 player.discard.push(newCard);
+                state.log.push(`Player ${state.currentPlayer} bought a ${cardPile.card.name}`);
+            }
+            if (state.phase === "buy" && player.resources.buys === 0) {
+                return onEndTurn(state);
             }
         }),
         playCard: create.reducer((state, action: PayloadAction<number>) => {
@@ -136,6 +144,7 @@ export const boardSlice = createAppSlice({
                 function moveCardFromHandToPlay(cardInstance: CardInstance): void {
                     player.play.push(cardInstance);
                     player.hand = player.hand.filter(c => c.id !== cardInstance.id);
+                    state.log.push(`Player ${state.currentPlayer} played a ${cardInstance.card.name}`);
                 }
             }
         }),
@@ -146,6 +155,7 @@ export const boardSlice = createAppSlice({
         selectKingdomCards: state => state.kingdomCards,
         selectPhase: state => state.phase,
         selectCurrentPlayer: state => state.players[state.currentPlayer],
+        selectCurrentPlayerName: state => `Player ${state.currentPlayer}`,
         selectStatus: state => state.status,
         selectTrash: state => state.trash,
         selectTurn: state => state.turn,
@@ -158,7 +168,8 @@ export const boardSlice = createAppSlice({
         selectPlayerScore: state => {
             const player = selectCurrentPlayer({ board: state });
             return player.deck.concat(player.hand).concat(player.discard).concat(player.play).reduce((prev, cur) => prev + (cur.card.value ?? 0), player.resources.vps)
-        }
+        },
+        selectLog: state => state.log,
     },
 })
 
@@ -166,7 +177,7 @@ export const boardSlice = createAppSlice({
 export const { buyCard, playCard, startGame, endTurn } = boardSlice.actions
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectKingdomCards, selectCurrentPlayer, selectPhase, selectCurrentPlayer: selectPlayer, selectStatus, selectTrash, selectTurn, selectHand, selectDeck, selectDiscard, selectInPlay, selectResources, selectPlayerScore } = boardSlice.selectors
+export const { selectKingdomCards, selectCurrentPlayer, selectPhase, selectCurrentPlayerName, selectStatus, selectTrash, selectTurn, selectHand, selectDeck, selectDiscard, selectInPlay, selectResources, selectPlayerScore, selectLog } = boardSlice.selectors
 
 class ResourceHandler {
     canHandle: (res: CardResource) => boolean;
@@ -277,6 +288,7 @@ function onEndTurn(state: BoardSliceState): void {
     player = { ...player, hand: [], play: [] }
     player.resources = { ...player.resources, actions: 1, buys: 1, coins: 0 }
     drawCards(player, 5);
+    state.log.push(`Player ${state.currentPlayer} ended their turn and drew ${player.hand.map(card => card.card.name).join(", ")}`)
     state.players[state.currentPlayer] = player;
     state.phase = "action";
     state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
@@ -285,6 +297,7 @@ function onEndTurn(state: BoardSliceState): void {
     }
     player = selectCurrentPlayer({ board: state });
     player.resources = { ...player.resources, actions: 1, buys: 1, coins: 0 }
+    state.log.push(`Player ${state.currentPlayer}'s turn (${state.turn})`);
 }
 
 function shuffleDeck(playerState: PlayerState): void {

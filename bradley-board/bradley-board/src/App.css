@@ -8,7 +8,7 @@
 .App-main {
   min-height: 100vh;
   display: grid;
-  grid-template: ". status" 5% "board status" 50% "play-area play-area" 20% "player player" 25% / 1fr auto;
+  grid-template: "status status status" 5% ". board log" 50% "play-area play-area play-area" 20% "player player player" 25% / 1fr auto 1fr;
   align-items: start;
   justify-content: center;
   justify-items: center;
