@@ -1,7 +1,7 @@
-import type { JSX } from "react"
-import { useState } from "react"
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import styles from "./Counter.module.css"
+import type { JSX } from "react";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import styles from "./Counter.module.css";
 import {
   decrement,
   increment,
@@ -10,15 +10,15 @@ import {
   incrementIfOdd,
   selectCount,
   selectStatus,
-} from "./counterSlice"
+} from "./counterSlice";
 
 export const Counter = (): JSX.Element => {
-  const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
-  const status = useAppSelector(selectStatus)
-  const [incrementAmount, setIncrementAmount] = useState("2")
+  const dispatch = useAppDispatch();
+  const count = useAppSelector(selectCount);
+  const status = useAppSelector(selectStatus);
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
-  const incrementValue = Number(incrementAmount) || 0
+  const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
@@ -48,7 +48,7 @@ export const Counter = (): JSX.Element => {
           value={incrementAmount}
           type="number"
           onChange={e => {
-            setIncrementAmount(e.target.value)
+            setIncrementAmount(e.target.value);
           }}
         />
         <button
@@ -61,7 +61,7 @@ export const Counter = (): JSX.Element => {
           className={styles.asyncButton}
           disabled={status !== "idle"}
           onClick={() => {
-            void dispatch(incrementAsync(incrementValue))
+            void dispatch(incrementAsync(incrementValue));
           }}
         >
           Add Async
@@ -69,12 +69,12 @@ export const Counter = (): JSX.Element => {
         <button
           className={styles.button}
           onClick={() => {
-            dispatch(incrementIfOdd(incrementValue))
+            dispatch(incrementIfOdd(incrementValue));
           }}
         >
           Add If Odd
         </button>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,22 +1,22 @@
-import type { JSX } from "react"
-import { useState } from "react"
-import styles from "./Quotes.module.css"
-import { useGetQuotesQuery } from "./quotesApiSlice"
+import type { JSX } from "react";
+import { useState } from "react";
+import styles from "./Quotes.module.css";
+import { useGetQuotesQuery } from "./quotesApiSlice";
 
-const options = [5, 10, 20, 30]
+const options = [5, 10, 20, 30];
 
 export const Quotes = (): JSX.Element | null => {
-  const [numberOfQuotes, setNumberOfQuotes] = useState(10)
+  const [numberOfQuotes, setNumberOfQuotes] = useState(10);
   // Using a query hook automatically fetches data and returns query values
   const { data, isError, isLoading, isSuccess } =
-    useGetQuotesQuery(numberOfQuotes)
+    useGetQuotesQuery(numberOfQuotes);
 
   if (isError) {
     return (
       <div>
         <h1>There was an error!!!</h1>
       </div>
-    )
+    );
   }
 
   if (isLoading) {
@@ -24,7 +24,7 @@ export const Quotes = (): JSX.Element | null => {
       <div>
         <h1>Loading...</h1>
       </div>
-    )
+    );
   }
 
   if (isSuccess) {
@@ -35,7 +35,7 @@ export const Quotes = (): JSX.Element | null => {
           className={styles.select}
           value={numberOfQuotes}
           onChange={e => {
-            setNumberOfQuotes(Number(e.target.value))
+            setNumberOfQuotes(Number(e.target.value));
           }}
         >
           {options.map(option => (
@@ -53,8 +53,8 @@ export const Quotes = (): JSX.Element | null => {
           </blockquote>
         ))}
       </div>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};

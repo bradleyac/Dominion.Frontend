@@ -1,34 +1,33 @@
 .hud {
-    grid-area: player;
-    box-sizing: border-box;
-    display: grid;
-    grid-template: "resources hand discard deck controls" 1fr / 2fr 10fr auto auto;
-    width: 100%;
-    height: 100%;
-    gap: 1rem;
-    padding: 1rem;
-    align-items: center;
-    justify-items: center;
+  grid-area: player;
+  display: grid;
+  grid-template: "resources hand discard deck controls" 1fr / 2fr 10fr auto auto;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+  justify-items: center;
 }
 
 .hand {
-    grid-area: hand;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: auto;
-    grid-template-rows: 1fr;
-    gap: 1rem;
-    justify-self: start;
+  grid-area: hand;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  grid-template-rows: 1fr;
+  gap: 1rem;
+  justify-self: start;
 }
 
 .deck {
-    grid-area: deck;
+  grid-area: deck;
 }
 
 .discard {
-    grid-area: discard;
+  grid-area: discard;
 }
 
 .controls {
-    grid-area: controls;
+  grid-area: controls;
 }

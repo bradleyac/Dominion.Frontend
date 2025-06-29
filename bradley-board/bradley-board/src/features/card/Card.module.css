@@ -1,120 +1,123 @@
 p {
-    margin: 0;
+  margin: 0;
 }
 
 .cardPile {
-    box-sizing: border-box;
-    display: grid;
-    grid-template: "card" 1fr
-        "remaining" auto / 1fr;
+  display: grid;
+  grid-template: "card" 1fr / 1fr;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
-    box-sizing: border-box;
-    display: grid;
-    grid-template: "name" 1em
-        "text" 1fr
-        "cost" 1em
-        "types" 1em / 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 59 / 93;
+  background-color: #f0f0f0;
+  border-radius: 0.5em;
+  gap: 0.25em;
 
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 59 / 91;
-    padding: .25em;
-    background-color: #f0f0f0;
-    border-radius: .5em;
-    gap: .25em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
 
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-
-    font-size: var(--card-normal-font-size);
-    width: var(--card-normal-width);
+  font-size: var(--card-normal-font-size);
+  width: var(--card-normal-width);
 }
 
-.cardPile>.card {
-    grid-area: card;
+.cardPile > .card {
+  grid-area: card;
 }
 
 .cost {
-    grid-area: cost;
+  grid-area: cost;
 }
 
 .name {
-    grid-area: name;
-    font-size: var(--card-normal-name-size);
+  grid-area: name;
+  font-size: var(--card-normal-name-size);
 }
 
 .text {
-    grid-area: text;
-    word-wrap: break-word;
+  grid-area: text;
+  word-wrap: break-word;
 }
 
 .types {
-    grid-area: types;
+  grid-area: types;
 }
 
 .card.compact {
-    aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;
 }
 
-.cardPile:hover>.card.compact {
-    aspect-ratio: 59 / 93;
-    position: absolute;
-    z-index: 1;
-    transform: scale(1.5);
-    transition: transform .2s ease;
-}
-
-.card.compact>.text {
-    display: none;
-}
-
-.cardPile:hover>.card.compact>.text {
-    display: unset;
+.cardPile:hover > .card.compact {
+  aspect-ratio: 59 / 93;
+  position: absolute;
+  transform: scale(1.5);
+  transition: transform 0.2s ease;
+  z-index: 1;
 }
 
 .discard,
 .deck {
-    box-sizing: border-box;
-    display: grid;
-    grid-template: "title" 1fr "card" auto
-        "remaining" 1fr / 1fr;
+  display: grid;
+  grid-template:
+    "title" 1fr "card" auto
+    "remaining" 1fr / 1fr;
 
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100%;
-    gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: var(--card-normal-width);
+  height: 100%;
+  gap: 1rem;
 }
 
 .title {
-    grid-area: title;
-    align-self: end;
+  grid-area: title;
+  align-self: end;
 }
 
 .remaining {
-    grid-area: remaining;
-    align-self: start;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 100;
+  grid-area: remaining;
+  align-self: end;
+  justify-self: end;
+  position: relative;
+  left: -5px;
 }
 
 .white {
-    background-color: white;
+  background-color: white;
 }
 
 .cardBack {
-    background-image: url("src/card-back.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: none;
+  background-image: url("src/card-back.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .cardFront {
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cardBottom {
+  display: none;
+}
+
+.cardPile:not(:hover) .cardBottom {
+  display: block;
+  width: 100%;
+  height: 16%;
+  align-self: end;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 96%;
+  border-radius: 0.5em;
 }

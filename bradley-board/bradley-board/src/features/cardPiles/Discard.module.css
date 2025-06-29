@@ -1,0 +1,42 @@
+.discard {
+  display: grid;
+  grid-template:
+    "title" 1fr "card" auto
+    "remaining" 1fr / 1fr;
+
+  align-items: center;
+  justify-content: center;
+  width: var(--card-normal-width);
+  height: 100%;
+  gap: 1rem;
+}
+
+.title {
+  grid-area: title;
+}
+
+.remaining {
+  grid-area: remaining;
+}
+
+.card {
+  grid-area: card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 59 / 93;
+  background-color: #f0f0f0;
+  border-radius: 0.5em;
+  gap: 0.25em;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+
+  font-size: var(--card-normal-font-size);
+  width: var(--card-normal-width);
+}
+
+.white {
+  background-color: white;
+}
