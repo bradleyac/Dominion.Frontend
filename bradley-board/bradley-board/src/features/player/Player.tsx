@@ -1,11 +1,9 @@
 import { JSX } from "react";
 import {
   CardInstance,
+  endActionPhase,
   endTurn,
-  playCard,
   PlayerResources,
-  selectDeck,
-  selectDiscard,
   selectHand,
   selectResources,
 } from "../board/boardSlice";
@@ -33,14 +31,13 @@ export const Resources = ({
 };
 
 export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
-  const dispatch = useAppDispatch();
   const cards = hand.map((cardInstance: CardInstance) => {
     return (
       <Card
-        card={cardInstance.card}
+        card={cardInstance}
         key={cardInstance.id}
         isCompact={false}
-        onClick={() => dispatch(playCard(cardInstance.id))}
+        zone="hand"
       />
     );
   });
@@ -52,6 +49,7 @@ export const Controls = (): JSX.Element => {
   const dispatch = useAppDispatch();
   return (
     <div className={styles.controls}>
+      <button onClick={() => dispatch(endActionPhase())}>End Action Phase</button>
       <button onClick={() => dispatch(endTurn())}>End Turn</button>
     </div>
   );

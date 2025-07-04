@@ -30,4 +30,6 @@
 
 .controls {
   grid-area: controls;
+  display: flex;
+  flex-direction: column;
 }

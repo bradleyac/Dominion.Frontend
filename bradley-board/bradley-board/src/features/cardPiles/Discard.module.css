@@ -13,10 +13,12 @@
 
 .title {
   grid-area: title;
+  align-self: end;
 }
 
 .remaining {
   grid-area: remaining;
+  align-self: start;
 }
 
 .card {

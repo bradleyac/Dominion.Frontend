@@ -1,8 +1,7 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { type PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
-import type { AppThunk } from "../../app/store";
-import { cards, CardData, CardResource, CardEffect } from "./cards";
-import { ChoosableCard } from "./stateMachine";
+import { cards, CardData, CardEffect, CardFilter, CardZone, MoveCardsEffect, SimpleEffect } from "../card/cards";
+import { getCardClickAction } from "./getCardClickAction";
 
 let nextId = 1;
 
@@ -12,9 +11,18 @@ export type BoardSliceState = {
   trash: CardInstance[];
   turn: number;
   currentPlayer: number;
-  phase: "action" | "buy" | "cleanup";
+  phase: "action" | "buyOrPlay" | "buy" | "cleanup";
   status: "idle" | "loading" | "failed";
   log: string[];
+  activeFilter?: CardFilter;
+  selectedCards: (CardData | CardInstance)[];
+  resolvingCard?: CardInstance & EffectState
+};
+
+export type EffectState = {
+  effectIndex: number,
+  effectTargets: number[],
+  effectTargetIndex: number,
 };
 
 export type CardPileState = {
@@ -32,6 +40,7 @@ export type PlayerState = {
 };
 
 export type CardInstance = {
+  type: "instance",
   id: number;
   card: CardData;
 };
@@ -70,6 +79,8 @@ const initialState: BoardSliceState = {
   trash: [],
   turn: 0,
   log: [],
+  selectedCards: [],
+  // activeFilter: { from: "supply", highlightType: "select", minCost: 2, maxCost: 5 }
 };
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -82,10 +93,12 @@ export const boardSlice = createAppSlice({
       onStartGame(state, playerCount);
     }),
     endTurn: create.reducer(onEndTurn),
+    endActionPhase: create.reducer(state => { if (state.activeFilter || state.phase !== "action") return; state.phase = "buyOrPlay"; }),
     buyCard: create.reducer((state, action: PayloadAction<number>) => {
+      if (state.activeFilter) return;
       const cardId = action.payload;
       const cardPile = state.kingdomCards.find(pile => pile.card.id === cardId);
-      const player = state.players[state.currentPlayer];
+      const player = selectCurrentPlayer({ board: state });
       if (
         cardPile &&
         cardPile.remaining > 0 &&
@@ -96,8 +109,7 @@ export const boardSlice = createAppSlice({
         cardPile.remaining -= 1;
         player.resources.buys -= 1;
         player.resources.coins -= cardPile.card.cost;
-        const newCard = { id: nextId++, card: cardPile.card };
-        player.discard.push(newCard);
+        player.discard.push({ type: "instance", id: nextId++, card: cardPile.card });
         state.log.push(
           `Player ${state.currentPlayer} bought a ${cardPile.card.name}`,
         );
@@ -107,8 +119,9 @@ export const boardSlice = createAppSlice({
       }
     }),
     playCard: create.reducer((state, action: PayloadAction<number>) => {
+      if (state.activeFilter) return;
       const cardInstanceId = action.payload;
-      const player = state.players[state.currentPlayer];
+      const player = selectCurrentPlayer({ board: state });
       const cardInstance = player.hand.find(card => card.id === cardInstanceId);
       if (cardInstance) {
         if (
@@ -116,7 +129,7 @@ export const boardSlice = createAppSlice({
           !cardInstance.card.types.includes("action") &&
           cardInstance.card.types.includes("treasure")
         ) {
-          state.phase = "buy";
+          state.phase = "buyOrPlay";
         }
         if (
           state.phase === "action" &&
@@ -126,8 +139,11 @@ export const boardSlice = createAppSlice({
           moveCardFromHandToPlay(cardInstance);
           applyResources(state, cardInstance);
           player.resources.actions -= 1;
+          if (player.resources.actions === 0) {
+            state.phase = "buyOrPlay";
+          }
         } else if (
-          state.phase === "buy" &&
+          state.phase === "buyOrPlay" &&
           cardInstance.card.types.includes("treasure")
         ) {
           moveCardFromHandToPlay(cardInstance);
@@ -143,13 +159,39 @@ export const boardSlice = createAppSlice({
         }
       }
     }),
+    toggleCard: create.reducer((state, action: PayloadAction<CardData | CardInstance>) => {
+      const card = action.payload;
+      if (state.selectedCards.filter(c => c.type === card.type && c.id === card.id).length > 0) {
+        state.selectedCards = state.selectedCards.filter(c => c.type !== card.type || c.id !== card.id);
+      }
+      else {
+        state.selectedCards.push(card);
+        if (state.selectedCards.length === 1 && state.resolvingCard && state.activeFilter?.maxCount === 1) {
+          finishCurrentEffect(state, state.resolvingCard, true);
+        }
+      }
+    }),
+    submitSelectedCards: create.reducer(state => {
+      if (state.resolvingCard) {
+        finishCurrentEffect(state, state.resolvingCard, true);
+      }
+    }),
+    updateState: create.reducer((state, action: PayloadAction<any>) => {
+      console.log(action.payload);
+      // const { kingdomState, log, me, opponents, turnState } = action.payload;
+      // state.kingdomCards = kingdomState.supply.map(cardPile => {
+      //   return ({
+
+      //   });
+      // })
+    })
   }),
   // You can define your selectors here. These selectors receive the slice
   // state as their first argument.
   selectors: {
     selectKingdomCards: state => state.kingdomCards,
     selectPhase: state => state.phase,
-    selectCurrentPlayer: state => state.players[state.currentPlayer],
+    selectCurrentPlayer: (state): PlayerState => state.players[state.currentPlayer],//state.resolvingCard ? state.players[state.resolvingCard.effectTargets[state.resolvingCard.effectTargetIndex]] : state.players[state.currentPlayer],
     selectCurrentPlayerName: state => `Player ${state.currentPlayer}`,
     selectStatus: state => state.status,
     selectTrash: state => state.trash,
@@ -161,22 +203,27 @@ export const boardSlice = createAppSlice({
     selectResources: state => selectCurrentPlayer({ board: state }).resources,
     // TODO: How bad is this?
     selectPlayerScore: state => {
-      const player = selectCurrentPlayer({ board: state });
-      return player.deck
-        .concat(player.hand)
-        .concat(player.discard)
-        .concat(player.play)
-        .reduce(
-          (prev, cur) => prev + (cur.card.value ?? 0),
-          player.resources.vps,
-        );
+      const player = state.players[state.currentPlayer];
+      const sum = (arr: CardInstance[]): number => arr.reduce((prev, cur) => prev + (cur.card.value ?? 0), 0);
+      return player.resources.vps + sum(player.deck) + sum(player.discard) + sum(player.hand) + sum(player.play);
     },
     selectLog: state => state.log,
+    selectCardClickAction: getCardClickAction,
+    selectActiveFilter: state => state.activeFilter,
+    selectSelectedCards: state => state.selectedCards,
+    selectFilterSatisfied: state => {
+      if (!state.activeFilter) {
+        return false;
+      }
+      const { minCount, maxCount } = state.activeFilter;
+      const count = state.selectedCards.length;
+      return count >= (minCount ?? 0) && count <= (maxCount ?? Number.MAX_VALUE);
+    }
   },
 });
 
 // Action creators are generated for each case reducer function.
-export const { buyCard, playCard, startGame, endTurn } = boardSlice.actions;
+export const { buyCard, playCard, startGame, endTurn, toggleCard, endActionPhase, submitSelectedCards, updateState } = boardSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
 export const {
@@ -194,24 +241,28 @@ export const {
   selectResources,
   selectPlayerScore,
   selectLog,
+  selectCardClickAction,
+  selectActiveFilter,
+  selectSelectedCards,
+  selectFilterSatisfied,
 } = boardSlice.selectors;
 
 class ResourceHandler {
-  canHandle: (res: CardResource) => boolean;
+  canHandle: (res: CardEffect) => boolean;
   handleResource: (
     cardInstance: CardInstance,
-    res: CardResource,
+    res: CardEffect,
     index: number,
     state: BoardSliceState,
-  ) => void;
+  ) => boolean;
   constructor(
-    canHandle: (res: CardResource) => boolean,
+    canHandle: (res: CardEffect) => boolean,
     action: (
       cardInstance: CardInstance,
-      res: CardResource,
+      res: CardEffect,
       index: number,
       state: BoardSliceState,
-    ) => void,
+    ) => boolean,
   ) {
     this.canHandle = canHandle;
     this.handleResource = action;
@@ -223,15 +274,15 @@ const ResourceRegex = new RegExp(
 );
 
 const baseResourceHandler = new ResourceHandler(
-  (res: CardResource): boolean =>
-    typeof res === "string" && ResourceRegex.test(res as string),
+  (res: CardEffect): boolean =>
+    res.type === "simple",
   (
     cardInstance: CardInstance,
-    res: CardResource,
+    res: CardEffect,
     index: number,
     state: BoardSliceState,
   ) => {
-    const results = ResourceRegex.exec(res as string);
+    const results = ResourceRegex.exec((res as SimpleEffect).effect);
     if (results) {
       const count = Number(results.groups?.["count"]);
       const resource = results.groups?.["resource"];
@@ -252,23 +303,173 @@ const baseResourceHandler = new ResourceHandler(
           break;
       }
     }
+    return true;
   },
 );
 
-const resourceHandlers = [baseResourceHandler];
+const chooseCardResourceHandler = new ResourceHandler(
+  (res: CardEffect): boolean => res.type === "move",
+  (
+    cardInstance: CardInstance,
+    res: CardEffect,
+    index: number,
+    state: BoardSliceState,
+  ) => {
+    if (state.resolvingCard) {
+      const targets = state.resolvingCard.effectTargets;
+      const nextTarget = state.resolvingCard.effectTargetIndex + 1;
+      const specificCard = state.activeFilter!.cardId
+
+      if (nextTarget >= targets.length) {
+        state.resolvingCard = { ...state.resolvingCard, effectIndex: state.resolvingCard.effectIndex + 1, effectTargets: [], effectTargetIndex: -1 }
+        return true;
+      }
+      else {
+        state.resolvingCard = { ...state.resolvingCard, effectTargetIndex: nextTarget };
+
+        if (specificCard) {
+          state.selectedCards = [state.kingdomCards.find(kc => kc.card.id === specificCard)!.card];
+          finishCurrentEffect(state, cardInstance, false);
+          return true;
+        }
+        else {
+          state.selectedCards = [];
+          return false;
+        }
+      }
+    }
+    else {
+      const effect = res as MoveCardsEffect;
+      const targets = effect.who === "me" ? [state.currentPlayer]
+        : effect.who === "all" ? rotate(state.players.map(p => p.id), state.currentPlayer)
+          : effect.who === "opps" ? rotate(state.players.map(p => p.id), state.currentPlayer).filter(id => id !== state.currentPlayer)
+            : [];
+      state.resolvingCard = { ...cardInstance, effectIndex: index, effectTargets: targets, effectTargetIndex: 0 };
+      state.activeFilter = effect.filter;
+
+      const specificCard = state.activeFilter!.cardId
+
+      if (specificCard) {
+        state.selectedCards = [state.kingdomCards.find(kc => kc.card.id === specificCard)!.card];
+        finishCurrentEffect(state, cardInstance, false);
+        return true;
+      }
+      else {
+        state.selectedCards = [];
+        return false;
+      }
+    }
+  }
+)
+
+function rotate(array: any[], amountToRotate: number) {
+  amountToRotate = amountToRotate % array.length;
+  return [...array.slice(amountToRotate), ...array.slice(0, amountToRotate)];
+}
+
+const resourceHandlers = [baseResourceHandler, chooseCardResourceHandler];
 
 function applyResources(
   state: BoardSliceState,
   cardInstance: CardInstance,
 ): void {
-  for (let [index, resource] of cardInstance.card.resources?.entries() ?? []) {
+  for (let [index, resource] of cardInstance.card.resources.entries()) {
     for (let resourceHandler of resourceHandlers) {
       if (resourceHandler.canHandle(resource)) {
-        resourceHandler.handleResource(cardInstance, resource, index, state);
-        break;
+        const keepGoing = resourceHandler.handleResource(cardInstance, resource, index, state);
+        if (!keepGoing) {
+          return;
+        }
+        else {
+          break;
+        }
       }
     }
   }
+  delete state.resolvingCard;
+  delete state.activeFilter;
+}
+
+function resumeApplyingResources(
+  state: BoardSliceState,
+  cardInstance: CardInstance,
+): void {
+  for (let [index, resource] of [...cardInstance.card.resources.entries()].slice(state.resolvingCard!.effectIndex)) {
+    for (let resourceHandler of resourceHandlers) {
+      if (resourceHandler.canHandle(resource)) {
+        const keepGoing = resourceHandler.handleResource(cardInstance, resource, index, state);
+        if (!keepGoing) {
+          return;
+        }
+        else {
+          break;
+        }
+      }
+    }
+  }
+  delete state.resolvingCard;
+  delete state.activeFilter;
+}
+
+function finishCurrentEffect(
+  state: BoardSliceState,
+  cardInstance: CardInstance,
+  resumeAfter: boolean,
+): void {
+  const currentEffect = cardInstance.card.resources[state.resolvingCard!.effectIndex] as MoveCardsEffect;
+  const targetPlayer = state.resolvingCard!.effectTargets[state.resolvingCard!.effectTargetIndex];
+  const player = state.players[targetPlayer];
+  // currentEffect.what; TODO: "gain" | "move"
+
+  moveCards(state, player, currentEffect.filter!.from, currentEffect.to);
+
+  state.selectedCards = [];
+
+  if (resumeAfter) {
+    resumeApplyingResources(state, cardInstance);
+  }
+}
+
+function moveCards(state: BoardSliceState, player: PlayerState, from: CardZone, to: CardZone) {
+  const selectedCardIds = state.selectedCards.map(c => c.id);
+  switch (from) {
+    case "deck": player.deck = player.deck.filter(card => !selectedCardIds.includes(card.id)); break;
+    case "discard": player.discard = player.discard.filter(card => !selectedCardIds.includes(card.id)); break;
+    case "hand": player.hand = player.hand.filter(card => !selectedCardIds.includes(card.id)); break;
+    case "trash": state.trash = state.trash.filter(card => !selectedCardIds.includes(card.id)); break;
+    case "play": player.play = player.play.filter(card => !selectedCardIds.includes(card.id)); break;
+    case "supply": {
+      for (let id of selectedCardIds) {
+        const cardPile = state.kingdomCards.find(c => c.card.id === id && c.remaining > 0);
+        if (cardPile) {
+          cardPile.remaining -= 1;
+        }
+        else {
+          throw "Card pile is empty.";
+        }
+      }
+      break;
+    }
+    default: throw "what??";
+  }
+  switch (to) {
+    case "supply": {
+      for (let card of state.selectedCards) {
+        const cardId = card.type === "data" ? (card as CardData).id : card.card.id;
+        state.kingdomCards.find(c => c.card.id === cardId)!.remaining += 1;
+      }
+      break;
+    }
+    case "deck": player.deck.push(...state.selectedCards.map(makeInstance)); break;
+    case "discard": player.discard.push(...state.selectedCards.map(makeInstance)); break;
+    case "hand": player.hand.push(...state.selectedCards.map(makeInstance)); break;
+    case "play": player.play.push(...state.selectedCards.map(makeInstance)); break;
+    case "trash": state.trash.push(...state.selectedCards.map(makeInstance)); break;
+  }
+}
+
+function makeInstance(card: CardData | CardInstance): CardInstance {
+  return card.type === "instance" ? card : { type: "instance", card: card, id: nextId++ };
 }
 
 function drawCards(playerState: PlayerState, count: number): void {
@@ -346,8 +547,8 @@ function onEndGame(state: BoardSliceState): void {
     const playersString = `${tiedPlayers
       .slice(0, -1)
       .map(player => player.id)
-      .join(", ")} and ${tiedPlayers.slice(-1)[0].id}`;
-    state.log.push(`Game over! Players ${playersString} tie!}`);
+      .join(", ")} and ${tiedPlayers.at(-1)!.id}`;
+    state.log.push(`Game over! Players ${playersString} tie!`);
   } else {
     state.log.push(`Game over! Player ${winner} wins!`);
   }
@@ -376,9 +577,10 @@ function onStartGame(state: BoardSliceState, playerCount: number): void {
         .map(card =>
           Array(card.startingCount)
             .fill(0)
-            .map(() => ({ id: nextId++, card: card })),
+            .map(() => ({ type: "instance", id: nextId++, card: card } as const)),
         ),
     ].flat();
+
     shuffleArray(startingCards);
 
     return {
@@ -403,6 +605,7 @@ function onStartGame(state: BoardSliceState, playerCount: number): void {
   });
   state.phase = "action";
   state.turn = 1;
+  state.currentPlayer = 0;
   state.log.push("Game Started");
 }
 

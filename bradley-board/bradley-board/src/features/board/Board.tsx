@@ -1,12 +1,7 @@
 import { JSX, useEffect } from "react";
-import { CardPile } from "../card/Card";
+import { SupplyPile } from "../cardPiles/SupplyPile";
 import styles from "./Board.module.css";
-import {
-  CardPileState,
-  selectKingdomCards,
-  buyCard,
-  startGame,
-} from "./boardSlice";
+import { CardPileState, selectKingdomCards, startGame } from "./boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 export const Board = (): JSX.Element => {
@@ -18,11 +13,10 @@ export const Board = (): JSX.Element => {
   }, []);
 
   const piles = kingdomCards.map((cardPile: CardPileState) => (
-    <CardPile
+    <SupplyPile
       cardPile={cardPile}
       key={cardPile.card.id}
       gridArea={cardPile.card.area ?? ""}
-      onClick={(cardId: number) => dispatch(buyCard(cardId))}
     />
   ));
 

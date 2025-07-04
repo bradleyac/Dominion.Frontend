@@ -1,17 +1,38 @@
-p {
-  margin: 0;
+.cardFrame {
+  display: grid;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0.5em;
 }
 
-.cardPile {
-  display: grid;
-  grid-template: "card" 1fr / 1fr;
+.highlightedBuy {
+  box-shadow: 0 0 10px 2px gold;
+}
 
-  align-items: center;
-  justify-content: center;
+.highlightedPlay {
+  box-shadow: 0 0 10px 2px #0ddddd;
+}
+
+.highlightedDiscard {
+  box-shadow: 0 0 10px 2px #dd00d0;
+}
+
+.highlightedSelect {
+  box-shadow: 0 0 10px 2px #000ddd;
+}
+
+.highlightedSelected {
+  box-shadow: 0 0 0px 5px gold;
+}
+
+.dimmed:not(:hover) {
+  opacity: 0.5;
 }
 
 .card {
-  display: flex;
+  display: grid;
+  grid-template: "card-front" 100% / 1fr;
   align-items: center;
   justify-content: center;
   aspect-ratio: 59 / 93;
@@ -27,79 +48,23 @@ p {
   width: var(--card-normal-width);
 }
 
-.cardPile > .card {
-  grid-area: card;
-}
-
-.cost {
-  grid-area: cost;
-}
-
-.name {
-  grid-area: name;
-  font-size: var(--card-normal-name-size);
-}
-
-.text {
-  grid-area: text;
-  word-wrap: break-word;
-}
-
-.types {
-  grid-area: types;
-}
-
-.card.compact {
+.cardFrame:not(:hover) .card.compact {
   aspect-ratio: 1 / 1;
+  grid-template:
+    "card-front" 84%
+    "card-bottom" 16% / 1fr;
 }
 
-.cardPile:hover > .card.compact {
+.cardFrame:hover .card.compact {
   aspect-ratio: 59 / 93;
   position: absolute;
   transform: scale(1.5);
   transition: transform 0.2s ease;
-  z-index: 1;
+  z-index: 100;
 }
 
-.discard,
-.deck {
-  display: grid;
-  grid-template:
-    "title" 1fr "card" auto
-    "remaining" 1fr / 1fr;
-
-  align-items: center;
-  justify-content: center;
-  width: var(--card-normal-width);
-  height: 100%;
-  gap: 1rem;
-}
-
-.title {
-  grid-area: title;
-  align-self: end;
-}
-
-.remaining {
-  background-color: white;
-  border-radius: 50%;
-  font-size: 11px;
-  font-weight: 100;
-  grid-area: remaining;
-  align-self: end;
-  justify-self: end;
-  position: relative;
-  left: -5px;
-}
-
-.white {
-  background-color: white;
-}
-
-.cardBack {
-  background-image: url("src/card-back.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+.cardFrame:hover .card.compact>* {
+  display: none;
 }
 
 .cardFront {
@@ -108,16 +73,30 @@ p {
 }
 
 .cardBottom {
-  display: none;
-}
-
-.cardPile:not(:hover) .cardBottom {
-  display: block;
+  grid-area: card-bottom;
   width: 100%;
-  height: 16%;
+  height: 100%;
   align-self: end;
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: 96%;
   border-radius: 0.5em;
+}
+
+.remaining {
+  grid-area: card-bottom;
+  background-color: white;
+  border-radius: 50%;
+  width: 25px;
+  aspect-ratio: 1 / 1;
+  align-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  align-self: end;
+  justify-self: end;
+  position: relative;
+  z-index: 0.5;
+  left: 5px;
+  top: 5px;
+  box-shadow: 0 0 1px 1px black;
 }
