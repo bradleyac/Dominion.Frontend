@@ -1,16 +1,27 @@
 .App {
   text-align: center;
-  --card-normal-width: 100px;
-  --card-normal-name-size: 16px;
-  --card-normal-font-size: 12px;
+  --card-normal-width: 10em;
+  --highlight-radius: .125em;
+  --highlight-blur-radius: .2em;
 }
 
 .App-main {
-  min-height: 100vh;
+  max-height: 100vh;
+  height: 100vh;
+  width: 100%;
   display: grid;
   overflow: hidden;
   align-items: start;
   justify-content: center;
   justify-items: center;
-  font-size: calc(10px + 0.5vmin);
+  --font-size: calc(1.2vmin);
+  --large-font-size: calc(1.4vmin);
+  font-size: var(--font-size);
+  --background-color: #1a1918;
+  background-color: var(--background-color);
+  color: rgb(148, 131, 151);
+}
+
+::selection {
+  background: inherit;
 }

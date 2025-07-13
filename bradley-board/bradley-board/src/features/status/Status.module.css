@@ -1,7 +1,48 @@
 .status {
   grid-area: status;
-  padding: 1rem;
-  max-height: 55vh;
-  width: 100%;
-  overflow: hidden;
+  height: 100%;
+  display: grid;
+  grid-template: "gameId turn player phase" 100% / 30em 20em 20em 20em;
+  gap: 1em;
+  width: auto;
+}
+
+.status>div {
+  background-color: rgb(61, 63, 64);
+  border-radius: 1em;
+  justify-content: center;
+  align-content: center;
+  /* padding: .5em; */
+}
+
+.gameId {
+  grid-area: gameId
+}
+
+.gameId::before {
+  content: "Game ID: ";
+}
+
+.turn {
+  grid-area: turn;
+}
+
+.turn::before {
+  content: "Turn ";
+}
+
+.player {
+  grid-area: player;
+}
+
+.player::after {
+  content: "'s Turn";
+}
+
+.phase {
+  grid-area: phase;
+}
+
+.phase::after {
+  content: " Phase";
 }

@@ -11,7 +11,7 @@ export const DiscardPile = (): JSX.Element => {
     <div className={styles.discard}>
       <div className={styles.title}>Discard</div>
       {lastCard ? (
-        <Card card={lastCard.card} isCompact={false} zone="discard" />
+        <Card cardId={lastCard.cardId} cardInstanceId={lastCard.instanceId} isCompact={false} zone="Discard" />
       ) : (
         <div className={`${styles.card} ${styles.white}`}></div>
       )}

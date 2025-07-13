@@ -2,24 +2,19 @@
   grid-area: board;
   display: grid;
   grid-template:
-    "province gold line pile1 pile2 pile3 pile4 pile5" 1fr
-    "duchy silver line pile6 pile7 pile8 pile9 pile10" 1fr
-    "estate copper line . . . . ." 1fr
-    "curse . line . . . . ." 1fr / var(--card-normal-width) var(
-      --card-normal-width
-    )
-    1px var(--card-normal-width) var(--card-normal-width) var(
-      --card-normal-width
-    )
-    var(--card-normal-width) var(--card-normal-width);
+    "curse estate duchy province line pile1 pile2 pile3 pile4 pile5" 1fr
+    ". copper silver gold line pile6 pile7 pile8 pile9 pile10" 1fr / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
+    ) 1px var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
+    ) var(--card-normal-width) var(--card-normal-width);
 
-  gap: 2rem;
-  padding: 1rem;
+  gap: 1rem;
 }
 
-.vr {
+.line {
   height: 100%;
   width: 0px;
-  border: 0.5px solid black;
+  /* border: 0.5px solid black; */
+  box-shadow: 0 0 0px .125px black;
   margin: 0;
+  grid-area: line
 }

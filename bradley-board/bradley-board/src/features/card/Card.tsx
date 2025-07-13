@@ -1,25 +1,31 @@
-import { JSX } from "react";
+import { JSX, useContext } from "react";
 import { CardZone, type CardData } from "./cards";
 import styles from "./Card.module.css";
-import { buyCard, CardInstance, playCard, selectCardClickAction, selectCurrentPlayer, toggleCard } from "../board/boardSlice";
+import { selectCardClickAction, selectCurrentPlayer, toggleCard } from "../board/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectCardById } from "./cardsSlice";
+import { SignalrContext } from "../../app/signalrContext";
+import { GameContext } from "../game/gameContext";
 
 export const Card = ({
-  card,
+  cardId,
+  cardInstanceId,
   isCompact,
   zone,
   count,
 }: {
-  card: CardData | CardInstance;
+  cardId: number,
+  cardInstanceId?: string,
   isCompact: boolean;
   zone: CardZone;
   count?: number,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const cardData = card.type === "data" ? card as CardData : card.card;
-  const cardInstanceId = card.type === "instance" ? card.id : undefined;
+  const signalrConnector = useContext(SignalrContext);
+  const { gameId, playerId } = useContext(GameContext);
+  const cardData = useAppSelector(state => selectCardById(state.cards, cardId));
   const clickAction = useAppSelector(state =>
-    selectCardClickAction(state, cardData, zone, selectCurrentPlayer(state), cardInstanceId)
+    selectCardClickAction(state, cardData, zone, cardInstanceId)
   );
   let highlightClass = "";
   switch (clickAction) {
@@ -27,14 +33,15 @@ export const Card = ({
     case "play": highlightClass = styles.highlightedPlay; break;
     case "select": highlightClass = styles.highlightedSelect; break;
     case "deselect": highlightClass = styles.highlightedSelected; break;
+    case "none": highlightClass = styles.dimmed; break;
   }
 
   function onClick() {
     switch (clickAction) {
       case "select":
-      case "deselect": dispatch(toggleCard(card)); return;
-      case "buy": dispatch(buyCard(cardData.id)); return;
-      case "play": dispatch(playCard(card.id)); return;
+      case "deselect": dispatch(toggleCard(cardInstanceId ?? cardId)); return;
+      case "buy": signalrConnector?.buyCard(gameId, playerId, cardId); return;
+      case "play": if (cardInstanceId) { signalrConnector?.playCard(gameId, playerId, cardInstanceId); } return;
       case "none":
       default: return;
     }
@@ -54,7 +61,7 @@ export const Card = ({
               className={styles.cardBottom}
               style={{ backgroundImage: `url(${cardData.imgSrc})` }}
             />
-            {count && <div className={styles.remaining}>{count}</div>}
+            {count !== undefined && <div className={styles.remaining}>{count}</div>}
           </>
         )}
       </div>

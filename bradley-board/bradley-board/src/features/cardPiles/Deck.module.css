@@ -8,7 +8,7 @@
   justify-content: center;
   width: var(--card-normal-width);
   height: 100%;
-  gap: 1rem;
+  gap: .5em;
 }
 
 .title {
@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: center;
   aspect-ratio: 59 / 93;
-  background-color: #f0f0f0;
+  background-color: var(--background-color);
   border-radius: 0.5em;
   gap: 0.25em;
 
@@ -35,7 +35,7 @@
   background-repeat: no-repeat;
   border: none;
 
-  font-size: var(--card-normal-font-size);
+  /* font-size: var(--card-normal-font-size); */
   width: var(--card-normal-width);
 }
 
@@ -46,5 +46,5 @@
 }
 
 .white {
-  background-color: white;
+  background-color: var(--background-color);
 }

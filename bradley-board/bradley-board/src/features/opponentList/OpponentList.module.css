@@ -1,0 +1,24 @@
+.opponentFrame {
+  display: grid;
+  grid-template: "name" 1fr / 1fr;
+  padding: .5em;
+}
+
+.opponentList {
+  grid-area: opponents;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  justify-self: start;
+  padding: 1em;
+}
+
+.name {
+  grid-area: name;
+}
+
+.active {
+  box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #9e4c98;
+  border-radius: 1em;
+}

@@ -8,7 +8,7 @@
   justify-content: center;
   width: var(--card-normal-width);
   height: 100%;
-  gap: 1rem;
+  gap: .5em;
 }
 
 .title {
@@ -35,10 +35,10 @@
   background-repeat: no-repeat;
   border: none;
 
-  font-size: var(--card-normal-font-size);
+  /* font-size: var(--card-normal-font-size); */
   width: var(--card-normal-width);
 }
 
 .white {
-  background-color: white;
+  background-color: var(--background-color);
 }

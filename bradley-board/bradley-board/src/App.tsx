@@ -9,11 +9,6 @@ import { Status } from "./features/status/Status";
 export const App = () => (
   <div className="App">
     <main className="App-main">
-      {/* <Status />
-      <Board />
-      <Log />
-      <PlayArea />
-      <Player /> */}
       <GameList />
     </main>
   </div>

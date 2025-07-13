@@ -1,17 +1,23 @@
-import { JSX } from "react";
+import { JSX, useContext } from "react";
 import {
   CardInstance,
-  endActionPhase,
-  endTurn,
   PlayerResources,
+  selectActivePlayer,
+  selectCurrentPlayer as selectCurrentPlayerId,
+  selectChoiceSatisfied,
   selectHand,
+  selectMyName,
+  selectPhase,
   selectResources,
+  selectSelectedCards,
 } from "../board/boardSlice";
 import { Card } from "../card/Card";
 import styles from "./Player.module.css";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 import { DiscardPile } from "../cardPiles/Discard";
 import { Deck } from "../cardPiles/Deck";
+import { SignalrContext } from "../../app/signalrContext";
+import { GameContext } from "../game/gameContext";
 
 export const Resources = ({
   resources,
@@ -34,10 +40,11 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
   const cards = hand.map((cardInstance: CardInstance) => {
     return (
       <Card
-        card={cardInstance}
-        key={cardInstance.id}
+        cardId={cardInstance.cardId}
+        cardInstanceId={cardInstance.instanceId}
+        key={cardInstance.instanceId}
         isCompact={false}
-        zone="hand"
+        zone="Hand"
       />
     );
   });
@@ -46,11 +53,18 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
 };
 
 export const Controls = (): JSX.Element => {
-  const dispatch = useAppDispatch();
+  const signalrConnector = useContext(SignalrContext);
+  const { gameId, playerId } = useContext(GameContext);
+  const selectedCards = useAppSelector(selectSelectedCards);
+  const filterSatisfied = useAppSelector(selectChoiceSatisfied);
+  const phase = useAppSelector(selectPhase);
+  const currentPlayerId = useAppSelector(selectCurrentPlayerId);
+  const isCurrentPlayer = currentPlayerId === playerId;
+
   return (
     <div className={styles.controls}>
-      <button onClick={() => dispatch(endActionPhase())}>End Action Phase</button>
-      <button onClick={() => dispatch(endTurn())}>End Turn</button>
+      {isCurrentPlayer && phase === "Action" && <button onClick={() => signalrConnector?.endActionPhase(gameId, playerId)}>End Action Phase</button>}
+      {isCurrentPlayer && <button onClick={() => signalrConnector?.endTurn(gameId, playerId)}>End Turn</button>}
     </div>
   );
 };
@@ -58,13 +72,16 @@ export const Controls = (): JSX.Element => {
 export const Player = (): JSX.Element => {
   const hand = useAppSelector(selectHand);
   const resources = useAppSelector(selectResources);
+  const myName = useAppSelector(selectMyName);
+  const activePlayer = useAppSelector(selectActivePlayer);
   return (
-    <div className={styles.hud}>
+    <div className={`${styles.hud} ${activePlayer === myName ? styles.hudActive : ""}`}>
+      <div className={styles.playerName}>{myName}</div>
       <Resources resources={resources} />
       <Hand hand={hand} />
       <Deck />
       <DiscardPile />
       <Controls />
-    </div>
+    </div >
   );
 };

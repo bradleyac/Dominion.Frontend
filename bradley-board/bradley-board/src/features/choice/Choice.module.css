@@ -1,0 +1,23 @@
+.choice {
+  grid-area: choice;
+  display: grid;
+  grid-template: "prompt" auto "actions" 1fr / 1fr;
+  width: 100%;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+  justify-items: center;
+  background-color: var(--background-color);
+  z-index: 1;
+}
+
+.prompt {
+  grid-area: prompt;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

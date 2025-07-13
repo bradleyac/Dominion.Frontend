@@ -13,14 +13,14 @@ export const SupplyPile = ({
   return (
     <div
       className={styles.supplyPile}
-      key={cardPile.card.id}
+      key={cardPile.cardId}
       style={{ gridArea: gridArea }}
     >
       <Card
-        card={cardPile.card}
+        cardId={cardPile.cardId}
         isCompact={true}
-        count={cardPile.remaining}
-        zone="supply"
+        count={cardPile.count}
+        zone="Supply"
       />
     </div>
   );
