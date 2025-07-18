@@ -1,7 +1,7 @@
-import { JSX, useContext } from "react";
+import { DragEvent, JSX, useContext } from "react";
 import { CardZone, type CardData } from "./cards";
 import styles from "./Card.module.css";
-import { selectCardClickAction, selectCurrentPlayer, toggleCard } from "../board/boardSlice";
+import { CardInstance, selectCardClickAction, selectCurrentPlayer, toggleCard } from "../board/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCardById } from "./cardsSlice";
 import { SignalrContext } from "../../app/signalrContext";
@@ -68,3 +68,19 @@ export const Card = ({
     </div>
   );
 };
+
+export const DraggableCard = ({ cardInstance, zone }: { cardInstance: CardInstance, zone: CardZone }): JSX.Element => {
+  function onDragStart(evt: DragEvent): void {
+    evt.dataTransfer.setData("text/plain", cardInstance.instanceId)
+    if (evt.currentTarget instanceof HTMLElement) {
+      evt.dataTransfer.setDragImage(evt.currentTarget, evt.currentTarget.offsetWidth / 2, evt.currentTarget.offsetHeight / 2);
+    }
+  }
+  return <div className={styles.draggable} draggable={true} onDragStart={onDragStart}>
+    <Card
+      cardId={cardInstance.cardId}
+      cardInstanceId={cardInstance.instanceId}
+      isCompact={false}
+      zone={zone} />
+  </div>
+}

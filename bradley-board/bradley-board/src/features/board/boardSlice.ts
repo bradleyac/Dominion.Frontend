@@ -6,18 +6,25 @@ import { getCardClickAction } from "./getCardClickAction";
 export type BoardSliceState = {
   gameState: GameState;
   status: "idle" | "loading" | "failed";
-  // activeFilter?: CardFilter;
   selectedCards: (number | string)[];
-  // resolvingCard?: CardInstance & EffectState;
+  categorizedCards: Record<string, string[]>
+  arrangedCards: CardInstance[]
 };
 
 export type GameState = {
   gameId: string;
+  gameStarted: boolean,
+  gameResult: GameResult | undefined,
   kingdomState: KingdomState;
   turnState: TurnState;
   log: LogState;
   me: FullPlayerState;
   opponents: PartialPlayerState[];
+}
+
+export type GameResult = {
+  winners: string[];
+  scores: Record<string, number>;
 }
 
 export type KingdomState = {
@@ -67,8 +74,9 @@ export type PlayerArrangeChoice = PlayerChoice & {
 
 export type PlayerCategorizeChoice = PlayerChoice & {
   $type: "categorize";
-  cards: CardInstance[];
+  zoneToCategorize: CardZone;
   categories: string[];
+  defaultCategory: string;
 }
 
 export type FullPlayerState = {
@@ -109,6 +117,8 @@ export type PlayerResources = {
 const initialState: BoardSliceState = {
   gameState: {
     gameId: "",
+    gameStarted: false,
+    gameResult: undefined,
     kingdomState: { supply: [], trash: [], reveal: [] },
     turnState: { currentTurnPlayerId: "", phase: "Action", turn: 0 },
     log: { messages: [] },
@@ -126,8 +136,19 @@ const initialState: BoardSliceState = {
   },
   status: "idle",
   selectedCards: [],
-  // activeFilter: { from: "supply", highlightType: "select", minCost: 2, maxCost: 5 }
+  categorizedCards: {},
+  arrangedCards: [],
 };
+
+export type CardCategorizations = Record<string, string>;
+
+function groupByCategory(categorized: CardCategorizations): Record<string, string[]> {
+  return Object.entries(categorized).reduce((acc, [cardInstanceId, category]) => {
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(cardInstanceId);
+    return acc;
+  }, {} as Record<string, string[]>);
+}
 
 // If you are not using async thunks you can use the standalone `createSlice`.
 export const boardSlice = createAppSlice({
@@ -143,9 +164,17 @@ export const boardSlice = createAppSlice({
         state.selectedCards = [...state.selectedCards, card];
       }
     }),
+    cardCategorized: create.reducer((state, action: PayloadAction<CardCategorizations>) => {
+      state.categorizedCards = groupByCategory(action.payload);
+    }),
+    cardsArranged: create.reducer((state, action: PayloadAction<CardInstance[]>) => {
+      state.arrangedCards = action.payload;
+    }),
     updateState: create.reducer((state, action: PayloadAction<GameState>) => {
-      if (!action.payload.me.activeChoice || (state.gameState.me.activeChoice?.id != action.payload.me.activeChoice.id)) {
+      if (!action.payload.me.activeChoice || (state.gameState.me.activeChoice?.id !== action.payload.me.activeChoice.id)) {
         state.selectedCards = [];
+        state.categorizedCards = {};
+        state.arrangedCards = [];
       }
       state.gameState = action.payload;
     })
@@ -170,13 +199,6 @@ export const boardSlice = createAppSlice({
     selectInPlay: state => state.gameState.me.play,
     selectPrivateReveal: state => state.gameState.me.privateReveal,
     selectResources: state => state.gameState.me.resources,
-    // // TODO: How bad is this?
-    // selectPlayerScore: state => {
-    //   // const player = state.players[state.currentPlayer];
-    //   // const sum = (arr: CardInstance[]): number => arr.reduce((prev, cur) => prev + (cur.card.value ?? 0), 0);
-    //   // return player.resources.vps + sum(player.deck) + sum(player.discard) + sum(player.hand) + sum(player.play);
-    //   return 0;
-    // },
     selectLog: state => state.gameState.log.messages,
     selectCardClickAction: (state: BoardSliceState, card: CardData, zone: CardZone, cardInstanceId?: string) =>
       getCardClickAction(state, state.gameState.me.playerId, card, zone, state.gameState.me.resources, state.selectedCards, cardInstanceId, state.gameState.me.activeChoice),
@@ -191,13 +213,22 @@ export const boardSlice = createAppSlice({
         const count = state.selectedCards.length;
         return count >= (minCount ?? 0) && count <= (maxCount ?? Number.MAX_VALUE);
       }
+      else if (state.gameState.me.activeChoice.$type === "categorize") {
+        return true;
+      }
+      else if (state.gameState.me.activeChoice.$type === "arrange") {
+        return true;
+      }
       return false; // For now, we only handle select choices
-    }
+    },
+    selectCategorizations: state => state.categorizedCards,
+    selectArrangedCards: state => state.arrangedCards,
+    selectGameResult: state => state.gameState.gameResult,
   },
 });
 
 // Action creators are generated for each case reducer function.
-export const { updateState, toggleCard } = boardSlice.actions;
+export const { updateState, toggleCard, cardCategorized, cardsArranged } = boardSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
 export const {
@@ -218,10 +249,12 @@ export const {
   selectInPlay,
   selectPrivateReveal,
   selectResources,
-  // selectPlayerScore,
   selectLog,
   selectCardClickAction,
   selectActiveChoice,
   selectSelectedCards,
   selectChoiceSatisfied,
+  selectCategorizations,
+  selectArrangedCards,
+  selectGameResult,
 } = boardSlice.selectors;

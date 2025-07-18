@@ -3,8 +3,8 @@
   display: grid;
   grid-template: "prompt" auto "actions" 1fr / 1fr;
   width: 100%;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1em;
+  padding: 1em;
   align-items: center;
   justify-items: center;
   background-color: var(--background-color);
@@ -19,5 +19,5 @@
   grid-area: actions;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 1em;
 }

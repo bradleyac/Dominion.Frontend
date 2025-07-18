@@ -6,7 +6,7 @@ import { useAppSelector } from "../../app/hooks";
 export const OpponentList = (): JSX.Element => {
   const opponents = useAppSelector(selectOpponents);
   return <div className={styles.opponentList}>
-    {opponents.map(opponent => <Opponent opponent={opponent} />)}
+    {opponents.map(opponent => <Opponent key={opponent.playerId} opponent={opponent} />)}
   </div>
 }
 

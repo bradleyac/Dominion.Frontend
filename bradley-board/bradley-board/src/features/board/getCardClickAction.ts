@@ -1,4 +1,4 @@
-import { BoardSliceState, PlayerChoice, PlayerResources, PlayerSelectChoice } from "./boardSlice";
+import { BoardSliceState, PlayerCategorizeChoice, PlayerChoice, PlayerResources, PlayerSelectChoice } from "./boardSlice";
 import { ActionType, CardData, CardFilter, CardZone } from "../card/cards";
 
 export function getCardClickAction
@@ -26,19 +26,24 @@ export function getCardClickAction
       return "none";
     }
 
-    if (filter?.from === zone) {
-      if (card.id !== (filter?.notId ?? Number.MAX_VALUE)) {
-        if (!filter.types || card.types.filter(c => filter.types!.includes(c)).length > 0) {
-          if ((card.cost >= (filter?.minCost ?? 0)) && (card.cost <= (filter.maxCost ?? Number.MAX_VALUE))) {
-            if ((filter.maxCount ?? Number.MAX_VALUE) > selectedCards.length) {
-              return "select";
-            }
-          }
-        }
-      }
+    if (filter?.from === zone &&
+      (card.id !== (filter?.notId ?? Number.MAX_VALUE)) &&
+      (!filter.cardId || card.id === filter.cardId) &&
+      (!filter.types || card.types.filter(c => filter.types!.includes(c)).length > 0) &&
+      ((card.cost >= (filter?.minCost ?? 0)) && (card.cost <= (filter.maxCost ?? Number.MAX_VALUE))) &&
+      ((filter.maxCount ?? Number.MAX_VALUE) > selectedCards.length)) {
+      return "select";
     }
 
     // If there is an active filter and the card doesn't match, it should default to "none" so it won't fall through.
+    return "none";
+  }
+
+  if (choice && choice.$type === "categorize") {
+    return "none";
+  }
+
+  if (choice && choice.$type === "arrange") {
     return "none";
   }
 

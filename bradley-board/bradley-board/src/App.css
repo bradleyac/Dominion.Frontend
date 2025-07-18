@@ -1,8 +1,8 @@
 .App {
   text-align: center;
   --card-normal-width: 10em;
-  --highlight-radius: .125em;
-  --highlight-blur-radius: .2em;
+  --highlight-radius: .25em;
+  --highlight-blur-radius: .4em;
 }
 
 .App-main {
@@ -15,7 +15,7 @@
   justify-content: center;
   justify-items: center;
   --font-size: calc(1.2vmin);
-  --large-font-size: calc(1.4vmin);
+  --large-font-size: calc(1.3em);
   font-size: var(--font-size);
   --background-color: #1a1918;
   background-color: var(--background-color);

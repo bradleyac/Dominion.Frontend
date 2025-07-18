@@ -1,6 +1,6 @@
 import { EntityState } from "@reduxjs/toolkit";
 
-export type CardType = "Treasure" | "Action" | "Curse" | "Victory" | "Attack";
+export type CardType = "Treasure" | "Action" | "Curse" | "Victory" | "Attack" | "Reaction";
 export type HighlightType = "buy" | "play" | "select" | "selected" | "discard";
 export type ActionType = "select" | "deselect" | "buy" | "play" | "none";
 
@@ -179,11 +179,123 @@ export const cards: EntityState<CardData, number> = { //{ ids: number[], entitie
       imgSrc: "src/card-images/forge.jpg",
       cost: 7,
       types: ["Action"]
+    },
+    19: {
+      id: 19,
+      name: "Mine",
+      imgSrc: "src/card-images/mine.jpg",
+      cost: 5,
+      types: ["Action"]
+    },
+    20: {
+      id: 20,
+      name: "Remodel",
+      imgSrc: "src/card-images/remodel.jpg",
+      cost: 4,
+      types: ["Action"]
+    },
+    21: {
+      id: 21,
+      name: "Smithy",
+      imgSrc: "src/card-images/smithy.jpg",
+      cost: 4,
+      types: ["Action"]
+    },
+    22: {
+      id: 22,
+      name: "Vassal",
+      imgSrc: "src/card-images/vassal.jpg",
+      cost: 3,
+      types: ["Action"]
+    },
+    23: {
+      id: 23,
+      name: "Bureaucrat",
+      imgSrc: "src/card-images/bureaucrat.jpg",
+      cost: 4,
+      types: ["Action", "Attack"]
+    },
+    24: {
+      id: 24,
+      name: "Council Room",
+      imgSrc: "src/card-images/council-room.jpg",
+      cost: 5,
+      types: ["Action", "Attack"]
+    },
+    25: {
+      id: 25,
+      name: "Harbinger",
+      imgSrc: "src/card-images/harbinger.jpg",
+      cost: 3,
+      types: ["Action"]
+    },
+    26: {
+      id: 26,
+      name: "Militia",
+      imgSrc: "src/card-images/militia.jpg",
+      cost: 4,
+      types: ["Action", "Attack"]
+    },
+    27: {
+      id: 27,
+      name: "Moneylender",
+      imgSrc: "src/card-images/moneylender.jpg",
+      cost: 4,
+      types: ["Action"]
+    },
+    28: {
+      id: 28,
+      name: "Poacher",
+      imgSrc: "src/card-images/poacher.jpg",
+      cost: 4,
+      types: ["Action"]
+    },
+    29: {
+      id: 29,
+      name: "Sentry",
+      imgSrc: "src/card-images/sentry.jpg",
+      cost: 5,
+      types: ["Action"]
+    },
+    30: {
+      id: 30,
+      name: "Throne Room",
+      imgSrc: "src/card-images/throne-room.jpg",
+      cost: 4,
+      types: ["Action"]
+    },
+    31: {
+      id: 31,
+      name: "Gardens",
+      imgSrc: "src/card-images/gardens.jpg",
+      cost: 4,
+      types: ["Victory"]
+    },
+    32: {
+      id: 32,
+      name: "Library",
+      imgSrc: "src/card-images/library.jpg",
+      cost: 5,
+      types: ["Action"]
+    },
+    33: {
+      id: 33,
+      name: "Moat",
+      imgSrc: "src/card-images/moat.jpg",
+      cost: 2,
+      types: ["Action", "Reaction"]
+    },
+    34: {
+      id: 34,
+      name: "Merchant",
+      imgSrc: "src/card-images/merchant.jpg",
+      cost: 3,
+      types: ["Action"]
     }
   }
 };
 
-export const gridAreaMap: { [id: number]: string } = {
+export const gridAreaMap: Record<number, string> = {
   5: "copper",
   6: "silver",
   7: "gold",

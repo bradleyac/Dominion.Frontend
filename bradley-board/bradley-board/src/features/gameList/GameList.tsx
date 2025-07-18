@@ -11,13 +11,19 @@ export const GameList = (): JSX.Element => {
   const [gameId, setGameId] = useState<string | undefined>(undefined);
   useEffect(() => {
     return connector.current.gameListEvents({
-      onGameCreated: (gameId: string) => { console.log(gameId); setGames(games => [...games, gameId]) }
+      onGameCreated: (gameId: string) => { setGames(games => [...games, gameId]) }
     });
   }, [])
 
+  async function clearGame() {
+    setGameId(undefined);
+    const newGames = await connector.current.listGames();
+    setGames(newGames);
+  }
+
   return playerId && gameId
     ? <SignalrContext value={connector.current}>
-      <Game gameId={gameId} playerId={playerId} />
+      <Game gameId={gameId} playerId={playerId} leaveGame={clearGame} />
     </SignalrContext>
     : <div className={styles.gameList}>
       <button onClick={async () => {

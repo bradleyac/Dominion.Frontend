@@ -2,10 +2,23 @@
   height: 100vmin;
   width: 100vmax;
   display: grid;
-  grid-template: ". . . ." 0% "status status status status" 3.5% ". board log opponents" 30% "choice choice choice choice" 8% "play-area play-area play-area play-area" 24% "player player player player" 29.5% / 1fr auto 1fr auto;
+  grid-template: ". . . ." 0% "status status status status" 3.5% ". board log opponents" 29% "choice choice choice choice" 8% "play-area play-area play-area play-area" 25% "player player player player" 29.5% / 1fr auto 1fr auto;
   overflow: hidden;
   align-items: start;
   justify-content: center;
   justify-items: center;
   gap: 1%;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(26, 25, 24, .5);
+  display: grid;
+}
+
+.result {
+  align-self: center;
+  justify-self: center;
 }

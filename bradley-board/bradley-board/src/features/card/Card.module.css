@@ -53,6 +53,10 @@
   opacity: 0.625;
 }
 
+div[draggable="true"] .dimmed {
+  opacity: unset;
+}
+
 .cardFrame:not(:hover) .card.compact {
   aspect-ratio: 1 / 1;
   grid-template:

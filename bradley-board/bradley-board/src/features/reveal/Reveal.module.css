@@ -4,14 +4,12 @@
   grid-template: "title" auto "cards" 1fr / 1fr;
   width: 100%;
   height: 100%;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1em;
+  padding: 1em;
   align-items: center;
   justify-items: center;
   background-color: var(--background-color);
-  /* --reveal-color: #b9e2a3;
-  background-color: var(--reveal-color);
-  box-shadow: 0 0 5px 5px var(--reveal-color); */
+  z-index: 1;
 }
 
 .revealedCards {
@@ -20,7 +18,7 @@
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: 1rem;
+  gap: 1em;
 }
 
 .title {

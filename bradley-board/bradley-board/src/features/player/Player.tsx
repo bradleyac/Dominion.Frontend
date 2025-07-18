@@ -55,8 +55,6 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
 export const Controls = (): JSX.Element => {
   const signalrConnector = useContext(SignalrContext);
   const { gameId, playerId } = useContext(GameContext);
-  const selectedCards = useAppSelector(selectSelectedCards);
-  const filterSatisfied = useAppSelector(selectChoiceSatisfied);
   const phase = useAppSelector(selectPhase);
   const currentPlayerId = useAppSelector(selectCurrentPlayerId);
   const isCurrentPlayer = currentPlayerId === playerId;
@@ -65,6 +63,7 @@ export const Controls = (): JSX.Element => {
     <div className={styles.controls}>
       {isCurrentPlayer && phase === "Action" && <button onClick={() => signalrConnector?.endActionPhase(gameId, playerId)}>End Action Phase</button>}
       {isCurrentPlayer && <button onClick={() => signalrConnector?.endTurn(gameId, playerId)}>End Turn</button>}
+      <button onClick={(() => signalrConnector?.undo(gameId, playerId))}>Undo</button>
     </div>
   );
 };

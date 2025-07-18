@@ -1,0 +1,54 @@
+.categorize {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  grid-area: play-area;
+  display: grid;
+  grid-template: "left default right" 1fr / auto auto auto;
+  gap: 1em;
+  position: relative;
+  z-index: 1;
+  background-color: var(--background-color);
+}
+
+.zone {
+  display: grid;
+  grid-template: "category" auto "cards" 1fr / 1fr;
+  align-items: center;
+  width: max-content;
+  min-width: calc(var(--card-normal-width) + 2em + 2px);
+  box-shadow: 0 0 1px 1px black;
+  border-radius: .5em;
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+}
+
+.zone:nth-child(1) {
+  grid-area: default;
+}
+
+.zone:nth-child(2) {
+  grid-area: left;
+}
+
+.zone:nth-child(3) {
+  grid-area: right;
+}
+
+.zone>h2 {
+  grid-area: category;
+}
+
+.zone .draggable {
+  grid-area: cards;
+  width: auto;
+}
+
+.cards {
+  grid-area: cards;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin: 0 1em 1em 1em;
+}
