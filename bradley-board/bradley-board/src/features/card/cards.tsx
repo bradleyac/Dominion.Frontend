@@ -1,18 +1,8 @@
 import { EntityState } from "@reduxjs/toolkit";
 
 export type CardType = "Treasure" | "Action" | "Curse" | "Victory" | "Attack" | "Reaction";
-export type HighlightType = "buy" | "play" | "select" | "selected" | "discard";
 export type ActionType = "select" | "deselect" | "buy" | "play" | "none";
-
-export type CardZone =
-  | "Supply"
-  | "Trash"
-  | "Deck"
-  | "Discard"
-  | "Hand"
-  | "Play"
-  | "Reveal"
-  | "PrivateReveal";
+export type CardZone = "Supply" | "Trash" | "Deck" | "Discard" | "Hand" | "Play" | "Reveal" | "PrivateReveal";
 
 export type CardFilter = {
   id: string;
@@ -20,7 +10,6 @@ export type CardFilter = {
   minCost?: number;
   maxCost?: number;
   from: CardZone;
-  highlightType?: HighlightType;
   minCount?: number;
   maxCount?: number;
   cardId?: number;
@@ -37,11 +26,8 @@ export type CardData = {
   area?: string; // Optional area for default kingdom cards
 };
 
-// # in a string resource stands for "the most recent count of cards moved / gained"
-// #card: Draw a number of cards equal to e.g. the number of cards you just chose to discard
-
-export const cards: EntityState<CardData, number> = { //{ ids: number[], entities: { [id: number]: CardData } } = {
-  ids: [...Array(17).map((_, index) => index + 1)],
+export const cards: EntityState<CardData, number> = {
+  ids: [...Array(34).map((_, index) => index + 1)],
   entities: {
     1: {
       id: 1,
