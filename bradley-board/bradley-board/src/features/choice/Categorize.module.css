@@ -20,8 +20,10 @@
   width: max-content;
   min-width: calc(var(--card-normal-width) + 2em + 2px);
   box-shadow: 0 0 1px 1px black;
-  border-radius: .5em;
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  border-radius: 0.5em;
+  background-color: rgb(
+    from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20)
+  );
 }
 
 .zone:nth-child(1) {
@@ -36,7 +38,7 @@
   grid-area: right;
 }
 
-.zone>h2 {
+.zone > h2 {
   grid-area: category;
 }
 

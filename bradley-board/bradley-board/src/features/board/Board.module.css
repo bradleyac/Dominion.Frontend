@@ -3,9 +3,13 @@
   display: grid;
   grid-template:
     "curse estate duchy province line pile1 pile2 pile3 pile4 pile5" 1fr
-    ". copper silver gold line pile6 pile7 pile8 pile9 pile10" 1fr / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
-    ) 1px var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
-    ) var(--card-normal-width) var(--card-normal-width);
+    ". copper silver gold line pile6 pile7 pile8 pile9 pile10" 1fr / var(
+      --card-normal-width
+    ) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width)
+    1px var(--card-normal-width) var(--card-normal-width) var(
+      --card-normal-width
+    )
+    var(--card-normal-width) var(--card-normal-width);
 
   gap: 1em;
 }
@@ -14,7 +18,7 @@
   height: 100%;
   width: 0px;
   /* border: 0.5px solid black; */
-  box-shadow: 0 0 0px .125px black;
+  box-shadow: 0 0 0px 0.125px black;
   margin: 0;
-  grid-area: line
+  grid-area: line;
 }

@@ -1,8 +1,23 @@
 import { EntityState } from "@reduxjs/toolkit";
 
-export type CardType = "Treasure" | "Action" | "Curse" | "Victory" | "Attack" | "Reaction";
+export type CardType =
+  | "Treasure"
+  | "Action"
+  | "Curse"
+  | "Victory"
+  | "Attack"
+  | "Reaction";
 export type ActionType = "select" | "deselect" | "buy" | "play" | "none";
-export type CardZone = "Supply" | "Trash" | "Deck" | "Discard" | "Hand" | "Play" | "Reveal" | "PrivateReveal" | "TempSelect";
+export type CardZone =
+  | "Supply"
+  | "Trash"
+  | "Deck"
+  | "Discard"
+  | "Hand"
+  | "Play"
+  | "Reveal"
+  | "PrivateReveal"
+  | "TempSelect";
 
 export type CardFilter = {
   id: string;
@@ -164,142 +179,142 @@ export const cards: EntityState<CardData, number> = {
       name: "Forge",
       imgSrc: "card-images/forge.jpg",
       cost: 7,
-      types: ["Action"]
+      types: ["Action"],
     },
     19: {
       id: 19,
       name: "Mine",
       imgSrc: "card-images/mine.jpg",
       cost: 5,
-      types: ["Action"]
+      types: ["Action"],
     },
     20: {
       id: 20,
       name: "Remodel",
       imgSrc: "card-images/remodel.jpg",
       cost: 4,
-      types: ["Action"]
+      types: ["Action"],
     },
     21: {
       id: 21,
       name: "Smithy",
       imgSrc: "card-images/smithy.jpg",
       cost: 4,
-      types: ["Action"]
+      types: ["Action"],
     },
     22: {
       id: 22,
       name: "Vassal",
       imgSrc: "card-images/vassal.jpg",
       cost: 3,
-      types: ["Action"]
+      types: ["Action"],
     },
     23: {
       id: 23,
       name: "Bureaucrat",
       imgSrc: "card-images/bureaucrat.jpg",
       cost: 4,
-      types: ["Action", "Attack"]
+      types: ["Action", "Attack"],
     },
     24: {
       id: 24,
       name: "Council Room",
       imgSrc: "card-images/council-room.jpg",
       cost: 5,
-      types: ["Action", "Attack"]
+      types: ["Action", "Attack"],
     },
     25: {
       id: 25,
       name: "Harbinger",
       imgSrc: "card-images/harbinger.jpg",
       cost: 3,
-      types: ["Action"]
+      types: ["Action"],
     },
     26: {
       id: 26,
       name: "Militia",
       imgSrc: "card-images/militia.jpg",
       cost: 4,
-      types: ["Action", "Attack"]
+      types: ["Action", "Attack"],
     },
     27: {
       id: 27,
       name: "Moneylender",
       imgSrc: "card-images/moneylender.jpg",
       cost: 4,
-      types: ["Action"]
+      types: ["Action"],
     },
     28: {
       id: 28,
       name: "Poacher",
       imgSrc: "card-images/poacher.jpg",
       cost: 4,
-      types: ["Action"]
+      types: ["Action"],
     },
     29: {
       id: 29,
       name: "Sentry",
       imgSrc: "card-images/sentry.jpg",
       cost: 5,
-      types: ["Action"]
+      types: ["Action"],
     },
     30: {
       id: 30,
       name: "Throne Room",
       imgSrc: "card-images/throne-room.jpg",
       cost: 4,
-      types: ["Action"]
+      types: ["Action"],
     },
     31: {
       id: 31,
       name: "Gardens",
       imgSrc: "card-images/gardens.jpg",
       cost: 4,
-      types: ["Victory"]
+      types: ["Victory"],
     },
     32: {
       id: 32,
       name: "Library",
       imgSrc: "card-images/library.jpg",
       cost: 5,
-      types: ["Action"]
+      types: ["Action"],
     },
     33: {
       id: 33,
       name: "Moat",
       imgSrc: "card-images/moat.jpg",
       cost: 2,
-      types: ["Action", "Reaction"]
+      types: ["Action", "Reaction"],
     },
     34: {
       id: 34,
       name: "Merchant",
       imgSrc: "card-images/merchant.jpg",
       cost: 3,
-      types: ["Action"]
+      types: ["Action"],
     },
     35: {
       id: 35,
       name: "Beggar",
       imgSrc: "card-images/beggar.jpg",
       cost: 2,
-      types: ["Action", "Reaction"]
+      types: ["Action", "Reaction"],
     },
     36: {
       id: 36,
       name: "Trail",
       imgSrc: "card-images/trail.jpg",
       cost: 4,
-      types: ["Action", "Reaction"]
+      types: ["Action", "Reaction"],
     },
     37: {
       id: 37,
       name: "Clerk",
       imgSrc: "card-images/clerk.jpg",
       cost: 4,
-      types: ["Action", "Reaction", "Attack"]
-    }
-  }
+      types: ["Action", "Reaction", "Attack"],
+    },
+  },
 };
 
 export const gridAreaMap: Record<number, string> = {
@@ -309,5 +324,5 @@ export const gridAreaMap: Record<number, string> = {
   8: "estate",
   9: "duchy",
   10: "province",
-  11: "curse"
-}
+  11: "curse",
+};

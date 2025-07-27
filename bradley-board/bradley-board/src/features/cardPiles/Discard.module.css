@@ -8,7 +8,7 @@
   justify-content: center;
   width: var(--card-normal-width);
   height: 100%;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .title {

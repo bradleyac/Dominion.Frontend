@@ -20,14 +20,14 @@
   margin-right: -4em;
 }
 
-.inPlay>*:nth-child(n - 1) * {
+.inPlay > *:nth-child(n - 1) * {
   opacity: unset;
   margin-left: -4em;
 
   &:hover {
     z-index: 1;
     transform: scale(1.05);
-    transition: transform .25s ease;
+    transition: transform 0.25s ease;
   }
 }
 

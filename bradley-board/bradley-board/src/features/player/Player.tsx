@@ -61,9 +61,17 @@ export const Controls = (): JSX.Element => {
 
   return (
     <div className={styles.controls}>
-      {isCurrentPlayer && phase === "Action" && <button onClick={() => signalrConnector?.endActionPhase(gameId)}>End Action Phase</button>}
-      {isCurrentPlayer && <button onClick={() => signalrConnector?.endTurn(gameId)}>End Turn</button>}
-      <button onClick={(() => signalrConnector?.undo(gameId))}>Undo</button>
+      {isCurrentPlayer && phase === "Action" && (
+        <button onClick={() => signalrConnector?.endActionPhase(gameId)}>
+          End Action Phase
+        </button>
+      )}
+      {isCurrentPlayer && (
+        <button onClick={() => signalrConnector?.endTurn(gameId)}>
+          End Turn
+        </button>
+      )}
+      <button onClick={() => signalrConnector?.undo(gameId)}>Undo</button>
     </div>
   );
 };
@@ -74,13 +82,15 @@ export const Player = (): JSX.Element => {
   const myName = useAppSelector(selectMyName);
   const activePlayer = useAppSelector(selectActivePlayer);
   return (
-    <div className={`${styles.hud} ${activePlayer === myName ? styles.hudActive : ""}`}>
+    <div
+      className={`${styles.hud} ${activePlayer === myName ? styles.hudActive : ""}`}
+    >
       <div className={styles.playerName}>{myName}</div>
       <Resources resources={resources} />
       <Hand hand={hand} />
       <Deck />
       <DiscardPile />
       <Controls />
-    </div >
+    </div>
   );
 };

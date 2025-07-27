@@ -11,15 +11,10 @@ const cardsAdapter = createEntityAdapter<CardData>();
 export const cardsSlice = createAppSlice({
   name: "cards",
   initialState: Object.assign({}, cards, { status: "idle" }),
-  reducers: {
-  },
-})
+  reducers: {},
+});
 
-export const {
+export const {} = cardsSlice.actions;
 
-} = cardsSlice.actions;
-
-export const {
-  selectAll: selectCards,
-  selectById: selectCardById
-} = cardsAdapter.getSelectors()
+export const { selectAll: selectCards, selectById: selectCardById } =
+  cardsAdapter.getSelectors();

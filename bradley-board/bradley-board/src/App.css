@@ -1,8 +1,8 @@
 .App {
   text-align: center;
   --card-normal-width: 10em;
-  --highlight-radius: .25em;
-  --highlight-blur-radius: .4em;
+  --highlight-radius: 0.25em;
+  --highlight-blur-radius: 0.4em;
 }
 
 .App-main {

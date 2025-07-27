@@ -4,11 +4,11 @@ import { CardData, CardFilter, CardZone } from "../card/cards";
 
 export type ChoosableCard =
   | (CardData & {
-    type: "data";
-  })
+      type: "data";
+    })
   | (CardInstance & {
-    type: "instance";
-  });
+      type: "instance";
+    });
 
 type ChooseCardsContext = { count: number; zone: CardZone; filter: CardFilter };
 
@@ -20,13 +20,13 @@ export const chooseCardsMachine = setup({
     },
     events: {} as
       | {
-        type: "cards.chosen";
-        chosen: ChoosableCard[];
-      }
+          type: "cards.chosen";
+          chosen: ChoosableCard[];
+        }
       | {
-        type: "cards.beginChoosing";
-        ctx: ChooseCardsContext;
-      },
+          type: "cards.beginChoosing";
+          ctx: ChooseCardsContext;
+        },
     output: {} as {
       chosen: ChoosableCard[];
     },

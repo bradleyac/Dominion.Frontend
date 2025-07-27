@@ -34,10 +34,12 @@ button {
   border: none;
   border-radius: 1em;
   box-shadow: 0 0 1px 1px #9e4c98;
-  padding: .5em;
+  padding: 0.5em;
   font-size: var(--large-font-size);
 }
 
 button:hover:not(:disabled) {
-  background-color: rgb(from var(--bg-color) calc(r + 15) calc(g + 15) calc(b + 15));
+  background-color: rgb(
+    from var(--bg-color) calc(r + 15) calc(g + 15) calc(b + 15)
+  );
 }

@@ -7,7 +7,7 @@
   width: auto;
 }
 
-.status>div {
+.status > div {
   background-color: rgb(61, 63, 64);
   border-radius: 1em;
   justify-content: center;
@@ -16,7 +16,7 @@
 }
 
 .gameId {
-  grid-area: gameId
+  grid-area: gameId;
 }
 
 .gameId::before {

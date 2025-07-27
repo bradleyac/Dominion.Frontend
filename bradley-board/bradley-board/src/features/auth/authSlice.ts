@@ -4,7 +4,7 @@ import { createAppSlice } from "../../app/createAppSlice";
 export type AuthState = {
   status: "pending" | "authenticated" | "unauthenticated";
   userId?: string;
-}
+};
 
 const initialState: AuthState = { status: "pending" };
 
@@ -22,14 +22,9 @@ export const authSlice = createAppSlice({
   selectors: {
     selectAuthStatus: state => state.status,
     selectUserId: state => state.userId,
-  }
+  },
 });
 
-export const {
-  userLoggedIn
-} = authSlice.actions;
+export const { userLoggedIn } = authSlice.actions;
 
-export const {
-  selectAuthStatus,
-  selectUserId
-} = authSlice.getSelectors();
+export const { selectAuthStatus, selectUserId } = authSlice.getSelectors();

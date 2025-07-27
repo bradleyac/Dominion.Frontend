@@ -17,41 +17,56 @@ import { Arrange } from "../choice/Arrange";
 import { Result } from "../result/Result";
 import { React } from "../choice/React";
 
-export const Game = ({ gameId, leaveGame }: { gameId: string, leaveGame: () => void }): JSX.Element => {
+export const Game = ({
+  gameId,
+  leaveGame,
+}: {
+  gameId: string;
+  leaveGame: () => void;
+}): JSX.Element => {
   const dispatch = useAppDispatch();
   const connector = useContext(SignalrContext);
   const gameResult = useAppSelector(selectGameResult);
 
   useEffect(() => {
-    connector?.retrieveGameState(gameId)
-      .then(state => { if (state) { dispatch(updateState(state)); } });
-  }, [gameId])
+    connector?.retrieveGameState(gameId).then(state => {
+      if (state) {
+        dispatch(updateState(state));
+      }
+    });
+  }, [gameId]);
   useEffect(() => {
     return connector?.gameEvents({
-      onStateUpdated: (newState: any) => { dispatch(updateState(newState)) },
+      onStateUpdated: (newState: any) => {
+        dispatch(updateState(newState));
+      },
     });
-  }, [])
+  }, []);
 
-  return <div className={styles.game}>
-    <GameContext value={{ gameId }}>
-      <Status />
-      <Board />
-      <Log />
-      <OpponentList />
-      <PlayArea />
-      <Reveal />
-      <PrivateReveal />
-      <Categorize />
-      <Arrange />
-      <React />
-      <Choice />
-      <Player />
-      {gameResult && <div className={styles.overlay}>
-        <div className={styles.result}>
-          <Result result={gameResult} />
-          <button onClick={leaveGame}>Leave Game</button>
-        </div>
-      </div>}
-    </GameContext>
-  </div >
-}
+  return (
+    <div className={styles.game}>
+      <GameContext value={{ gameId }}>
+        <Status />
+        <Board />
+        <Log />
+        <OpponentList />
+        <PlayArea />
+        <Reveal />
+        <PrivateReveal />
+        <Categorize />
+        <Arrange />
+        <React />
+        <Choice />
+        <Player />
+        {gameResult && (
+          <div className={styles.overlay}>
+            <div className={styles.result}>
+              <Result result={gameResult} />
+              <button onClick={leaveGame}>Leave Game</button>
+            </div>
+          </div>
+        )}
+      </GameContext>
+    </div>
+  );
+};

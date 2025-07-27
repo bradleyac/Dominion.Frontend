@@ -26,12 +26,12 @@
   width: var(--card-normal-width);
 
   box-shadow: 0 0 1px 1px black;
-  transition: opacity .25s ease;
+  transition: opacity 0.25s ease;
   /* overflow: hidden; */
 }
 
 .card::before {
-  content: '';
+  content: "";
   height: 100%;
   width: 100%;
   /* background-image: linear-gradient(to right, rgba(0, 0, 0, .4), rgba(0, 0, 0, 0)); */
@@ -50,23 +50,33 @@
 }
 
 .highlightedBuy {
-  box-shadow: 0 0 1px 1px black, 0 0 var(--highlight-blur-radius) var(--highlight-radius) rgb(233, 208, 68);
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) rgb(233, 208, 68);
 }
 
 .highlightedPlay {
-  box-shadow: 0 0 1px 1px black, 0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
 }
 
 .highlightedDiscard {
-  box-shadow: 0 0 1px 1px black, 0 0 var(--highlight-blur-radius) var(--highlight-radius) #dd00d0;
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) #dd00d0;
 }
 
 .highlightedSelect {
-  box-shadow: 0 0 1px 1px black, 0 0 var(--highlight-blur-radius) var(--highlight-radius) #64b4ff;
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) #64b4ff;
 }
 
 .highlightedSelected {
-  box-shadow: 0 0 1px 1px black, 0 0 0px 2.5px gold;
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 0px 2.5px gold;
 }
 
 .dimmed:not(:hover) {
@@ -91,16 +101,16 @@ div[draggable="true"] .dimmed {
   left: 0px;
   transform: scale(1.2);
   transform-origin: left top;
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   z-index: 100;
 }
 
 .cardFrame:hover .card:not(.compact, .dimmed) {
   transform: scale(1.05);
-  transition: transform .25s ease;
+  transition: transform 0.25s ease;
 }
 
-.cardFrame:hover .card.compact>* {
+.cardFrame:hover .card.compact > * {
   display: none;
 }
 
@@ -134,7 +144,7 @@ div[draggable="true"] .dimmed {
   justify-self: end;
   position: relative;
   z-index: 0.5;
-  left: .25em;
-  top: .25em;
+  left: 0.25em;
+  top: 0.25em;
   box-shadow: 0 0 1px 1px black;
 }
