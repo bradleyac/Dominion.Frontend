@@ -14,7 +14,7 @@ export const GameList = (): JSX.Element => {
     });
   }, [])
   useEffect(() => {
-    fetch("/.auth/me").then(response => console.log(response.json));
+    fetch("/.auth/me").then(response => console.log(response.json()));
   });
 
   async function clearGame() {
