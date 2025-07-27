@@ -7,7 +7,6 @@ import styles from "./GameList.module.css";
 export const GameList = (): JSX.Element => {
   const connector = useRef(getSignalrInstance());
   const [games, setGames] = useState<string[]>([]);
-  const [playerId, setPlayerId] = useState<string | undefined>(undefined);
   const [gameId, setGameId] = useState<string | undefined>(undefined);
   useEffect(() => {
     return connector.current.gameListEvents({
@@ -21,9 +20,9 @@ export const GameList = (): JSX.Element => {
     setGames(newGames);
   }
 
-  return playerId && gameId
+  return gameId
     ? <SignalrContext value={connector.current}>
-      <Game gameId={gameId} playerId={playerId} leaveGame={clearGame} />
+      <Game gameId={gameId} leaveGame={clearGame} />
     </SignalrContext>
     : <div className={styles.gameList}>
       <button onClick={async () => {
@@ -32,18 +31,16 @@ export const GameList = (): JSX.Element => {
         setGames(newGames);
       }}>Refresh List</button>
       <button onClick={async () => {
-        const { playerId, gameId } = await connector.current.createGame();
-        setPlayerId(playerId);
+        const { gameId } = await connector.current.createGame();
         setGameId(gameId);
-        console.log({ playerId, gameId });
+        console.log({ gameId });
       }}>Create Game</button>
       Games:
       {games.length > 0 && games.map(gameId => <div key={gameId}>{gameId}
         <button onClick={async () => {
-          const { playerId } = await connector.current.joinGame(gameId);
-          setPlayerId(playerId);
+          await connector.current.joinGame(gameId);
           setGameId(gameId);
-          console.log({ playerId, gameId });
+          console.log({ gameId });
         }}>Join Game</button>
       </div>)}
     </div>

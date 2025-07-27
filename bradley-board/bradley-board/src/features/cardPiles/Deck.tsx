@@ -8,7 +8,7 @@ export const Deck = (): JSX.Element => {
   return (
     <div className={styles.deck}>
       <div className={styles.title}>Deck</div>
-      <div className={`${styles.card} ${deckCount === 0 ? styles.white : styles.cardBack}`} />
+      <div className={`${styles.card} ${deckCount === 0 || styles.cardBack}`} />
       <div className={styles.remaining}>{deckCount}</div>
     </div>
   );

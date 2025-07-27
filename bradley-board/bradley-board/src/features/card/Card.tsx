@@ -22,7 +22,7 @@ export const Card = ({
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const signalrConnector = useContext(SignalrContext);
-  const { gameId, playerId } = useContext(GameContext);
+  const { gameId } = useContext(GameContext);
   const cardData = useAppSelector(state => selectCardById(state.cards, cardId));
   const clickAction = useAppSelector(state =>
     selectCardClickAction(state, cardData, zone, cardInstanceId)
@@ -40,8 +40,8 @@ export const Card = ({
     switch (clickAction) {
       case "select":
       case "deselect": dispatch(toggleCard(cardInstanceId ?? cardId)); return;
-      case "buy": signalrConnector?.buyCard(gameId, playerId, cardId); return;
-      case "play": if (cardInstanceId) { signalrConnector?.playCard(gameId, playerId, cardInstanceId); } return;
+      case "buy": signalrConnector?.buyCard(gameId, cardId); return;
+      case "play": if (cardInstanceId) { signalrConnector?.playCard(gameId, cardInstanceId); } return;
       case "none":
       default: return;
     }

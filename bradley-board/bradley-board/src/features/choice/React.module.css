@@ -1,0 +1,34 @@
+.react {
+  grid-area: play-area;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  z-index: 1;
+}
+
+.cards {
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  position: relative;
+  box-shadow: 0 0 1px 1px black;
+  border-radius: .5em;
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  padding: 1em;
+}
+
+.effect {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.effect>h2 {
+  margin: 0;
+}

@@ -1,6 +1,6 @@
 import { type HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { CardInstance, GameState } from "../features/board/boardSlice";
-const URL = "http://192.168.4.90:5128/gameHub";
+const URL = "https://dominion.bradley.ac/gameHub";
 export class SignalrConnector {
   private connection: HubConnection;
   public gameListEvents: ({ onGameCreated }: {
@@ -35,56 +35,54 @@ export class SignalrConnector {
   public listGames = async (): Promise<string[]> => {
     return await this.connection.invoke("getAllGamesAsync")
   }
-  public createGame = async (): Promise<{ gameId: string, playerId: string }> => {
-    const playerId = "Sinclair";
-    const gameId = await this.connection.invoke<string>("createGameAsync", playerId)
-    return { gameId, playerId };
+  public createGame = async (): Promise<{ gameId: string }> => {
+    const gameId = await this.connection.invoke<string>("createGameAsync")
+    return { gameId };
   }
-  public joinGame = async (gameId: string): Promise<{ gameId: string, playerId: string }> => {
-    const playerId = "Earl";
-    await this.connection.invoke("joinGameAsync", gameId, playerId);
-    return { gameId, playerId };
+  public joinGame = async (gameId: string): Promise<{ gameId: string }> => {
+    await this.connection.invoke("joinGameAsync", gameId);
+    return { gameId };
   }
-  public retrieveGameState = async (gameId: string, playerId: string): Promise<GameState | undefined> => {
+  public retrieveGameState = async (gameId: string): Promise<GameState | undefined> => {
     try {
-      const newState = await this.connection.invoke<GameState>("getGameStateAsync", gameId, playerId);
+      const newState = await this.connection.invoke<GameState>("getGameStateAsync", gameId);
       return newState;
     }
     catch (ex) {
       console.log(ex);
     }
   }
-  public endTurn = async (gameId: string, playerId: string): Promise<void> => {
-    await this.connection.invoke<any>("endTurnAsync", gameId, playerId);
+  public endTurn = async (gameId: string): Promise<void> => {
+    await this.connection.invoke<any>("endTurnAsync", gameId);
   }
-  public endActionPhase = async (gameId: string, playerId: string): Promise<void> => {
-    await this.connection.invoke<any>("endActionPhaseAsync", gameId, playerId);
+  public endActionPhase = async (gameId: string): Promise<void> => {
+    await this.connection.invoke<any>("endActionPhaseAsync", gameId);
   }
-  public playCard = async (gameId: string, playerId: string, cardInstanceId: string): Promise<void> => {
-    await this.connection.invoke<any>("playCardAsync", gameId, playerId, cardInstanceId)
+  public playCard = async (gameId: string, cardInstanceId: string): Promise<void> => {
+    await this.connection.invoke<any>("playCardAsync", gameId, cardInstanceId)
   }
-  public buyCard = async (gameId: string, playerId: string, cardId: number): Promise<void> => {
-    await this.connection.invoke<any>("buyCardAsync", gameId, playerId, cardId);
+  public buyCard = async (gameId: string, cardId: number): Promise<void> => {
+    await this.connection.invoke<any>("buyCardAsync", gameId, cardId);
   }
-  public chooseCards = async (gameId: string, playerId: string, choiceId: string, selectedCards: (string | number)[]) => {
+  public chooseCards = async (gameId: string, choiceId: string, selectedCards: (string | number)[]) => {
     if (typeof selectedCards[0] === "number") {
-      await this.connection.invoke<any>("submitCardChoicesAsync", gameId, playerId, choiceId, selectedCards);
+      await this.connection.invoke<any>("submitCardChoicesAsync", gameId, choiceId, selectedCards);
     }
     else {
-      await this.connection.invoke<any>("submitCardInstanceChoicesAsync", gameId, playerId, choiceId, selectedCards);
+      await this.connection.invoke<any>("submitCardInstanceChoicesAsync", gameId, choiceId, selectedCards);
     }
   }
-  public categorizeCards = async (gameId: string, playerId: string, choiceId: string, categorizedCards: Record<string, string[]>): Promise<void> => {
-    await this.connection.invoke<any>("submitCategorizationAsync", gameId, playerId, choiceId, categorizedCards);
+  public categorizeCards = async (gameId: string, choiceId: string, categorizedCards: Record<string, string[]>): Promise<void> => {
+    await this.connection.invoke<any>("submitCategorizationAsync", gameId, choiceId, categorizedCards);
   }
-  public arrangeCards = async (gameId: string, playerId: string, choiceId: string, arrangedCards: CardInstance[]): Promise<void> => {
-    await this.connection.invoke<any>("submitCardInstanceChoicesAsync", gameId, playerId, choiceId, arrangedCards.map(card => card.instanceId))
+  public arrangeCards = async (gameId: string, choiceId: string, arrangedCards: CardInstance[]): Promise<void> => {
+    await this.connection.invoke<any>("submitCardInstanceChoicesAsync", gameId, choiceId, arrangedCards.map(card => card.instanceId))
   }
-  public declineChoice = async (gameId: string, playerId: string, choiceId: string): Promise<void> => {
-    await this.connection.invoke<any>("declineChoiceAsync", gameId, playerId, choiceId);
+  public declineChoice = async (gameId: string, choiceId: string): Promise<void> => {
+    await this.connection.invoke<any>("declineChoiceAsync", gameId, choiceId);
   }
-  public undo = async (gameId: string, playerId: string) => {
-    await this.connection.invoke<any>("undoAsync", gameId, playerId);
+  public undo = async (gameId: string) => {
+    await this.connection.invoke<any>("undoAsync", gameId);
   }
   public static getInstance(): SignalrConnector {
     if (!SignalrConnector.instance)

@@ -56,7 +56,7 @@ export type CardPileState = {
 };
 
 export type PlayerChoice = {
-  $type: "select" | "arrange" | "categorize",
+  $type: "select" | "arrange" | "categorize" | "react",
   id: string;
   prompt: string;
   isForced: boolean;
@@ -77,6 +77,13 @@ export type PlayerCategorizeChoice = PlayerChoice & {
   zoneToCategorize: CardZone;
   categories: string[];
   defaultCategory: string;
+}
+
+export type PlayerReactChoice = PlayerChoice & {
+  $type: "react";
+  effectReferences: EffectReference[],
+  triggeringEffectId: string,
+  triggeringEffectOwnerId: string,
 }
 
 export type FullPlayerState = {
@@ -103,6 +110,12 @@ export type PartialPlayerState = {
 export type CardInstance = {
   instanceId: string;
   cardId: number;
+  location: CardZone;
+};
+
+export type EffectReference = {
+  cardInstance: CardInstance;
+  prompt: string;
 };
 
 export type PlayerResources = {
@@ -187,6 +200,7 @@ export const boardSlice = createAppSlice({
     selectPhase: state => state.gameState.turnState.phase,
     selectCurrentPlayer: (state): string => state.gameState.turnState.currentTurnPlayerId,
     selectActivePlayer: state => state.gameState.turnState.activePlayerId,
+    selectMyPlayerId: state => state.gameState.me.playerId,
     selectOpponents: state => state.gameState.opponents,
     selectStatus: state => state.status,
     selectTrash: state => state.gameState.kingdomState.trash,
@@ -219,6 +233,9 @@ export const boardSlice = createAppSlice({
       else if (state.gameState.me.activeChoice.$type === "arrange") {
         return true;
       }
+      else if (state.gameState.me.activeChoice.$type === "react") {
+        return state.selectedCards.length === 1;
+      }
       return false; // For now, we only handle select choices
     },
     selectCategorizations: state => state.categorizedCards,
@@ -236,6 +253,7 @@ export const {
   selectKingdomCards,
   selectCurrentPlayer,
   selectActivePlayer,
+  selectMyPlayerId,
   selectOpponents,
   selectPhase,
   selectMyName,

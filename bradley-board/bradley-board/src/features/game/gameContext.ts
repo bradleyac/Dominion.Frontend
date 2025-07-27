@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const GameContext = createContext({ gameId: "", playerId: "" });
+export const GameContext = createContext({ gameId: "" });

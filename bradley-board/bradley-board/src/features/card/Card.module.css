@@ -6,6 +6,7 @@
   max-height: 100%;
   border-radius: 0.5em;
   position: relative;
+  /* box-shadow: 0 0 10px 1px gold; */
 }
 
 .card {
@@ -22,11 +23,30 @@
   background-repeat: no-repeat;
   border: none;
 
-  /* font-size: var(--card-normal-font-size); */
   width: var(--card-normal-width);
 
   box-shadow: 0 0 1px 1px black;
   transition: opacity .25s ease;
+  /* overflow: hidden; */
+}
+
+.card::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  /* background-image: linear-gradient(to right, rgba(0, 0, 0, .4), rgba(0, 0, 0, 0)); */
+  /* animation: 5s linear infinite rotate; */
+  /* z-index: 1; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-25%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-25%) rotate(360deg);
+  }
 }
 
 .highlightedBuy {
@@ -72,7 +92,6 @@ div[draggable="true"] .dimmed {
   transform: scale(1.2);
   transform-origin: left top;
   transition: transform .2s ease-in-out;
-  /* transition: transform 0.2s ease, top 0.2s ease, left 0.2s ease, position 0.2s ease; */
   z-index: 100;
 }
 

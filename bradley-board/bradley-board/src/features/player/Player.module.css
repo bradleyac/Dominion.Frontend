@@ -29,7 +29,7 @@
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: 1rem;
+  gap: 1em;
   justify-self: start;
 }
 

@@ -4,12 +4,11 @@ import {
   PlayerResources,
   selectActivePlayer,
   selectCurrentPlayer as selectCurrentPlayerId,
-  selectChoiceSatisfied,
   selectHand,
   selectMyName,
+  selectMyPlayerId,
   selectPhase,
   selectResources,
-  selectSelectedCards,
 } from "../board/boardSlice";
 import { Card } from "../card/Card";
 import styles from "./Player.module.css";
@@ -54,16 +53,17 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
 
 export const Controls = (): JSX.Element => {
   const signalrConnector = useContext(SignalrContext);
-  const { gameId, playerId } = useContext(GameContext);
+  const { gameId } = useContext(GameContext);
   const phase = useAppSelector(selectPhase);
   const currentPlayerId = useAppSelector(selectCurrentPlayerId);
+  const playerId = useAppSelector(selectMyPlayerId);
   const isCurrentPlayer = currentPlayerId === playerId;
 
   return (
     <div className={styles.controls}>
-      {isCurrentPlayer && phase === "Action" && <button onClick={() => signalrConnector?.endActionPhase(gameId, playerId)}>End Action Phase</button>}
-      {isCurrentPlayer && <button onClick={() => signalrConnector?.endTurn(gameId, playerId)}>End Turn</button>}
-      <button onClick={(() => signalrConnector?.undo(gameId, playerId))}>Undo</button>
+      {isCurrentPlayer && phase === "Action" && <button onClick={() => signalrConnector?.endActionPhase(gameId)}>End Action Phase</button>}
+      {isCurrentPlayer && <button onClick={() => signalrConnector?.endTurn(gameId)}>End Turn</button>}
+      <button onClick={(() => signalrConnector?.undo(gameId))}>Undo</button>
     </div>
   );
 };

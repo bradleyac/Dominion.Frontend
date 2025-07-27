@@ -15,16 +15,17 @@ import { Choice } from "../choice/Choice";
 import { Categorize } from "../choice/Categorize";
 import { Arrange } from "../choice/Arrange";
 import { Result } from "../result/Result";
+import { React } from "../choice/React";
 
-export const Game = ({ gameId, playerId, leaveGame }: { gameId: string, playerId: string, leaveGame: () => void }): JSX.Element => {
+export const Game = ({ gameId, leaveGame }: { gameId: string, leaveGame: () => void }): JSX.Element => {
   const dispatch = useAppDispatch();
   const connector = useContext(SignalrContext);
   const gameResult = useAppSelector(selectGameResult);
 
   useEffect(() => {
-    connector?.retrieveGameState(gameId, playerId)
+    connector?.retrieveGameState(gameId)
       .then(state => { if (state) { dispatch(updateState(state)); } });
-  }, [gameId, playerId])
+  }, [gameId])
   useEffect(() => {
     return connector?.gameEvents({
       onStateUpdated: (newState: any) => { dispatch(updateState(newState)) },
@@ -32,7 +33,7 @@ export const Game = ({ gameId, playerId, leaveGame }: { gameId: string, playerId
   }, [])
 
   return <div className={styles.game}>
-    <GameContext value={{ gameId, playerId }}>
+    <GameContext value={{ gameId }}>
       <Status />
       <Board />
       <Log />
@@ -42,11 +43,12 @@ export const Game = ({ gameId, playerId, leaveGame }: { gameId: string, playerId
       <PrivateReveal />
       <Categorize />
       <Arrange />
+      <React />
       <Choice />
       <Player />
       {gameResult && <div className={styles.overlay}>
         <div className={styles.result}>
-          <Result playerId={playerId} result={gameResult} />
+          <Result result={gameResult} />
           <button onClick={leaveGame}>Leave Game</button>
         </div>
       </div>}

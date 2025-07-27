@@ -7,7 +7,7 @@
     ) 1px var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
     ) var(--card-normal-width) var(--card-normal-width);
 
-  gap: 1rem;
+  gap: 1em;
 }
 
 .line {

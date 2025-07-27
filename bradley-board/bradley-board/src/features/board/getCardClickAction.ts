@@ -47,6 +47,23 @@ export function getCardClickAction
     return "none";
   }
 
+  if (choice && choice.$type === "react") {
+    if (zone === "TempSelect") {
+      if (cardInstanceId && selectedCards.includes(cardInstanceId)) {
+        return "deselect";
+      }
+      else if (selectedCards.length === 0) {
+        return "select";
+      }
+      else {
+        return "none";
+      }
+    }
+    else {
+      return "none";
+    }
+  }
+
   if (turnState.activePlayerId !== playerId) {
     return "none";
   }

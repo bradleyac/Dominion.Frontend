@@ -2,7 +2,7 @@ import { EntityState } from "@reduxjs/toolkit";
 
 export type CardType = "Treasure" | "Action" | "Curse" | "Victory" | "Attack" | "Reaction";
 export type ActionType = "select" | "deselect" | "buy" | "play" | "none";
-export type CardZone = "Supply" | "Trash" | "Deck" | "Discard" | "Hand" | "Play" | "Reveal" | "PrivateReveal";
+export type CardZone = "Supply" | "Trash" | "Deck" | "Discard" | "Hand" | "Play" | "Reveal" | "PrivateReveal" | "TempSelect";
 
 export type CardFilter = {
   id: string;
@@ -277,6 +277,27 @@ export const cards: EntityState<CardData, number> = {
       imgSrc: "src/card-images/merchant.jpg",
       cost: 3,
       types: ["Action"]
+    },
+    35: {
+      id: 35,
+      name: "Beggar",
+      imgSrc: "src/card-images/beggar.jpg",
+      cost: 2,
+      types: ["Action", "Reaction"]
+    },
+    36: {
+      id: 36,
+      name: "Trail",
+      imgSrc: "src/card-images/trail.jpg",
+      cost: 4,
+      types: ["Action", "Reaction"]
+    },
+    37: {
+      id: 37,
+      name: "Clerk",
+      imgSrc: "src/card-images/clerk.jpg",
+      cost: 4,
+      types: ["Action", "Reaction", "Attack"]
     }
   }
 };
