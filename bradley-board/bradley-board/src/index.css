@@ -1,4 +1,6 @@
 html {
+  --background-color: #1a1918;
+  background-color: var(--background-color);
   box-sizing: border-box;
 }
 
@@ -39,7 +41,5 @@ button {
 }
 
 button:hover:not(:disabled) {
-  background-color: rgb(
-    from var(--bg-color) calc(r + 15) calc(g + 15) calc(b + 15)
-  );
+  background-color: rgb(from var(--bg-color) calc(r + 15) calc(g + 15) calc(b + 15));
 }
