@@ -13,6 +13,9 @@ export const GameList = (): JSX.Element => {
       onGameCreated: (gameId: string) => { setGames(games => [...games, gameId]) }
     });
   }, [])
+  useEffect(() => {
+    fetch("/.auth/me").then(response => console.log(response.json));
+  });
 
   async function clearGame() {
     setGameId(undefined);
