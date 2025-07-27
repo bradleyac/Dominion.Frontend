@@ -1,7 +1,7 @@
 import { JSX, useContext } from "react";
 import { GameContext } from "../game/gameContext";
 import { SignalrContext } from "../../app/signalrContext";
-import { selectActiveChoice, selectActivePlayer, selectArrangedCards, selectCategorizations, selectChoiceSatisfied, selectCurrentPlayer, selectMyName, selectMyPlayerId, selectSelectedCards } from "../board/boardSlice";
+import { selectActiveChoice, selectActivePlayer, selectArrangedCards, selectCategorizations, selectChoiceSatisfied, selectCurrentPlayer, selectMyPlayerId, selectSelectedCards } from "../board/boardSlice";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./Choice.module.css";
 

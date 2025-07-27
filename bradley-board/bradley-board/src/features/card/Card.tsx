@@ -1,7 +1,7 @@
 import { DragEvent, JSX, useContext } from "react";
-import { CardZone, type CardData } from "./cards";
+import { CardZone } from "./cards";
 import styles from "./Card.module.css";
-import { CardInstance, selectCardClickAction, selectCurrentPlayer, toggleCard } from "../board/boardSlice";
+import { CardInstance, selectCardClickAction, toggleCard } from "../board/boardSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCardById } from "./cardsSlice";
 import { SignalrContext } from "../../app/signalrContext";

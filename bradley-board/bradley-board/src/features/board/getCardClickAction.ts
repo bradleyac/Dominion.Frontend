@@ -1,5 +1,5 @@
-import { BoardSliceState, PlayerCategorizeChoice, PlayerChoice, PlayerResources, PlayerSelectChoice } from "./boardSlice";
-import { ActionType, CardData, CardFilter, CardZone } from "../card/cards";
+import { BoardSliceState, PlayerChoice, PlayerResources, PlayerSelectChoice } from "./boardSlice";
+import { ActionType, CardData, CardZone } from "../card/cards";
 
 export function getCardClickAction
   (

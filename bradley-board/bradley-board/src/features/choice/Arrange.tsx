@@ -1,4 +1,4 @@
-import { JSX, PropsWithChildren, useEffect, useState } from "react";
+import { JSX, PropsWithChildren, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CardInstance, cardsArranged, PlayerArrangeChoice, selectActiveChoice, selectArrangedCards, selectPrivateReveal } from "../board/boardSlice";
 import { DraggableCard } from "../card/Card";
@@ -13,7 +13,6 @@ export const Arrange = (): JSX.Element => {
 }
 
 export const ArrangeImpl = ({ choice, cards }: { choice: PlayerArrangeChoice, cards: CardInstance[] }): JSX.Element => {
-  // const [arranged, setArrangement] = useState(cards);
   const dispatch = useAppDispatch();
   const arranged = useAppSelector(selectArrangedCards);
 
