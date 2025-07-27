@@ -40,7 +40,7 @@
 }
 
 .cardBack {
-  background-image: url("src/card-back.png");
+  background-image: url("card-images/card-back.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
