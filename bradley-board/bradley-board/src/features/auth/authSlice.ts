@@ -7,6 +7,7 @@ export type AuthState = {
 };
 
 const initialState: AuthState = { status: "pending" };
+// const initialState: AuthState = { status: "authenticated", userId: "andrew.charles.bradley@gmail.com" };
 
 export const authSlice = createAppSlice({
   name: "auth",

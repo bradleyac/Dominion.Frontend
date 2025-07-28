@@ -1,6 +1,6 @@
 .game {
-  height: 100vmin;
-  width: 100vmax;
+  height: 100svmin;
+  width: 100svmax;
   display: grid;
   grid-template: ". . . ." 0% "status status status status" 3.5% ". board log opponents" 29% "choice choice choice choice" 8% "play-area play-area play-area play-area" 25% "player player player player" 29.5% / 1fr auto 1fr auto;
   overflow: hidden;
