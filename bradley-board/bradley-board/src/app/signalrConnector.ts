@@ -1,6 +1,6 @@
 import { type HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { CardInstance, GameState } from "../features/board/boardSlice";
-// const URL = "http://localhost:5128/gameHub";//"https://dominion.bradley.ac/gameHub";
+// const URL = "http://192.168.4.90:5128/gameHub";
 const URL = "https://server.dominion.bradley.ac/gameHub";
 export class SignalrConnector {
   private connection: HubConnection;
