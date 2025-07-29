@@ -12,7 +12,7 @@ const authConfig: TAuthConfig = {
   clientId: "515082896158-m9qtkkba1tviq45ou8p5r83a86qoltgs.apps.googleusercontent.com",
   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
   tokenEndpoint: "https://oauth2.googleapis.com/token",
-  redirectUri: "https://f1b9f26da2e5.ngrok-free.app",
+  redirectUri: "https://dominion.bradley.ac",
   scope: "openid profile email",
   extraTokenParameters: { "client_secret": "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" },
   decodeToken: false,
