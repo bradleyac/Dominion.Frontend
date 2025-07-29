@@ -25,7 +25,7 @@ export const App = (): JSX.Element => {
     <div className="App">
       <main className="App-main">
         {(authStatus === "pending" || authStatus === "unauthenticated")
-          ? <><button onClick={x => logIn()}>Log In With Google</button></>
+          ? <><button onClick={_ => logIn()}>Log In With Google</button></>
           : <GameList />
         }
       </main>
