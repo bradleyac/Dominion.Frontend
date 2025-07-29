@@ -11,7 +11,7 @@ import { AuthContext, IAuthContext } from "react-oauth2-code-pkce";
 export const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(state => selectAuthStatus(state.auth));
-  const { logIn, token, idToken, idTokenData } = useContext<IAuthContext>(AuthContext);
+  const { logIn, idToken, idTokenData } = useContext<IAuthContext>(AuthContext);
   const email = (idTokenData as any)?.email;
   const name = (idTokenData as any)?.name;
 
