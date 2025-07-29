@@ -16,9 +16,9 @@ export class SignalrConnector {
   }) => () => void;
   // TODO: Should this really be a singleton, or do I want different connections in different places?
   static instance: SignalrConnector;
-  constructor() {
+  constructor(idToken: string) {
     this.connection = new HubConnectionBuilder()
-      .withUrl(URL)
+      .withUrl(URL, { headers: { "google-id-token": idToken } })
       .withAutomaticReconnect()
       .build();
     this.connection.start().catch(err => console.log(err));
@@ -134,9 +134,9 @@ export class SignalrConnector {
   public undo = async (gameId: string) => {
     await this.connection.invoke<any>("undoAsync", gameId);
   };
-  public static getInstance(): SignalrConnector {
+  public static getInstance(authHeader: string): SignalrConnector {
     if (!SignalrConnector.instance)
-      SignalrConnector.instance = new SignalrConnector();
+      SignalrConnector.instance = new SignalrConnector(authHeader);
     return SignalrConnector.instance;
   }
 }

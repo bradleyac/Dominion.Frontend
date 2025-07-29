@@ -21,6 +21,7 @@
     "@xstate/react": "^6.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-oauth2-code-pkce": "^1.23.1",
     "react-redux": "^9.2.0",
     "xstate": "^5.20.0"
   },

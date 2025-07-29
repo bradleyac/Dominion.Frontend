@@ -14,7 +14,7 @@
   align-items: start;
   justify-content: center;
   justify-items: center;
-  --font-size: calc(1.2vmin);
+  --font-size: calc(1.2svmin);
   --large-font-size: calc(1.3em);
   font-size: var(--font-size);
   --background-color: #1a1918;

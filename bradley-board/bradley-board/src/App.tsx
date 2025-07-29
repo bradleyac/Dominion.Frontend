@@ -1,4 +1,4 @@
-import { JSX, useEffect } from "react";
+import { JSX, useContext, useEffect } from "react";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import {
@@ -6,30 +6,28 @@ import {
   userLoggedIn,
 } from "./features/auth/authSlice";
 import { GameList } from "./features/gameList/GameList";
+import { AuthContext, IAuthContext } from "react-oauth2-code-pkce";
 
 export const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(state => selectAuthStatus(state.auth));
+  const { logIn, token, idToken, idTokenData } = useContext<IAuthContext>(AuthContext);
+  const email = (idTokenData as any)?.email;
+  const name = (idTokenData as any)?.name;
 
   useEffect(() => {
-    if (authStatus === "pending") {
-      fetch("/.auth/me").then(response =>
-        response
-          .json()
-          .then(json =>
-            dispatch(userLoggedIn(json.clientPrincipal.userDetails)),
-          ),
-      );
+    if (idToken && email && name) {
+      dispatch(userLoggedIn({ idToken, email, name }))
     }
-  }, [authStatus]);
-
+  }, [idToken, email, name])
 
   return (
     <div className="App">
       <main className="App-main">
         {(authStatus === "pending" || authStatus === "unauthenticated")
-          ? <p>Login required.</p>
-          : <GameList />}
+          ? <><button onClick={x => logIn()}>Log In With Google</button></>
+          : <GameList />
+        }
       </main>
     </div>
   );

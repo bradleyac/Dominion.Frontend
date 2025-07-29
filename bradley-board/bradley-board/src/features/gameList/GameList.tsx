@@ -4,13 +4,14 @@ import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
 import styles from "./GameList.module.css";
 import { useAppSelector } from "../../app/hooks";
-import { selectUserId } from "../auth/authSlice";
+import { selectIdToken, selectName } from "../auth/authSlice";
 
 export const GameList = (): JSX.Element => {
-  const connector = useRef(getSignalrInstance());
+  const idToken = useAppSelector(state => selectIdToken(state.auth));
+  const connector = useRef(getSignalrInstance(idToken!));
   const [games, setGames] = useState<string[]>([]);
   const [gameId, setGameId] = useState<string | undefined>(undefined);
-  const userId = useAppSelector(state => selectUserId(state.auth));
+  const userName = useAppSelector(state => selectName(state.auth));
 
   useEffect(() => {
     return connector.current.gameListEvents({
@@ -32,7 +33,7 @@ export const GameList = (): JSX.Element => {
     </SignalrContext>
   ) : (
     <div className={styles.gameList}>
-      <p>Hi {userId}!</p>
+      <p>Hi {userName}!</p>
       <button
         onClick={async () => {
           const newGames = await connector.current.listGames();
