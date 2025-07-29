@@ -15,6 +15,7 @@ const authConfig: TAuthConfig = {
   redirectUri: "https://f1b9f26da2e5.ngrok-free.app",
   scope: "openid profile email",
   extraTokenParameters: { "client_secret": "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" },
+  decodeToken: false,
   onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn()
 }
 
