@@ -10,6 +10,8 @@ import {
 } from "../board/boardSlice";
 import { DraggableCard } from "../card/Card";
 import styles from "./Arrange.module.css";
+import { useDrop } from "react-dnd";
+import { CardPayload, ItemTypes } from "../dnd/types";
 
 export const Arrange = (): JSX.Element => {
   const choice = useAppSelector(selectActiveChoice);
@@ -71,14 +73,16 @@ export const IndexedZone = ({
 }: PropsWithChildren<{
   index: number;
   arrangeCallback: (cardInstanceId: string, newIndex: number) => void;
-}>): JSX.Element => {
+}>): JSX.Element | null => {
+  const [, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.CARD,
+      drop: (item: CardPayload) => { arrangeCallback(item.cardInstanceId, index); },
+    }),
+    [index, arrangeCallback]
+  )
+
   return (
-    <div
-      className={styles.zone}
-      onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }}
-      onDrop={e => { e.preventDefault(); arrangeCallback(e.dataTransfer.getData("text/plain"), index) }}
-    >
-      {children}
-    </div>
+    drop(<div className={styles.zone}>{children}</div>)
   );
 };

@@ -11,6 +11,8 @@ import {
   selectPrivateReveal,
 } from "../board/boardSlice";
 import { DraggableCard } from "../card/Card";
+import { CardPayload, ItemTypes } from "../dnd/types";
+import { useDrop } from "react-dnd";
 
 export const Categorize = (): JSX.Element => {
   const choice = useAppSelector(selectActiveChoice);
@@ -92,15 +94,17 @@ export const CategoryZone = ({
 }: PropsWithChildren<{
   category: string;
   categorizeCallback: (cardInstanceId: string, newCategory: string) => void;
-}>): JSX.Element => {
-  return (
-    <div
-      className={styles.zone}
-      onDragOver={e => e.preventDefault()}
-      onDrop={e =>
-        categorizeCallback(e.dataTransfer.getData("text/plain"), category)
-      }
-    >
+}>): JSX.Element | null => {
+  const [, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.CARD,
+      drop: (item: CardPayload) => { categorizeCallback(item.cardInstanceId, category); },
+    }),
+    [category, categorizeCallback]
+  )
+
+  return drop(
+    <div className={styles.zone}>
       <h2>{category}</h2>
       <div className={styles.cards}>{children}</div>
     </div>

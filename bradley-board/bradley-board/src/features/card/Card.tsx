@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectCardById } from "./cardsSlice";
 import { SignalrContext } from "../../app/signalrContext";
 import { GameContext } from "../game/gameContext";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../dnd/types";
 
 export const Card = ({
   cardId,
@@ -98,30 +100,19 @@ export const DraggableCard = ({
 }: {
   cardInstance: CardInstance;
   zone: CardZone;
-}): JSX.Element => {
-  function onDragStart(evt: DragEvent): void {
-    evt.dataTransfer.setData("text/plain", cardInstance.instanceId);
-    evt.dataTransfer.effectAllowed = "move";
-    if (evt.currentTarget instanceof HTMLElement) {
-      evt.dataTransfer.setDragImage(
-        evt.currentTarget,
-        evt.currentTarget.offsetWidth / 2,
-        evt.currentTarget.offsetHeight / 2,
-      );
-    }
-  }
-  return (
-    <div
-      className={styles.draggable}
-      draggable={true}
-      onDragStart={onDragStart}
-    >
-      <Card
-        cardId={cardInstance.cardId}
-        cardInstanceId={cardInstance.instanceId}
-        isCompact={false}
-        zone={zone}
-      />
-    </div>
+}): JSX.Element | null => {
+  const [, drag] = useDrag(() => ({
+    type: ItemTypes.CARD,
+    item: () => ({ cardInstanceId: cardInstance.instanceId })
+  }))
+
+  return drag(<div>
+    <Card
+      cardId={cardInstance.cardId}
+      cardInstanceId={cardInstance.instanceId}
+      isCompact={false}
+      zone={zone}
+    />
+  </div>
   );
 };

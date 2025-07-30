@@ -16,6 +16,9 @@ import { Categorize } from "../choice/Categorize";
 import { Arrange } from "../choice/Arrange";
 import { Result } from "../result/Result";
 import { React } from "../choice/React";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 export const Game = ({
   gameId,
@@ -43,30 +46,41 @@ export const Game = ({
     });
   }, []);
 
+  const isTouchDevice = () => {
+    if ("ontouchstart" in window) {
+      return true;
+    }
+    return false;
+  };
+
+  const backendForDnd = isTouchDevice() ? TouchBackend : HTML5Backend;
+
   return (
     <div className={styles.game}>
-      <GameContext value={{ gameId }}>
-        <Status />
-        <Board />
-        <Log />
-        <OpponentList />
-        <PlayArea />
-        <Reveal />
-        <PrivateReveal />
-        <Categorize />
-        <Arrange />
-        <React />
-        <Choice />
-        <Player />
-        {gameResult && (
-          <div className={styles.overlay}>
-            <div className={styles.result}>
-              <Result result={gameResult} />
-              <button onClick={leaveGame}>Leave Game</button>
+      <DndProvider backend={backendForDnd}>
+        <GameContext value={{ gameId }}>
+          <Status />
+          <Board />
+          <Log />
+          <OpponentList />
+          <PlayArea />
+          <Reveal />
+          <PrivateReveal />
+          <Categorize />
+          <Arrange />
+          <React />
+          <Choice />
+          <Player />
+          {gameResult && (
+            <div className={styles.overlay}>
+              <div className={styles.result}>
+                <Result result={gameResult} />
+                <button onClick={leaveGame}>Leave Game</button>
+              </div>
             </div>
-          </div>
-        )}
-      </GameContext>
+          )}
+        </GameContext>
+      </DndProvider>
     </div>
   );
 };
