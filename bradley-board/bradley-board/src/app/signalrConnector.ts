@@ -18,7 +18,7 @@ export class SignalrConnector {
   static instance: SignalrConnector;
   constructor(idToken: string) {
     this.connection = new HubConnectionBuilder()
-      .withUrl(URL, { headers: { "google-id-token": idToken } })
+      .withUrl(URL, { accessTokenFactory: () => idToken })
       .withAutomaticReconnect()
       .build();
     this.connection.start().catch(err => console.log(err));
