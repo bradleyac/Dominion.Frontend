@@ -101,6 +101,7 @@ export const DraggableCard = ({
 }): JSX.Element => {
   function onDragStart(evt: DragEvent): void {
     evt.dataTransfer.setData("text/plain", cardInstance.instanceId);
+    evt.dataTransfer.effectAllowed = "move";
     if (evt.currentTarget instanceof HTMLElement) {
       evt.dataTransfer.setDragImage(
         evt.currentTarget,

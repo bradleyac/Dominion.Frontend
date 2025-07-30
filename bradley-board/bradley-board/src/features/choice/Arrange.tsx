@@ -75,8 +75,8 @@ export const IndexedZone = ({
   return (
     <div
       className={styles.zone}
-      onDragOver={e => e.preventDefault()}
-      onDrop={e => arrangeCallback(e.dataTransfer.getData("text/plain"), index)}
+      onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }}
+      onDrop={e => { e.preventDefault(); arrangeCallback(e.dataTransfer.getData("text/plain"), index) }}
     >
       {children}
     </div>
