@@ -29,7 +29,7 @@ export const GameList = (): JSX.Element => {
 
   // TODO: Hacky, this should detect when it's connected instead of waiting.
   useEffect(() => {
-    setTimeout(() => connector.current.listGames().then(games => setGames(games)), 100)
+    setTimeout(() => connector.current.listGames().then(games => setGames(games)), 250)
   }, []);
 
   async function clearGame() {
