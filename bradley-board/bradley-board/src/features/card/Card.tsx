@@ -1,5 +1,5 @@
 import { JSX, useContext } from "react";
-import { CardZone } from "./cards";
+import { ActionType, CardZone } from "./cards";
 import styles from "./Card.module.css";
 import {
   CardInstance,
@@ -33,24 +33,7 @@ export const Card = ({
   const clickAction = useAppSelector(state =>
     selectCardClickAction(state, cardData, zone, cardInstanceId),
   );
-  let highlightClass = "";
-  switch (clickAction) {
-    case "buy":
-      highlightClass = styles.highlightedBuy;
-      break;
-    case "play":
-      highlightClass = styles.highlightedPlay;
-      break;
-    case "select":
-      highlightClass = styles.highlightedSelect;
-      break;
-    case "deselect":
-      highlightClass = styles.highlightedSelected;
-      break;
-    case "none":
-      highlightClass = styles.dimmed;
-      break;
-  }
+  const highlightClass = getHighlightClass(clickAction);
 
   function onClick() {
     switch (clickAction) {
@@ -71,6 +54,7 @@ export const Card = ({
         return;
     }
   }
+
   return (
     <div className={`${styles.cardFrame}`}>
       <div
@@ -116,3 +100,13 @@ export const DraggableCard = ({
   </div>
   );
 };
+
+function getHighlightClass(clickAction: ActionType) {
+  switch (clickAction) {
+    case "buy": return styles.highlightedBuy;
+    case "play": return styles.highlightedPlay;
+    case "select": return styles.highlightedSelect;
+    case "deselect": return styles.highlightedSelected;
+    case "none": return styles.dimmed;
+  }
+}

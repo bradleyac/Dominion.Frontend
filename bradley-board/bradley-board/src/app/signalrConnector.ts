@@ -1,13 +1,15 @@
 import { type HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { CardInstance, GameState } from "../features/board/boardSlice";
-// const URL = "http://192.168.4.90:5128/gameHub";
-const URL = "https://server.dominion.bradley.ac/gameHub";
+import { Game } from "../features/gameList/GameList";
+
+const URL = import.meta.env.VITE_SERVER_URL;
+
 export class SignalrConnector {
   private connection: HubConnection;
   public gameListEvents: ({
     onGameCreated,
   }: {
-    onGameCreated: (payload: string) => void;
+    onGameCreated: (payload: Game) => void;
   }) => () => void;
   public gameEvents: ({
     onStateUpdated,
@@ -25,7 +27,7 @@ export class SignalrConnector {
     this.gameListEvents = ({ onGameCreated }) => {
       this.connection.on("gameCreated", payload => {
         console.log(payload);
-        onGameCreated(payload as string);
+        onGameCreated(payload);
       });
       return () => {
         this.connection.off("gameCreated");
@@ -41,17 +43,20 @@ export class SignalrConnector {
       };
     };
   }
-  public listGames = async (): Promise<string[]> => {
+  public listGames = async (): Promise<Game[]> => {
     return await this.connection.invoke("getAllGamesAsync");
   };
   public createGame = async (): Promise<{ gameId: string }> => {
     const gameId = await this.connection.invoke<string>("createGameAsync");
     return { gameId };
   };
-  public joinGame = async (gameId: string): Promise<{ gameId: string }> => {
-    await this.connection.invoke("joinGameAsync", gameId);
-    return { gameId };
+  public joinGame = async (gameId: string): Promise<boolean> => {
+    const joined: boolean = await this.connection.invoke("joinGameAsync", gameId);
+    return joined;
   };
+  public abandonGame = async (gameId: string): Promise<void> => {
+    await this.connection.invoke("abandonGameAsync", gameId);
+  }
   public retrieveGameState = async (
     gameId: string,
   ): Promise<GameState | undefined> => {

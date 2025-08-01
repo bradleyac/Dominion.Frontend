@@ -12,13 +12,14 @@ const authConfig: TAuthConfig = {
   clientId: "515082896158-m9qtkkba1tviq45ou8p5r83a86qoltgs.apps.googleusercontent.com",
   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
   tokenEndpoint: "https://oauth2.googleapis.com/token",
-  // redirectUri: "http://localhost:5173",
-  redirectUri: "https://dominion.bradley.ac",
+  redirectUri: `${window.location.protocol}//${window.location.host}`,
   scope: "openid profile email",
   extraTokenParameters: { "client_secret": "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" },
   decodeToken: false,
   onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn()
 }
+
+console.log(authConfig);
 
 const container = document.getElementById("root");
 
@@ -26,13 +27,13 @@ if (container) {
   const root = createRoot(container);
 
   root.render(
-    <AuthProvider authConfig={authConfig}>
-      <StrictMode>
+    <StrictMode>
+      <AuthProvider authConfig={authConfig}>
         <Provider store={store}>
           <App />
         </Provider>
-      </StrictMode>
-    </AuthProvider>
+      </AuthProvider>
+    </StrictMode>
   );
 } else {
   throw new Error(

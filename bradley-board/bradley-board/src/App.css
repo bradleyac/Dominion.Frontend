@@ -9,11 +9,8 @@
   max-height: 100svh;
   height: 100svh;
   width: 100%;
-  display: grid;
+  display: flex;
   overflow: hidden;
-  align-items: start;
-  justify-content: center;
-  justify-items: center;
   --font-size: calc(1svmin);
   --large-font-size: calc(1.3em);
   font-size: var(--font-size);

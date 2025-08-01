@@ -4,27 +4,51 @@ import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
 import styles from "./GameList.module.css";
 import { useAppSelector } from "../../app/hooks";
-import { selectIdToken, selectName } from "../auth/authSlice";
+import { selectIdToken, selectName, selectPlayerId } from "../auth/authSlice";
+
+export type Game = {
+  gameId: string,
+  players: string[]
+}
 
 export const GameList = (): JSX.Element => {
   const idToken = useAppSelector(state => selectIdToken(state.auth));
   const connector = useRef(getSignalrInstance(idToken!));
-  const [games, setGames] = useState<string[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<string | undefined>(undefined);
   const userName = useAppSelector(state => selectName(state.auth));
+  const playerId = useAppSelector(state => selectPlayerId(state.auth));
 
   useEffect(() => {
     return connector.current.gameListEvents({
-      onGameCreated: (gameId: string) => {
-        setGames(games => [...games, gameId]);
-      },
+      onGameCreated: (game: Game) => {
+        setGames(games => [...games, game]);
+      }
     });
+  }, []);
+
+  // TODO: Hacky, this should detect when it's connected instead of waiting.
+  useEffect(() => {
+    setTimeout(() => connector.current.listGames().then(games => setGames(games)), 100)
   }, []);
 
   async function clearGame() {
     setGameId(undefined);
     const newGames = await connector.current.listGames();
     setGames(newGames);
+  }
+
+  async function joinGame(gameId: string): Promise<void> {
+    const joined = await connector.current.joinGame(gameId);
+    if (joined) {
+      setGameId(gameId);
+      console.log(gameId);
+    }
+  }
+
+  async function abandonGame(gameId: string): Promise<void> {
+    await connector.current.abandonGame(gameId);
+    await clearGame();
   }
 
   return gameId ? (
@@ -53,21 +77,30 @@ export const GameList = (): JSX.Element => {
         Create Game
       </button>
       Games:
-      {games.length > 0 &&
-        games.map(gameId => (
-          <div key={gameId}>
-            {gameId}
-            <button
-              onClick={async () => {
-                await connector.current.joinGame(gameId);
-                setGameId(gameId);
-                console.log({ gameId });
-              }}
-            >
-              Join Game
-            </button>
-          </div>
+      <div className={styles.listings}>
+        {games.map(game => (
+          <GameListing
+            game={game}
+            key={game.gameId}
+            inGame={game.players.includes(playerId ?? "")}
+            joinGame={() => game.players.includes(playerId ?? "") ? setGameId(game.gameId) : joinGame(game.gameId)}
+            abandonGame={() => abandonGame(game.gameId)} />
         ))}
+      </div>
     </div>
   );
 };
+
+const GameListing = ({ game, inGame, joinGame, abandonGame }: { game: Game, inGame: boolean, joinGame: () => void, abandonGame: () => void }): JSX.Element => {
+  return <div className={styles.gameListing}>
+    {game.players.map((player, index) => <p key={player}>Player {index + 1}: {player}</p>)}
+    {game.gameId}
+    {inGame
+      ? <>
+        <button onClick={joinGame}>Enter Game</button>
+        <button onClick={abandonGame}>Abandon Game</button>
+      </>
+      : <button onClick={joinGame}>Join Game</button>
+    }
+  </div>
+}

@@ -1,5 +1,6 @@
 html {
   --background-color: #1a1918;
+  --button-color: rgb(65, 65, 65);
   background-color: var(--background-color);
   box-sizing: border-box;
 }
@@ -30,16 +31,17 @@ code {
 }
 
 button {
-  --bg-color: rgb(65, 65, 65);
-  background-color: var(--bg-color);
+  background-color: var(--button-color);
   color: inherit;
   border: none;
   border-radius: 1em;
   box-shadow: 0 0 1px 1px #9e4c98;
   padding: 0.5em;
   font-size: var(--large-font-size);
+  width: max-content;
+  align-self: center;
 }
 
 button:hover:not(:disabled) {
-  background-color: rgb(from var(--bg-color) calc(r + 15) calc(g + 15) calc(b + 15));
+  background-color: rgb(from var(--button-color) calc(r + 15) calc(g + 15) calc(b + 15));
 }

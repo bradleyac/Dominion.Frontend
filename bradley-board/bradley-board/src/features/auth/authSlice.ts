@@ -1,8 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
 
-
-
 export type AuthState = {
   status: "pending" | "authenticated" | "unauthenticated";
   userInfo?: UserInfo;
@@ -30,7 +28,7 @@ export const authSlice = createAppSlice({
   // state as their first argument.
   selectors: {
     selectAuthStatus: state => state.status,
-    selectUserId: state => state.userInfo?.email,
+    selectPlayerId: state => state.userInfo?.email,
     selectName: state => state.userInfo?.name,
     selectIdToken: state => state.userInfo?.idToken,
   },
@@ -38,4 +36,4 @@ export const authSlice = createAppSlice({
 
 export const { userLoggedIn } = authSlice.actions;
 
-export const { selectAuthStatus, selectUserId, selectName, selectIdToken } = authSlice.getSelectors();
+export const { selectAuthStatus, selectPlayerId, selectName, selectIdToken } = authSlice.getSelectors();
