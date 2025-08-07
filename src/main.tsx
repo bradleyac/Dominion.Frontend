@@ -9,7 +9,7 @@ import {
   TAuthConfig,
   TRefreshTokenExpiredEvent,
 } from "react-oauth2-code-pkce";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router";
+import { HashRouter, Route, Routes } from "react-router";
 import { Landing } from "./features/landing/Landing";
 import { GameList } from "./features/gameList/GameList";
 
