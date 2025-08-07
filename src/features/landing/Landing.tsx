@@ -1,4 +1,4 @@
-import { JSX, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./Landing.module.css";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
