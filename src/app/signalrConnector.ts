@@ -1,15 +1,24 @@
-import { type HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
-import { CardInstance, GameState } from "../features/board/boardSlice";
+import {
+  type HubConnection,
+  HubConnectionBuilder,
+  HubConnectionState,
+} from "@microsoft/signalr";
+import { CardInstance, GameState } from "../features/game/gameSlice";
 import { Game } from "../features/gameList/GameList";
 
 const URL = import.meta.env.VITE_SERVER_URL;
 
 export class SignalrConnector {
   private connection: HubConnection;
+  private idToken: string | undefined;
   public gameListEvents: ({
     onGameCreated,
+    onGameEnded,
+    onGameUpdated,
   }: {
     onGameCreated: (payload: Game) => void;
+    onGameEnded: (payload: string) => void;
+    onGameUpdated: (payload: Game) => void;
   }) => () => void;
   public gameEvents: ({
     onStateUpdated,
@@ -19,22 +28,29 @@ export class SignalrConnector {
   // TODO: Should this really be a singleton, or do I want different connections in different places?
   static instance: SignalrConnector;
   constructor(idToken: string) {
+    this.idToken = idToken;
     this.connection = new HubConnectionBuilder()
-      .withUrl(URL, { accessTokenFactory: () => idToken })
+      .withUrl(URL, { accessTokenFactory: this.idTokenFactory })
       .withAutomaticReconnect()
       .build();
-    this.connection.start().catch(err => console.log(err));
-    this.gameListEvents = ({ onGameCreated }) => {
-      this.connection.on("gameCreated", payload => {
+    this.gameListEvents = ({ onGameCreated, onGameEnded, onGameUpdated }) => {
+      this.connection.on("gameCreated", (payload) => {
         console.log(payload);
         onGameCreated(payload);
       });
+      this.connection.on("gameEnded", (payload) => {
+        onGameEnded(payload);
+      });
+      this.connection.on("gameUpdated", (payload) => {
+        onGameUpdated(payload);
+      });
       return () => {
         this.connection.off("gameCreated");
+        this.connection.off("gameEnded");
       };
     };
     this.gameEvents = ({ onStateUpdated }) => {
-      this.connection.on("stateUpdated", payload => {
+      this.connection.on("stateUpdated", (payload) => {
         console.log(payload);
         onStateUpdated(payload);
       });
@@ -43,6 +59,8 @@ export class SignalrConnector {
       };
     };
   }
+  private idTokenFactory = () => this.idToken ?? "";
+  public setIdToken = (idToken: string | undefined) => (this.idToken = idToken);
   public listGames = async (): Promise<Game[]> => {
     return await this.connection.invoke("getAllGamesAsync");
   };
@@ -51,12 +69,15 @@ export class SignalrConnector {
     return { gameId };
   };
   public joinGame = async (gameId: string): Promise<boolean> => {
-    const joined: boolean = await this.connection.invoke("joinGameAsync", gameId);
+    const joined: boolean = await this.connection.invoke(
+      "joinGameAsync",
+      gameId,
+    );
     return joined;
   };
   public abandonGame = async (gameId: string): Promise<void> => {
     await this.connection.invoke("abandonGameAsync", gameId);
-  }
+  };
   public retrieveGameState = async (
     gameId: string,
   ): Promise<GameState | undefined> => {
@@ -127,7 +148,7 @@ export class SignalrConnector {
       "submitCardInstanceChoicesAsync",
       gameId,
       choiceId,
-      arrangedCards.map(card => card.instanceId),
+      arrangedCards.map((card) => card.instanceId),
     );
   };
   public declineChoice = async (
@@ -139,9 +160,23 @@ export class SignalrConnector {
   public undo = async (gameId: string) => {
     await this.connection.invoke<any>("undoAsync", gameId);
   };
-  public static getInstance(authHeader: string): SignalrConnector {
-    if (!SignalrConnector.instance)
-      SignalrConnector.instance = new SignalrConnector(authHeader);
+  public static async getInstance(idToken: string): Promise<SignalrConnector> {
+    SignalrConnector.instance ??= new SignalrConnector(idToken);
+
+    if (
+      SignalrConnector.instance.connection.state ===
+      HubConnectionState.Disconnected
+    ) {
+      await SignalrConnector.instance.connection.start();
+    }
+
+    while (
+      SignalrConnector.instance.connection.state !==
+      HubConnectionState.Connected
+    ) {
+      await new Promise((res) => setTimeout(res, 10));
+    }
+
     return SignalrConnector.instance;
   }
 }

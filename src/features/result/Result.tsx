@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { GameResult, selectMyPlayerId } from "../board/boardSlice";
+import { GameResult, selectMyPlayerId } from "../game/gameSlice";
 import styles from "./Result.module.css";
 import { useAppSelector } from "../../app/hooks";
 
@@ -11,8 +11,8 @@ export const Result = ({ result }: { result: GameResult }): JSX.Element => {
   return (
     <div className={styles.result}>
       {tied ? "You tied!" : won ? "You won!" : "You lost!"}
-      {Object.entries(result.scores).map(x => (
-        <p>
+      {Object.entries(result.scores).map((x) => (
+        <p key={x[0]}>
           {x[0]}: {Math.floor(x[1])}
         </p>
       ))}

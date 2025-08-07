@@ -3,7 +3,7 @@ import {
   PartialPlayerState,
   selectActivePlayer,
   selectOpponents,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import styles from "./OpponentList.module.css";
 import { useAppSelector } from "../../app/hooks";
 
@@ -11,7 +11,7 @@ export const OpponentList = (): JSX.Element => {
   const opponents = useAppSelector(selectOpponents);
   return (
     <div className={styles.opponentList}>
-      {opponents.map(opponent => (
+      {opponents?.map((opponent) => (
         <Opponent key={opponent.playerId} opponent={opponent} />
       ))}
     </div>

@@ -6,7 +6,7 @@ import {
   selectActiveChoice,
   selectPrivateReveal,
   selectReveal,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import { Card } from "../card/Card";
 

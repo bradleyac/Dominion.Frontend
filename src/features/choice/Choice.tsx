@@ -10,7 +10,7 @@ import {
   selectCurrentPlayer,
   selectMyPlayerId,
   selectSelectedCards,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./Choice.module.css";
 

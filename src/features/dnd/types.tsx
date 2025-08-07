@@ -1,7 +1,7 @@
 export const ItemTypes = {
-  CARD: "card"
-}
+  CARD: "card",
+};
 
 export type CardPayload = {
   cardInstanceId: string;
-}
+};

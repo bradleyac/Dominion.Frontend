@@ -1,45 +1,105 @@
-import { JSX, useEffect, useRef, useState } from "react";
-import getSignalrInstance from "../../app/signalrConnector";
+import { JSX, useEffect, useState } from "react";
 import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  selectIsAuthenticated,
+  selectName,
+  selectPlayerId,
+} from "../auth/authSlice";
+import { useNavigate } from "react-router";
+import { useSignalr } from "../../app/useSignalr";
+import { clearGame, updateState } from "../game/gameSlice";
 import styles from "./GameList.module.css";
-import { useAppSelector } from "../../app/hooks";
-import { selectIdToken, selectName, selectPlayerId } from "../auth/authSlice";
 
 export type Game = {
-  gameId: string,
-  players: string[]
-}
+  activePlayerId?: string;
+  gameId: string;
+  players: string[];
+};
 
 export const GameList = (): JSX.Element => {
-  const idToken = useAppSelector(state => selectIdToken(state.auth));
-  const connector = useRef(getSignalrInstance(idToken!));
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { ready, signalr } = useSignalr();
   const [games, setGames] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<string | undefined>(undefined);
-  const userName = useAppSelector(state => selectName(state.auth));
-  const playerId = useAppSelector(state => selectPlayerId(state.auth));
+  const userName = useAppSelector((state) => selectName(state.auth));
+  const playerId = useAppSelector((state) => selectPlayerId(state.auth));
+  const authenticated = useAppSelector((state) =>
+    selectIsAuthenticated(state.auth),
+  );
+
+  const myGames = [
+    ...games.filter((game) => game.players.includes(playerId ?? "")),
+  ];
+  const joinableGames = [
+    ...games.filter((game) => !game.players.includes(playerId ?? "")),
+  ];
 
   useEffect(() => {
-    return connector.current.gameListEvents({
+    if (!authenticated) {
+      navigate("/");
+    }
+  }, [authenticated]);
+
+  useEffect(() => {
+    if (!ready) {
+      return;
+    }
+
+    return signalr.current!.gameListEvents({
       onGameCreated: (game: Game) => {
-        setGames(games => [...games, game]);
-      }
+        setGames((games) => [...games, game]);
+      },
+      onGameEnded: (gameId: string) => {
+        setGames((games) => [
+          ...games.filter((game) => game.gameId !== gameId),
+        ]);
+      },
+      onGameUpdated: (game: Game) => {
+        setGames((games) => [
+          ...games.map((g) => (g.gameId === game.gameId ? game : g)),
+        ]);
+      },
     });
-  }, []);
+  }, [ready]);
 
-  // TODO: Hacky, this should detect when it's connected instead of waiting.
   useEffect(() => {
-    setTimeout(() => connector.current.listGames().then(games => setGames(games)), 250)
-  }, []);
+    if (!ready) {
+      return;
+    }
 
-  async function clearGame() {
+    return signalr.current!.gameEvents({
+      onStateUpdated: (newState: any) => {
+        dispatch(updateState(newState));
+      },
+    });
+  }, [ready]);
+
+  useEffect(() => {
+    if (!ready) {
+      return;
+    }
+
+    signalr.current?.listGames().then((games) => setGames(games));
+  }, [ready]);
+
+  async function clearCurrentGame() {
+    dispatch(clearGame());
     setGameId(undefined);
-    const newGames = await connector.current.listGames();
-    setGames(newGames);
+
+    if (ready) {
+      setGames(await signalr.current!.listGames());
+    }
   }
 
   async function joinGame(gameId: string): Promise<void> {
-    const joined = await connector.current.joinGame(gameId);
+    if (!ready) {
+      return;
+    }
+
+    const joined = await signalr.current!.joinGame(gameId);
     if (joined) {
       setGameId(gameId);
       console.log(gameId);
@@ -47,20 +107,48 @@ export const GameList = (): JSX.Element => {
   }
 
   async function abandonGame(gameId: string): Promise<void> {
-    await connector.current.abandonGame(gameId);
-    await clearGame();
+    if (!ready) {
+      return;
+    }
+
+    await signalr.current!.abandonGame(gameId);
+    await clearCurrentGame();
   }
 
+  function nextGame() {
+    const activeGames = myGames.filter(
+      (g) => g.gameId !== gameId && g.activePlayerId === playerId,
+    );
+    if (activeGames.length > 0) {
+      dispatch(clearGame());
+      setGameId(activeGames[0].gameId);
+    }
+  }
+
+  const hasNextGame =
+    !!gameId &&
+    myGames.filter((g) => g.gameId !== gameId && g.activePlayerId === playerId)
+      .length > 0;
+
   return gameId ? (
-    <SignalrContext value={connector.current}>
-      <Game gameId={gameId} leaveGame={clearGame} />
+    <SignalrContext value={signalr.current}>
+      <Game
+        key={gameId}
+        gameId={gameId}
+        leaveGame={clearCurrentGame}
+        nextGame={nextGame}
+        hasNextGame={hasNextGame}
+      />
     </SignalrContext>
   ) : (
     <div className={styles.gameList}>
       <p>Hi {userName}!</p>
       <button
         onClick={async () => {
-          const newGames = await connector.current.listGames();
+          if (!ready) {
+            return;
+          }
+          const newGames = await signalr.current!.listGames();
           console.log(newGames);
           setGames(newGames);
         }}
@@ -69,38 +157,77 @@ export const GameList = (): JSX.Element => {
       </button>
       <button
         onClick={async () => {
-          const { gameId } = await connector.current.createGame();
+          if (!ready) {
+            return;
+          }
+          const { gameId } = await signalr.current!.createGame();
           setGameId(gameId);
           console.log({ gameId });
         }}
       >
         Create Game
       </button>
-      Games:
+      <h1>My Games</h1>
       <div className={styles.listings}>
-        {games.map(game => (
+        {myGames.map((game) => (
           <GameListing
             game={game}
             key={game.gameId}
-            inGame={game.players.includes(playerId ?? "")}
-            joinGame={() => game.players.includes(playerId ?? "") ? setGameId(game.gameId) : joinGame(game.gameId)}
-            abandonGame={() => abandonGame(game.gameId)} />
+            inGame={true}
+            playerId={playerId!}
+            joinGame={() => setGameId(game.gameId)}
+            abandonGame={() => abandonGame(game.gameId)}
+          />
+        ))}
+      </div>
+      <h1>Other Games</h1>
+      <div className={styles.listings}>
+        {joinableGames.map((game) => (
+          <GameListing
+            game={game}
+            key={game.gameId}
+            inGame={false}
+            playerId={playerId!}
+            joinGame={() => joinGame(game.gameId)}
+            abandonGame={() => abandonGame(game.gameId)}
+          />
         ))}
       </div>
     </div>
   );
 };
 
-const GameListing = ({ game, inGame, joinGame, abandonGame }: { game: Game, inGame: boolean, joinGame: () => void, abandonGame: () => void }): JSX.Element => {
-  return <div className={styles.gameListing}>
-    {game.players.map((player, index) => <p key={player}>Player {index + 1}: {player}</p>)}
-    {game.gameId}
-    {inGame
-      ? <>
-        <button onClick={joinGame}>Enter Game</button>
-        <button onClick={abandonGame}>Abandon Game</button>
-      </>
-      : <button onClick={joinGame}>Join Game</button>
-    }
-  </div>
-}
+const GameListing = ({
+  game,
+  inGame,
+  playerId,
+  joinGame,
+  abandonGame,
+}: {
+  game: Game;
+  inGame: boolean;
+  playerId: string;
+  joinGame: () => void;
+  abandonGame: () => void;
+}): JSX.Element => {
+  return (
+    <div
+      className={`${styles.gameListing} ${game.activePlayerId === playerId && styles.active}`}
+    >
+      {game.players.map((player, index) => (
+        <p key={player}>
+          Player {index + 1}: {player}
+        </p>
+      ))}
+      {game.gameId}
+      {inGame ? (
+        <>
+          <button onClick={joinGame}>Enter Game</button>
+          <button onClick={abandonGame}>Abandon Game</button>
+        </>
+      ) : (
+        <button onClick={joinGame}>Join Game</button>
+      )}
+    </div>
+  );
+};

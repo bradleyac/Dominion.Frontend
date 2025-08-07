@@ -7,7 +7,7 @@ import { PlayArea } from "../playArea/PlayArea";
 import { Player } from "../player/Player";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectGameResult, updateState } from "../board/boardSlice";
+import { selectGameId, selectGameResult, updateState } from "./gameSlice";
 import { GameContext } from "./gameContext";
 import { OpponentList } from "../opponentList/OpponentList";
 import { PrivateReveal, Reveal } from "../reveal/Reveal";
@@ -23,28 +23,30 @@ import { TouchBackend } from "react-dnd-touch-backend";
 export const Game = ({
   gameId,
   leaveGame,
+  nextGame,
+  hasNextGame,
 }: {
   gameId: string;
-  leaveGame: () => void;
+  leaveGame: () => Promise<void>;
+  nextGame: () => void;
+  hasNextGame: boolean;
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const connector = useContext(SignalrContext);
   const gameResult = useAppSelector(selectGameResult);
+  const loadedGameId = useAppSelector(selectGameId);
 
   useEffect(() => {
-    connector?.retrieveGameState(gameId).then(state => {
+    connector?.retrieveGameState(gameId).then((state) => {
       if (state) {
         dispatch(updateState(state));
       }
     });
   }, [gameId]);
-  useEffect(() => {
-    return connector?.gameEvents({
-      onStateUpdated: (newState: any) => {
-        dispatch(updateState(newState));
-      },
-    });
-  }, []);
+
+  if (!loadedGameId) {
+    return <Loading />;
+  }
 
   const isTouchDevice = () => {
     if ("ontouchstart" in window) {
@@ -59,7 +61,7 @@ export const Game = ({
     <div className={styles.game}>
       <DndProvider backend={backendForDnd}>
         <GameContext value={{ gameId }}>
-          <Status />
+          <Status hasNextGame={hasNextGame} nextGame={nextGame} />
           <Board />
           <Log />
           <OpponentList />
@@ -70,17 +72,26 @@ export const Game = ({
           <Arrange />
           <React />
           <Choice />
-          <Player />
+          <Player leaveGame={leaveGame} />
           {gameResult && (
             <div className={styles.overlay}>
               <div className={styles.result}>
                 <Result result={gameResult} />
                 <button onClick={leaveGame}>Leave Game</button>
+                {hasNextGame && <button onClick={nextGame}>Next Game</button>}
               </div>
             </div>
           )}
         </GameContext>
       </DndProvider>
+    </div>
+  );
+};
+
+const Loading = () => {
+  return (
+    <div className={styles.loading}>
+      <p>Loading Game...</p>
     </div>
   );
 };

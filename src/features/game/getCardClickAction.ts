@@ -1,13 +1,13 @@
 import {
-  BoardSliceState,
+  ActiveGameState,
   PlayerChoice,
   PlayerResources,
   PlayerSelectChoice,
-} from "./boardSlice";
+} from "./gameSlice";
 import { ActionType, CardData, CardZone } from "../card/cards";
 
 export function getCardClickAction(
-  state: BoardSliceState,
+  state: ActiveGameState,
   playerId: string,
   card: CardData,
   zone: CardZone,
@@ -16,7 +16,7 @@ export function getCardClickAction(
   cardInstanceId?: string,
   choice?: PlayerChoice,
 ): ActionType {
-  const { turnState } = state.gameState;
+  const { turnState } = state.gameState!;
   if (choice && choice.$type === "select") {
     const filter = (choice as PlayerSelectChoice).filter;
 
@@ -32,8 +32,8 @@ export function getCardClickAction(
     // If the supply pile is empty, don't allow selection.
     if (
       filter.from === "Supply" &&
-      !state.gameState.kingdomState.supply.find(
-        cps => cps.cardId === card.id && cps.count > 0,
+      !state.gameState!.kingdomState.supply.find(
+        (cps) => cps.cardId === card.id && cps.count > 0,
       )
     ) {
       return "none";
@@ -44,7 +44,7 @@ export function getCardClickAction(
       card.id !== (filter?.notId ?? Number.MAX_VALUE) &&
       (!filter.cardId || card.id === filter.cardId) &&
       (!filter.types ||
-        card.types.filter(c => filter.types!.includes(c)).length > 0) &&
+        card.types.filter((c) => filter.types!.includes(c)).length > 0) &&
       card.cost >= (filter?.minCost ?? 0) &&
       card.cost <= (filter.maxCost ?? Number.MAX_VALUE) &&
       (filter.maxCount ?? Number.MAX_VALUE) > selectedCards.length
@@ -101,8 +101,8 @@ export function getCardClickAction(
         case "Supply":
           return resources.buys > 0 &&
             card.cost <= resources.coins &&
-            state.gameState.kingdomState.supply.find(
-              cps => cps.cardId === card.id && cps.count > 0,
+            state.gameState!.kingdomState.supply.find(
+              (cps) => cps.cardId === card.id && cps.count > 0,
             )
             ? "buy"
             : "none";
@@ -115,8 +115,8 @@ export function getCardClickAction(
         case "Supply":
           return resources.buys > 0 &&
             card.cost <= resources.coins &&
-            state.gameState.kingdomState.supply.find(
-              cps => cps.cardId === card.id && cps.count > 0,
+            state.gameState!.kingdomState.supply.find(
+              (cps) => cps.cardId === card.id && cps.count > 0,
             )
             ? "buy"
             : "none";

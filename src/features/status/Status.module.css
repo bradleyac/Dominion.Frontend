@@ -2,17 +2,27 @@
   grid-area: status;
   height: 100%;
   display: grid;
-  grid-template: "gameId turn player phase" 100% / 30em 20em 20em 20em;
+  grid-template: "nextGame gameId turn player phase kingdom" 100% / 20em 30em 20em 30em 20em 20em;
   gap: 1em;
   width: auto;
 }
 
-.status > div {
+.status > div:not(.kingdom) {
   background-color: rgb(61, 63, 64);
   border-radius: 1em;
   justify-content: center;
   align-content: center;
   /* padding: .5em; */
+}
+
+.nextGame {
+  grid-area: nextGame;
+  justify-self: end;
+  align-self: center;
+}
+
+.lit {
+  box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
 }
 
 .gameId {
@@ -45,4 +55,10 @@
 
 .phase::after {
   content: " Phase";
+}
+
+.kingdom {
+  grid-area: kingdom;
+  justify-self: start;
+  align-self: center;
 }

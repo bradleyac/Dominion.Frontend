@@ -5,11 +5,10 @@ import {
   selectActivePlayer,
   selectCurrentPlayer as selectCurrentPlayerId,
   selectHand,
-  selectMyName,
   selectMyPlayerId,
   selectPhase,
   selectResources,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import { Card } from "../card/Card";
 import styles from "./Player.module.css";
 import { useAppSelector } from "../../app/hooks";
@@ -17,6 +16,7 @@ import { DiscardPile } from "../cardPiles/Discard";
 import { Deck } from "../cardPiles/Deck";
 import { SignalrContext } from "../../app/signalrContext";
 import { GameContext } from "../game/gameContext";
+import { selectPlayerId } from "../auth/authSlice";
 
 export const Resources = ({
   resources,
@@ -51,7 +51,11 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
   return <div className={styles.hand}>{cards}</div>;
 };
 
-export const Controls = (): JSX.Element => {
+export const Controls = ({
+  leaveGame,
+}: {
+  leaveGame: () => Promise<void>;
+}): JSX.Element => {
   const signalrConnector = useContext(SignalrContext);
   const { gameId } = useContext(GameContext);
   const phase = useAppSelector(selectPhase);
@@ -72,14 +76,19 @@ export const Controls = (): JSX.Element => {
         </button>
       )}
       <button onClick={() => signalrConnector?.undo(gameId)}>Undo</button>
+      <button onClick={() => leaveGame()}>Return to List</button>
     </div>
   );
 };
 
-export const Player = (): JSX.Element => {
+export const Player = ({
+  leaveGame,
+}: {
+  leaveGame: () => Promise<void>;
+}): JSX.Element => {
   const hand = useAppSelector(selectHand);
   const resources = useAppSelector(selectResources);
-  const myName = useAppSelector(selectMyName);
+  const myName = useAppSelector((state) => selectPlayerId(state.auth));
   const activePlayer = useAppSelector(selectActivePlayer);
   return (
     <div
@@ -90,7 +99,7 @@ export const Player = (): JSX.Element => {
       <Hand hand={hand} />
       <Deck />
       <DiscardPile />
-      <Controls />
+      <Controls leaveGame={leaveGame} />
     </div>
   );
 };

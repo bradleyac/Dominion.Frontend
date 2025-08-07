@@ -1,0 +1,8 @@
+.landing {
+  height: 100svh;
+  width: 100svw;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+}

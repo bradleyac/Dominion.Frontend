@@ -9,7 +9,7 @@ import {
   selectActiveChoice,
   selectCategorizations,
   selectPrivateReveal,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import { DraggableCard } from "../card/Card";
 import { CardPayload, ItemTypes } from "../dnd/types";
 import { useDrop } from "react-dnd";
@@ -53,7 +53,7 @@ export const CategorizeImpl = ({
   const cardsByCategory = Object.fromEntries(
     Object.entries(groupedCategorizations).map(([category, ids]) => [
       category,
-      cards.filter(card => ids.includes(card.instanceId)),
+      cards.filter((card) => ids.includes(card.instanceId)),
     ]),
   );
 
@@ -68,13 +68,13 @@ export const CategorizeImpl = ({
 
   return (
     <div className={styles.categorize}>
-      {choice.categories.map(category => (
+      {choice.categories.map((category) => (
         <CategoryZone
           key={category}
           category={category}
           categorizeCallback={setCardCategory}
         >
-          {cardsByCategory[category]?.map(cardInstance => (
+          {cardsByCategory[category]?.map((cardInstance) => (
             <DraggableCard
               key={cardInstance.instanceId}
               cardInstance={cardInstance}
@@ -98,15 +98,17 @@ export const CategoryZone = ({
   const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.CARD,
-      drop: (item: CardPayload) => { categorizeCallback(item.cardInstanceId, category); },
+      drop: (item: CardPayload) => {
+        categorizeCallback(item.cardInstanceId, category);
+      },
     }),
-    [category, categorizeCallback]
-  )
+    [category, categorizeCallback],
+  );
 
   return drop(
     <div className={styles.zone}>
       <h2>{category}</h2>
       <div className={styles.cards}>{children}</div>
-    </div>
+    </div>,
   );
 };

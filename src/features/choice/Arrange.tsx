@@ -7,7 +7,7 @@ import {
   selectActiveChoice,
   selectArrangedCards,
   selectPrivateReveal,
-} from "../board/boardSlice";
+} from "../game/gameSlice";
 import { DraggableCard } from "../card/Card";
 import styles from "./Arrange.module.css";
 import { useDrop } from "react-dnd";
@@ -40,7 +40,7 @@ export const ArrangeImpl = ({
   }, [choice.id]);
 
   function setCardIndex(cardInstanceId: string, newIndex: number) {
-    const oldIndex = arranged.findIndex(c => c.instanceId === cardInstanceId);
+    const oldIndex = arranged.findIndex((c) => c.instanceId === cardInstanceId);
     const newArranged = [
       ...arranged.slice(0, oldIndex),
       ...arranged.slice(oldIndex + 1),
@@ -77,12 +77,12 @@ export const IndexedZone = ({
   const [, drop] = useDrop(
     () => ({
       accept: ItemTypes.CARD,
-      drop: (item: CardPayload) => { arrangeCallback(item.cardInstanceId, index); },
+      drop: (item: CardPayload) => {
+        arrangeCallback(item.cardInstanceId, index);
+      },
     }),
-    [index, arrangeCallback]
-  )
-
-  return (
-    drop(<div className={styles.zone}>{children}</div>)
+    [index, arrangeCallback],
   );
+
+  return drop(<div className={styles.zone}>{children}</div>);
 };

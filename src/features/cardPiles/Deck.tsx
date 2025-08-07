@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { selectDeckCount } from "../board/boardSlice";
+import { selectDeckCount } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./Deck.module.css";
 

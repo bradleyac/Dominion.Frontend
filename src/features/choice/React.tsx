@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { PlayerReactChoice, selectActiveChoice } from "../board/boardSlice";
+import { PlayerReactChoice, selectActiveChoice } from "../game/gameSlice";
 import { Card } from "../card/Card";
 import styles from "./React.module.css";
 
@@ -23,7 +23,7 @@ export const ReactImpl = ({
   return (
     <div className={styles.react}>
       <div className={styles.cards}>
-        {choice.effectReferences.map(effectReference => (
+        {choice.effectReferences.map((effectReference) => (
           <div
             className={styles.effect}
             key={effectReference.cardInstance.instanceId}

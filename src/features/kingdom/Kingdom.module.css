@@ -1,0 +1,42 @@
+.kingdomOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(255, 255, 255/ 0.5);
+  z-index: 2;
+}
+
+.kingdom {
+  height: calc(100% - 4em);
+  width: calc(100% - 4em);
+  margin: 2em;
+  padding: 1em;
+  background-color: rgb(56, 75, 56);
+  overflow: scroll;
+  border-radius: 1em;
+  box-shadow: 0 0 1em 0 black;
+  display: grid;
+
+  grid-template-rows: auto 1fr;
+}
+
+.cards {
+  height: auto;
+  display: flex;
+  max-width: calc(5.5 * var(--card-normal-width));
+  flex-flow: row-reverse;
+  flex-wrap: wrap;
+  gap: 1em;
+  font-size: 2.2em;
+  place-items: center;
+  place-content: center;
+  place-self: center;
+
+  >* {
+    box-shadow: -0.25em 0.25em 0.25em 0 black;
+  }
+}
+
+.kingdomButton {}

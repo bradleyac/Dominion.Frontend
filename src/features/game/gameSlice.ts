@@ -3,7 +3,7 @@ import { createAppSlice } from "../../app/createAppSlice";
 import { CardData, CardFilter, CardZone } from "../card/cards";
 import { getCardClickAction } from "./getCardClickAction";
 
-export type BoardSliceState = {
+export type ActiveGameState = {
   gameState: GameState;
   status: "idle" | "loading" | "failed";
   selectedCards: (number | string)[];
@@ -43,12 +43,6 @@ export type TurnState = {
 export type LogState = {
   messages: string[];
 };
-
-// export type EffectState = {
-//   effectIndex: number;
-//   effectTargets: number[];
-//   effectTargetIndex: number;
-// };
 
 export type CardPileState = {
   cardId: number;
@@ -127,7 +121,7 @@ export type PlayerResources = {
   vps: number;
 };
 
-const initialState: BoardSliceState = {
+const initialState: ActiveGameState = {
   gameState: {
     gameId: "",
     gameStarted: false,
@@ -175,16 +169,15 @@ function groupByCategory(
   );
 }
 
-// If you are not using async thunks you can use the standalone `createSlice`.
-export const boardSlice = createAppSlice({
-  name: "board",
+export const gameSlice = createAppSlice({
+  name: "game",
   initialState,
-  reducers: create => ({
+  reducers: (create) => ({
     toggleCard: create.reducer(
       (state, action: PayloadAction<number | string>) => {
         const card = action.payload;
         if (state.selectedCards.includes(card)) {
-          state.selectedCards = state.selectedCards.filter(c => c !== card);
+          state.selectedCards = state.selectedCards.filter((c) => c !== card);
         } else {
           state.selectedCards = [...state.selectedCards, card];
         }
@@ -202,8 +195,15 @@ export const boardSlice = createAppSlice({
     ),
     updateState: create.reducer((state, action: PayloadAction<GameState>) => {
       if (
+        state.gameState.gameId !== "" &&
+        action.payload.gameId !== state.gameState.gameId
+      ) {
+        return;
+      }
+
+      if (
         !action.payload.me.activeChoice ||
-        state.gameState.me.activeChoice?.id !==
+        state.gameState?.me.activeChoice?.id !==
           action.payload.me.activeChoice.id
       ) {
         state.selectedCards = [];
@@ -212,32 +212,39 @@ export const boardSlice = createAppSlice({
       }
       state.gameState = action.payload;
     }),
+    clearGame: create.reducer((_) => {
+      return initialState;
+    }),
   }),
   // You can define your selectors here. These selectors receive the slice
   // state as their first argument.
   selectors: {
-    selectGameId: state => state.gameState.gameId,
-    selectKingdomCards: state => state.gameState.kingdomState.supply,
-    selectPhase: state => state.gameState.turnState.phase,
-    selectCurrentPlayer: (state): string =>
-      state.gameState.turnState.currentTurnPlayerId,
-    selectActivePlayer: state => state.gameState.turnState.activePlayerId,
-    selectMyPlayerId: state => state.gameState.me.playerId,
-    selectOpponents: state => state.gameState.opponents,
-    selectStatus: state => state.status,
-    selectTrash: state => state.gameState.kingdomState.trash,
-    selectReveal: state => state.gameState.kingdomState.reveal,
-    selectTurn: state => state.gameState.turnState.turn,
-    selectMyName: state => state.gameState.me.playerId,
-    selectHand: state => state.gameState.me.hand,
-    selectDeckCount: state => state.gameState.me.deckCount,
-    selectDiscard: state => state.gameState.me.discard,
-    selectInPlay: state => state.gameState.me.play,
-    selectPrivateReveal: state => state.gameState.me.privateReveal,
-    selectResources: state => state.gameState.me.resources,
-    selectLog: state => state.gameState.log.messages,
+    selectGameId: (state) => state.gameState.gameId,
+    selectKingdomCards: (state) => state.gameState.kingdomState.supply,
+    selectNonDefaultKingdomCards: (state) =>
+      state.gameState.kingdomState.supply.filter(
+        (c) => ![5, 6, 7, 8, 9, 10, 11].includes(c.cardId),
+      ),
+    selectPhase: (state) => state.gameState.turnState.phase,
+    selectCurrentPlayer: (state) =>
+      state.gameState!.turnState.currentTurnPlayerId,
+    selectActivePlayer: (state) => state.gameState.turnState.activePlayerId,
+    selectMyPlayerId: (state) => state.gameState.me.playerId,
+    selectOpponents: (state) => state.gameState.opponents,
+    selectStatus: (state) => state.status,
+    selectTrash: (state) => state.gameState.kingdomState.trash,
+    selectReveal: (state) => state.gameState.kingdomState.reveal,
+    selectTurn: (state) => state.gameState.turnState.turn,
+    selectMyName: (state) => state.gameState.me.playerId,
+    selectHand: (state) => state.gameState.me.hand,
+    selectDeckCount: (state) => state.gameState.me.deckCount,
+    selectDiscard: (state) => state.gameState.me.discard,
+    selectInPlay: (state) => state.gameState.me.play,
+    selectPrivateReveal: (state) => state.gameState.me.privateReveal,
+    selectResources: (state) => state.gameState.me.resources,
+    selectLog: (state) => state.gameState.log.messages,
     selectCardClickAction: (
-      state: BoardSliceState,
+      state: ActiveGameState,
       card: CardData,
       zone: CardZone,
       cardInstanceId?: string,
@@ -252,9 +259,9 @@ export const boardSlice = createAppSlice({
         cardInstanceId,
         state.gameState.me.activeChoice,
       ),
-    selectActiveChoice: state => state.gameState.me.activeChoice,
-    selectSelectedCards: state => state.selectedCards,
-    selectChoiceSatisfied: state => {
+    selectActiveChoice: (state) => state.gameState.me.activeChoice,
+    selectSelectedCards: (state) => state.selectedCards,
+    selectChoiceSatisfied: (state) => {
       if (!state.gameState.me.activeChoice) {
         return false;
       }
@@ -275,20 +282,26 @@ export const boardSlice = createAppSlice({
       }
       return false; // For now, we only handle select choices
     },
-    selectCategorizations: state => state.categorizedCards,
-    selectArrangedCards: state => state.arrangedCards,
-    selectGameResult: state => state.gameState.gameResult,
+    selectCategorizations: (state) => state.categorizedCards,
+    selectArrangedCards: (state) => state.arrangedCards,
+    selectGameResult: (state) => state.gameState.gameResult,
   },
 });
 
 // Action creators are generated for each case reducer function.
-export const { updateState, toggleCard, cardCategorized, cardsArranged } =
-  boardSlice.actions;
+export const {
+  updateState,
+  toggleCard,
+  cardCategorized,
+  cardsArranged,
+  clearGame,
+} = gameSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
 export const {
   selectGameId,
   selectKingdomCards,
+  selectNonDefaultKingdomCards,
   selectCurrentPlayer,
   selectActivePlayer,
   selectMyPlayerId,
@@ -313,4 +326,4 @@ export const {
   selectCategorizations,
   selectArrangedCards,
   selectGameResult,
-} = boardSlice.selectors;
+} = gameSlice.selectors;

@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { CardInstance, selectInPlay } from "../board/boardSlice";
+import { CardInstance, selectInPlay } from "../game/gameSlice";
 import { Card } from "../card/Card";
 import styles from "./PlayArea.module.css";
 import { useAppSelector } from "../../app/hooks";
@@ -7,11 +7,11 @@ import { useAppSelector } from "../../app/hooks";
 export const PlayArea = (): JSX.Element => {
   const inPlay = useAppSelector(selectInPlay);
 
-  if (inPlay.length == 0) {
+  if (inPlay.length === 0) {
     return <></>;
   }
 
-  const cards = inPlay.map((cardInstance: CardInstance) => (
+  const cards = inPlay?.map((cardInstance: CardInstance) => (
     <Card
       cardId={cardInstance.cardId}
       cardInstanceId={cardInstance.instanceId}

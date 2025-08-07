@@ -6,7 +6,6 @@
   max-height: 100%;
   border-radius: 0.5em;
   position: relative;
-  /* box-shadow: 0 0 10px 1px gold; */
 }
 
 .card {
@@ -27,16 +26,12 @@
 
   box-shadow: 0 0 1px 1px black;
   transition: opacity 0.25s ease;
-  /* overflow: hidden; */
 }
 
 .card::before {
   content: "";
   height: 100%;
   width: 100%;
-  /* background-image: linear-gradient(to right, rgba(0, 0, 0, .4), rgba(0, 0, 0, 0)); */
-  /* animation: 5s linear infinite rotate; */
-  /* z-index: 1; */
 }
 
 @keyframes rotate {

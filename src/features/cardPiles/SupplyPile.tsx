@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { CardPileState } from "../board/boardSlice";
+import { CardPileState } from "../game/gameSlice";
 import { Card } from "../card/Card";
 import styles from "./SupplyPile.module.css";
 

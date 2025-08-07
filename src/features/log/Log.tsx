@@ -1,10 +1,10 @@
 import { JSX, useEffect, useRef } from "react";
-import { selectLog } from "../board/boardSlice";
+import { selectLog } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./Log.module.css";
 
 export const Log = (): JSX.Element => {
-  const log = useAppSelector(selectLog);
+  const log = useAppSelector(selectLog)!;
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -19,7 +19,7 @@ export const Log = (): JSX.Element => {
     <div className={styles.log}>
       History
       <div>
-        {log.map((message, i) => (
+        {log?.map((message, i) => (
           <p key={i}>{message}</p>
         ))}
         <div ref={messagesEndRef} />
