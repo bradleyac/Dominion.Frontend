@@ -13,6 +13,7 @@ export type ActiveGameState = {
 
 export type GameState = {
   gameId: string;
+  displayName: string;
   gameStarted: boolean;
   gameResult: GameResult | undefined;
   kingdomState: KingdomState;
@@ -20,6 +21,7 @@ export type GameState = {
   log: LogState;
   me: FullPlayerState;
   opponents: PartialPlayerState[];
+  playerIds: string[];
 };
 
 export type GameResult = {
@@ -124,6 +126,7 @@ export type PlayerResources = {
 const initialState: ActiveGameState = {
   gameState: {
     gameId: "",
+    displayName: "",
     gameStarted: false,
     gameResult: undefined,
     kingdomState: { supply: [], trash: [], reveal: [] },
@@ -147,6 +150,7 @@ const initialState: ActiveGameState = {
       },
     },
     opponents: [],
+    playerIds: [],
   },
   status: "idle",
   selectedCards: [],
@@ -204,7 +208,7 @@ export const gameSlice = createAppSlice({
       if (
         !action.payload.me.activeChoice ||
         state.gameState?.me.activeChoice?.id !==
-          action.payload.me.activeChoice.id
+        action.payload.me.activeChoice.id
       ) {
         state.selectedCards = [];
         state.categorizedCards = {};
@@ -216,16 +220,16 @@ export const gameSlice = createAppSlice({
       return initialState;
     }),
   }),
-  // You can define your selectors here. These selectors receive the slice
-  // state as their first argument.
   selectors: {
     selectGameId: (state) => state.gameState.gameId,
+    selectGameDisplayName: state => state.gameState.displayName,
     selectKingdomCards: (state) => state.gameState.kingdomState.supply,
     selectNonDefaultKingdomCards: (state) =>
       state.gameState.kingdomState.supply.filter(
         (c) => ![5, 6, 7, 8, 9, 10, 11].includes(c.cardId),
       ),
     selectPhase: (state) => state.gameState.turnState.phase,
+    selectPlayerIds: state => state.gameState.playerIds,
     selectCurrentPlayer: (state) =>
       state.gameState!.turnState.currentTurnPlayerId,
     selectActivePlayer: (state) => state.gameState.turnState.activePlayerId,
@@ -300,8 +304,10 @@ export const {
 // Selectors returned by `slice.selectors` take the root state as their first argument.
 export const {
   selectGameId,
+  selectGameDisplayName,
   selectKingdomCards,
   selectNonDefaultKingdomCards,
+  selectPlayerIds,
   selectCurrentPlayer,
   selectActivePlayer,
   selectMyPlayerId,

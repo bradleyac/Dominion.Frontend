@@ -1,0 +1,58 @@
+.container {
+  width: 22em;
+  height: calc(100% - 2em);
+  grid-area: gameInfo;
+  display: grid;
+  grid-template: "name name" "kingdom kingdom" "turn phase" "players players" / 1fr 1fr;
+  margin: 1em;
+  padding: 1em;
+  gap: 1em;
+  justify-self: end;
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
+}
+
+.name {
+  grid-area: name;
+  text-align: center;
+}
+
+.players {
+  grid-area: players;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.player {
+  text-align: left;
+  padding: .5em;
+  box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
+}
+
+.myPlayer {
+  background-color: rgb(44, 3, 44);
+  box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
+}
+
+.activePlayer {
+  box-shadow: 0 0 2px 0px yellow, 0 0 var(--shadow-depth) 1px var(--shadow-color);
+}
+
+.currentPlayer {
+  box-shadow: 0 0 2px 0px blueviolet, 0 0 var(--shadow-depth) 1px var(--shadow-color);
+}
+
+.kingdom {
+  grid-area: kingdom;
+}
+
+.turn {
+  grid-area: turn;
+  justify-content: center;
+}
+
+.phase {
+  grid-area: phase;
+  justify-content: center;
+}

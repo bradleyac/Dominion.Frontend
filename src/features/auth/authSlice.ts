@@ -23,8 +23,6 @@ export const authSlice = createAppSlice({
       state.userInfo = undefined;
     }),
   }),
-  // You can define your selectors here. These selectors receive the slice
-  // state as their first argument.
   selectors: {
     selectIsAuthenticated: (state) => !!state.userInfo,
     selectPlayerId: (state) => state.userInfo?.email,
@@ -35,4 +33,4 @@ export const authSlice = createAppSlice({
 export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 
 export const { selectIsAuthenticated, selectPlayerId, selectName } =
-  authSlice.getSelectors();
+  authSlice.selectors;

@@ -13,10 +13,10 @@
   width: calc(100% - 4em);
   margin: 2em;
   padding: 1em;
-  background-color: rgb(56, 75, 56);
+  background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
   overflow: scroll;
   border-radius: 1em;
-  box-shadow: 0 0 1em 0 black;
+  box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   display: grid;
 
   grid-template-rows: auto 1fr;
@@ -35,8 +35,6 @@
   place-self: center;
 
   >* {
-    box-shadow: -0.25em 0.25em 0.25em 0 black;
+    box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   }
 }
-
-.kingdomButton {}

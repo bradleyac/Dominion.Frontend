@@ -65,18 +65,14 @@ export const Controls = ({
 
   return (
     <div className={styles.controls}>
-      {isCurrentPlayer && phase === "Action" && (
-        <button onClick={() => signalrConnector?.endActionPhase(gameId)}>
-          End Action Phase
-        </button>
-      )}
-      {isCurrentPlayer && (
-        <button onClick={() => signalrConnector?.endTurn(gameId)}>
-          End Turn
-        </button>
-      )}
-      <button onClick={() => signalrConnector?.undo(gameId)}>Undo</button>
-      <button onClick={() => leaveGame()}>Return to List</button>
+      <button disabled={!isCurrentPlayer || phase !== "Action"} className={styles.endActionPhase} onClick={() => signalrConnector?.endActionPhase(gameId)}>
+        End Action Phase
+      </button>
+      <button disabled={!isCurrentPlayer} className={styles.endTurn} onClick={() => signalrConnector?.endTurn(gameId)}>
+        End Turn
+      </button>
+      <button className={styles.undo} onClick={() => signalrConnector?.undo(gameId)}>Undo</button>
+      <button className={styles.return} onClick={() => leaveGame()}>Return to List</button>
     </div>
   );
 };
@@ -88,7 +84,7 @@ export const Player = ({
 }): JSX.Element => {
   const hand = useAppSelector(selectHand);
   const resources = useAppSelector(selectResources);
-  const myName = useAppSelector((state) => selectPlayerId(state.auth));
+  const myName = useAppSelector(selectPlayerId);
   const activePlayer = useAppSelector(selectActivePlayer);
   return (
     <div

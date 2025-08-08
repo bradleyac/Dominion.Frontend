@@ -9,9 +9,11 @@
   align-items: center;
   justify-items: center;
   position: relative;
+  /* background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20)); */
 }
 
 .hudActive {
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
   box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #9e4c98;
 }
 
@@ -44,7 +46,12 @@
 .controls {
   width: 100%;
   grid-area: controls;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template: "endActionPhase" "endTurn" "undo" "return" / 1fr;
   gap: 1em;
+  justify-content: center;
+
+  >button {
+    width: 100%;
+  }
 }

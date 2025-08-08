@@ -1,19 +1,20 @@
-import { JSX, useEffect, useState } from "react";
+import { JSX, PropsWithChildren, useContext, useEffect, useState } from "react";
 import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectIsAuthenticated,
-  selectName,
   selectPlayerId,
 } from "../auth/authSlice";
 import { useNavigate } from "react-router";
 import { useSignalr } from "../../app/useSignalr";
 import { clearGame, updateState } from "../game/gameSlice";
 import styles from "./GameList.module.css";
+import { AuthContext, IAuthContext } from "react-oauth2-code-pkce";
 
 export type Game = {
   activePlayerId?: string;
+  displayName: string;
   gameId: string;
   players: string[];
 };
@@ -24,11 +25,10 @@ export const GameList = (): JSX.Element => {
   const { ready, signalr } = useSignalr();
   const [games, setGames] = useState<Game[]>([]);
   const [gameId, setGameId] = useState<string | undefined>(undefined);
-  const userName = useAppSelector((state) => selectName(state.auth));
-  const playerId = useAppSelector((state) => selectPlayerId(state.auth));
-  const authenticated = useAppSelector((state) =>
-    selectIsAuthenticated(state.auth),
-  );
+  const playerId = useAppSelector(selectPlayerId);
+  const authenticated = useAppSelector(selectIsAuthenticated);
+  const ctx = useContext<IAuthContext>(AuthContext);
+  console.log(ctx);
 
   const myGames = [
     ...games.filter((game) => game.players.includes(playerId ?? "")),
@@ -81,8 +81,9 @@ export const GameList = (): JSX.Element => {
     if (!ready) {
       return;
     }
-
     signalr.current?.listGames().then((games) => setGames(games));
+    const intervalId = setInterval(() => signalr.current?.listGames().then((games) => setGames(games)), 30000);
+    return () => clearInterval(intervalId);
   }, [ready]);
 
   async function clearCurrentGame() {
@@ -125,6 +126,15 @@ export const GameList = (): JSX.Element => {
     }
   }
 
+  async function createGame() {
+    if (!ready) {
+      return;
+    }
+    const { gameId } = await signalr.current!.createGame();
+    setGameId(gameId);
+    console.log({ gameId });
+  }
+
   const hasNextGame =
     !!gameId &&
     myGames.filter((g) => g.gameId !== gameId && g.activePlayerId === playerId)
@@ -142,33 +152,9 @@ export const GameList = (): JSX.Element => {
     </SignalrContext>
   ) : (
     <div className={styles.gameList}>
-      <p>Hi {userName}!</p>
-      <button
-        onClick={async () => {
-          if (!ready) {
-            return;
-          }
-          const newGames = await signalr.current!.listGames();
-          console.log(newGames);
-          setGames(newGames);
-        }}
-      >
-        Refresh List
-      </button>
-      <button
-        onClick={async () => {
-          if (!ready) {
-            return;
-          }
-          const { gameId } = await signalr.current!.createGame();
-          setGameId(gameId);
-          console.log({ gameId });
-        }}
-      >
-        Create Game
-      </button>
-      <h1>My Games</h1>
+      <h1>Your Games</h1>
       <div className={styles.listings}>
+        <NewGameListing createGame={createGame} />
         {myGames.map((game) => (
           <GameListing
             game={game}
@@ -213,21 +199,34 @@ const GameListing = ({
   return (
     <div
       className={`${styles.gameListing} ${game.activePlayerId === playerId && styles.active}`}
+      onClick={joinGame}
     >
-      {game.players.map((player, index) => (
-        <p key={player}>
-          Player {index + 1}: {player}
-        </p>
-      ))}
-      {game.gameId}
-      {inGame ? (
-        <>
-          <button onClick={joinGame}>Enter Game</button>
-          <button onClick={abandonGame}>Abandon Game</button>
-        </>
-      ) : (
-        <button onClick={joinGame}>Join Game</button>
-      )}
+      <h2 className={styles.name}>{game.displayName}</h2>
+      <div className={styles.players}>
+        {game.players.map((player) => (
+          <PlayerEntry key={player}>
+            {player}
+          </PlayerEntry>
+        ))}
+      </div>
+      {inGame && <button title="Abandon Game" className={`${styles.abandon} icon iconClose`} onClick={abandonGame}></button>}
     </div>
   );
 };
+
+const NewGameListing = ({
+  createGame,
+}: {
+  createGame: () => void;
+}): JSX.Element => <div className={styles.emptyListing}>
+    <button title="New Game" className={`${styles.enter} icon iconAdd`} onClick={createGame}></button>
+  </div>;
+
+// const PlayerEntry = ({ children }: PropsWithChildren<void>())) => 
+
+export const PlayerEntry = ({
+  children,
+}: PropsWithChildren<{
+}>): JSX.Element | null => <div className={styles.playerEntry}><PlayerIcon />{children}</div>;
+
+const PlayerIcon = () => <span className="icon iconUser"></span>;

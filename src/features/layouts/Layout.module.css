@@ -1,0 +1,26 @@
+.container {
+  width: 100svw;
+  height: 100svh;
+  display: grid;
+  grid-auto-rows: auto 1fr;
+}
+
+.userChrome {
+  width: 100%;
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  padding: .5em;
+  display: flex;
+  flex-direction: row;
+  justify-items: end;
+  align-items: center;
+  place-content: end;
+  position: fixed;
+  height: 4em;
+  gap: 1em;
+}
+
+.content {
+  position: relative;
+  top: 4em;
+  height: calc(100% - 4em);
+}

@@ -14,10 +14,9 @@ export const KingdomButton = () => {
   return (
     <>
       <button
-        className={styles.kingdomButton}
+        title="View Kingdom Cards"
         onClick={() => setShowModal(true)}
-      >
-        Kingdom
+      >Kingdom
       </button>
       {showModal &&
         createPortal(

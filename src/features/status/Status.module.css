@@ -1,13 +1,13 @@
 .status {
   grid-area: status;
-  height: 100%;
   display: grid;
   grid-template: "nextGame gameId turn player phase kingdom" 100% / 20em 30em 20em 30em 20em 20em;
   gap: 1em;
   width: auto;
+  position: absolute;
 }
 
-.status > div:not(.kingdom) {
+.status>div:not(.kingdom) {
   background-color: rgb(61, 63, 64);
   border-radius: 1em;
   justify-content: center;
@@ -27,10 +27,6 @@
 
 .gameId {
   grid-area: gameId;
-}
-
-.gameId::before {
-  content: "Game ID: ";
 }
 
 .turn {

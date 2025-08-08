@@ -12,6 +12,7 @@ import {
 import { HashRouter, Route, Routes } from "react-router";
 import { Landing } from "./features/landing/Landing";
 import { GameList } from "./features/gameList/GameList";
+import { Layout } from "./features/layouts/Layout";
 
 // Google requires a client_secret here even for the authorization code flow with PKCE, which is specifically for public clients which cannot store secrets.
 // Apparently this is fine, and we just need to include it. It's just not really a secret. PKCE is still what's making this secure. This is just for Google.
@@ -26,13 +27,15 @@ const authConfig: TAuthConfig = {
     client_secret: "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",
     access_type: "offline"
   },
+  extraAuthParameters: {
+    prompt: "select_account"
+  },
   decodeToken: false,
   autoLogin: false,
-  storage: "session",
+  storage: "local",
+
   onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn(),
 };
-
-console.log(authConfig);
 
 const container = document.getElementById("root");
 
@@ -41,17 +44,19 @@ if (container) {
 
   root.render(
     <StrictMode>
-      <AuthProvider authConfig={authConfig}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <AuthProvider authConfig={authConfig}>
           <HashRouter>
             <Routes>
               <Route index element={<Landing />} />
-              <Route path="games" element={<GameList />} />
+              <Route element={<Layout />}>
+                <Route path="games" element={<GameList />} />
+              </Route>
             </Routes>
           </HashRouter>
-        </Provider>
-      </AuthProvider>
-    </StrictMode>,
+        </AuthProvider>
+      </Provider >
+    </StrictMode >
   );
 } else {
   throw new Error(

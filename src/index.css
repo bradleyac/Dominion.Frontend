@@ -35,22 +35,30 @@ button {
   color: inherit;
   border: none;
   border-radius: 1em;
-  box-shadow: 0 0 1px 1px #9e4c98;
+  box-shadow: 0 0 1px 1px #9e4c98, 0 0 var(--shadow-depth) 0px var(--shadow-color);
+  ;
   padding: 0.5em;
   font-size: var(--large-font-size);
   width: max-content;
   align-self: center;
+
+  &:disabled {
+    opacity: .5;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: rgb(from var(--button-color) calc(r + 15) calc(g + 15) calc(b + 15));
+  }
 }
 
+/* 
 button:hover:not(:disabled) {
-  background-color: rgb(
-    from var(--button-color) calc(r + 15) calc(g + 15) calc(b + 15)
-  );
-}
+  background-color: rgb(from var(--button-color) calc(r + 15) calc(g + 15) calc(b + 15));
+} */
 
 body {
   text-align: center;
-  --card-normal-width: 10em;
+  --card-normal-width: 13em;
   --highlight-radius: 0.25em;
   --highlight-blur-radius: 0.4em;
   max-height: 100svh;
@@ -63,9 +71,82 @@ body {
   font-size: var(--font-size);
   --background-color: #1a1918;
   background-color: var(--background-color);
-  color: rgb(148, 131, 151);
+  --color: rgb(148, 131, 151);
+  color: var(--color);
+  --icon-width: 1.5em;
+  --shadow-depth: .5em;
+  --shadow-color: rgb(10, 10, 10);
 }
 
 ::selection {
   background: inherit;
+}
+
+/* css.gg icons */
+
+.icon {
+  aspect-ratio: 1 / 1;
+  width: var(--icon-width);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color);
+}
+
+button.icon:hover:not(:disabled) {
+  background-color: rgb(from var(--color) calc(r + 15) calc(g + 15) calc(b + 15));
+}
+
+.iconLogOut {
+  background-image: url("/icons/log-out.svg");
+  border-radius: 0;
+}
+
+.iconAdd {
+  background-image: url("/icons/math-plus.svg");
+  border-radius: 50%;
+}
+
+.iconSync {
+  background-image: url("/icons/sync.svg");
+  border-radius: 50%;
+}
+
+.iconEnter {
+  background-image: url("/icons/enter.svg");
+  border-radius: 0;
+}
+
+.iconClose {
+  background-image: url("/icons/close.svg");
+  border-radius: 50%;
+}
+
+.iconUser {
+  background-image: url("/icons/user.svg");
+  border-radius: 50%;
+}
+
+.iconCrown {
+  background-image: url("/icons/crown.svg");
+  border-radius: 50%;
+}
+
+.icon1 {
+  background-image: url("/icons/dice-1.svg");
+  border-radius: 50%;
+}
+
+.icon2 {
+  background-image: url("/icons/dice-2.svg");
+  border-radius: 50%;
+}
+
+.icon3 {
+  background-image: url("/icons/dice-3.svg");
+  border-radius: 50%;
+}
+
+.icon4 {
+  background-image: url("/icons/dice-4.svg");
+  border-radius: 50%;
 }

@@ -11,9 +11,7 @@ import { useNavigate } from "react-router";
 
 export const Landing = () => {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) =>
-    selectIsAuthenticated(state.auth),
-  );
+  const authStatus = useAppSelector(selectIsAuthenticated);
   const { logIn, logOut, idToken, idTokenData } =
     useContext<IAuthContext>(AuthContext);
   const email = (idTokenData as any)?.email;
@@ -59,7 +57,7 @@ const LogOutView = ({ logOut, name }: { logOut: () => void; name: string }) => {
     <>
       <h2>Welcome, {name}!</h2>
       <button onClick={() => navigate("/games")}>View Game List</button>
-      <button onClick={(_) => logOut()}>Log Out</button>
+      <button onClick={() => logOut()}>Log Out</button>
     </>
   );
 };

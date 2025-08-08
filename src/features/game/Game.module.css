@@ -1,13 +1,16 @@
 .game {
-  height: 100svmin;
-  width: 100svmax;
+  height: 100%;
+  width: 100%;
   display: grid;
-  grid-template: ". . . ." 0% "status status status status" 3.5% ". board log opponents" 29% "choice choice choice choice" 8% "play-area play-area play-area play-area" 25% "player player player player" 29.5% / 1fr auto 1fr auto;
+  grid-template: "board board gameInfo" 33.5% "choice choice log" 8% "play-area play-area log" 25.5% "player player player" 33% / auto 1fr;
   overflow: hidden;
   align-items: start;
   justify-content: center;
   justify-items: center;
-  gap: 1%;
+
+  @media (max-aspect-ratio: 1.5) {
+    grid-template: "board board board board" 33.5% "log choice choice gameInfo" 8% "log play-area play-area gameInfo" 25.5% "player player player player" 33% / auto 1fr 1fr auto;
+  }
 }
 
 .overlay {

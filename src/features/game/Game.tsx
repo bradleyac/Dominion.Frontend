@@ -1,5 +1,4 @@
 import { JSX, useContext, useEffect } from "react";
-import styles from "./Game.module.css";
 import { Status } from "../status/Status";
 import { Board } from "../board/Board";
 import { Log } from "../log/Log";
@@ -9,7 +8,6 @@ import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectGameId, selectGameResult, updateState } from "./gameSlice";
 import { GameContext } from "./gameContext";
-import { OpponentList } from "../opponentList/OpponentList";
 import { PrivateReveal, Reveal } from "../reveal/Reveal";
 import { Choice } from "../choice/Choice";
 import { Categorize } from "../choice/Categorize";
@@ -19,6 +17,9 @@ import { React } from "../choice/React";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
+import { GameInfo } from "../gameInfo/GameInfo";
+
+import styles from "./Game.module.css";
 
 export const Game = ({
   gameId,
@@ -64,7 +65,7 @@ export const Game = ({
           <Status hasNextGame={hasNextGame} nextGame={nextGame} />
           <Board />
           <Log />
-          <OpponentList />
+          <GameInfo />
           <PlayArea />
           <Reveal />
           <PrivateReveal />
