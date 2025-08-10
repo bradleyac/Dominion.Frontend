@@ -1,7 +1,7 @@
 import { JSX, useContext, useEffect } from "react";
 import { Status } from "../status/Status";
 import { Board } from "../board/Board";
-import { History, HistoryButton } from "../history/History";
+import { HistoryButton } from "../history/History";
 import { PlayArea } from "../playArea/PlayArea";
 import { Player } from "../player/Player";
 import { SignalrContext } from "../../app/signalrContext";

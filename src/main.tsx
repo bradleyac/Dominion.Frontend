@@ -12,7 +12,6 @@ import {
 import { HashRouter, Route, Routes } from "react-router";
 import { Landing } from "./features/landing/Landing";
 import { GameList } from "./features/gameList/GameList";
-import { Layout } from "./features/layouts/Layout";
 
 // Google requires a client_secret here even for the authorization code flow with PKCE, which is specifically for public clients which cannot store secrets.
 // Apparently this is fine, and we just need to include it. It's just not really a secret. PKCE is still what's making this secure. This is just for Google.
