@@ -1,25 +1,47 @@
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import { SupplyPile } from "../cardPiles/SupplyPile";
 import styles from "./Board.module.css";
 import { CardPileState, selectKingdomCards } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import { gridAreaMap } from "../card/cards";
+import { Modal } from "../modal/Modal";
 
 export const Board = (): JSX.Element => {
   const kingdomCards = useAppSelector(selectKingdomCards)!;
-  let i = 1;
-  const piles = kingdomCards?.map((cardPile: CardPileState) => (
+  const defaults = kingdomCards.filter(kc => gridAreaMap[kc.cardId] !== undefined);
+  const nonDefaults = kingdomCards.filter(kc => gridAreaMap[kc.cardId] === undefined);
+  const [showModal, setShowModal] = useState(false);
+  const defaultPiles = (<>{defaults.map((cardPile: CardPileState) => (
     <SupplyPile
       cardPile={cardPile}
       key={cardPile.cardId}
-      gridArea={gridAreaMap[cardPile.cardId] ?? `pile${i++}`}
+      gridArea={gridAreaMap[cardPile.cardId]}
     />
-  ));
+  ))}
+  </>);
+
+  let i = 1;
+
+  const nonDefaultPiles = (<>{nonDefaults.map((cardPile: CardPileState) => (
+    <SupplyPile
+      cardPile={cardPile}
+      key={cardPile.cardId}
+      gridArea={`pile${i++}`}
+    />
+  ))}
+  </>);
 
   return (
     <div className={styles.board}>
-      {piles}
-      <div className={styles.line}></div>
+      <div className={styles.defaults} onClick={() => setShowModal(true)}>
+        {defaultPiles}
+      </div>
+      {nonDefaultPiles}
+      <Modal showing={showModal} close={() => setShowModal(false)}>
+        <div className={styles.overlayDefaults}>
+          {defaultPiles}
+        </div>
+      </Modal>
     </div>
   );
 };

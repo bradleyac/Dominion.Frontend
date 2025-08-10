@@ -1,4 +1,5 @@
 .playArea {
+  font-size: .6em;
   grid-area: play-area;
   display: grid;
   grid-template: "title" auto "in-play" 1fr / 1fr;
@@ -20,7 +21,7 @@
   margin-right: -4em;
 }
 
-.inPlay > *:nth-child(n - 1) * {
+.inPlay>*:nth-child(n - 1) * {
   opacity: unset;
   margin-left: -4em;
 

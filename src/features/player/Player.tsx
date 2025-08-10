@@ -54,7 +54,7 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
 export const Controls = ({
   leaveGame,
 }: {
-  leaveGame: () => Promise<void>;
+  leaveGame: () => void | Promise<void>;
 }): JSX.Element => {
   const signalrConnector = useContext(SignalrContext);
   const { gameId } = useContext(GameContext);
@@ -66,13 +66,13 @@ export const Controls = ({
   return (
     <div className={styles.controls}>
       <button disabled={!isCurrentPlayer || phase !== "Action"} className={styles.endActionPhase} onClick={() => signalrConnector?.endActionPhase(gameId)}>
-        End Action Phase
+        End Phase
       </button>
       <button disabled={!isCurrentPlayer} className={styles.endTurn} onClick={() => signalrConnector?.endTurn(gameId)}>
         End Turn
       </button>
       <button className={styles.undo} onClick={() => signalrConnector?.undo(gameId)}>Undo</button>
-      <button className={styles.return} onClick={() => leaveGame()}>Return to List</button>
+      <button className={styles.return} onClick={() => leaveGame()}>Back to List</button>
     </div>
   );
 };
@@ -80,7 +80,7 @@ export const Controls = ({
 export const Player = ({
   leaveGame,
 }: {
-  leaveGame: () => Promise<void>;
+  leaveGame: () => void | Promise<void>;
 }): JSX.Element => {
   const hand = useAppSelector(selectHand);
   const resources = useAppSelector(selectResources);
@@ -93,8 +93,9 @@ export const Player = ({
       <div className={styles.playerName}>{myName}</div>
       <Resources resources={resources} />
       <Hand hand={hand} />
-      <Deck />
-      <DiscardPile />
+      <div className={styles.deck}><Deck /></div>
+      <div className={styles.discard}><DiscardPile /></div>
+
       <Controls leaveGame={leaveGame} />
     </div>
   );

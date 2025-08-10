@@ -39,7 +39,8 @@ export const Card = ({
   );
   const highlightClass = selectable ? getHighlightClass(clickAction) : "";
 
-  function onClick() {
+  function onClick(e: any) {
+    e.stopPropagation();
     if (!selectable) {
       return;
     }

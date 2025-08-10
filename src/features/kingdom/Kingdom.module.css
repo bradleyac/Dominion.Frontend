@@ -1,21 +1,10 @@
-.kingdomOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgb(255, 255, 255/ 0.5);
-  z-index: 2;
-}
-
 .kingdom {
-  height: calc(100% - 4em);
-  width: calc(100% - 4em);
-  margin: 2em;
-  padding: 1em;
+  height: calc(100%);
+  width: calc(100%);
+  padding: 0em 1em 1em 1em;
   background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
   overflow: scroll;
-  border-radius: 1em;
+  /* border-radius: 1em; */
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   display: grid;
 
@@ -28,8 +17,8 @@
   max-width: calc(5.5 * var(--card-normal-width));
   flex-flow: row-reverse;
   flex-wrap: wrap;
-  gap: 1em;
-  font-size: 2.2em;
+  gap: .125em;
+  font-size: 1.4em;
   place-items: center;
   place-content: center;
   place-self: center;

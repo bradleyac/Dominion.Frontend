@@ -2,7 +2,7 @@
   width: 100svw;
   height: 100svh;
   display: grid;
-  grid-auto-rows: auto 1fr;
+  grid-template-rows: 3em 1fr;
 }
 
 .userChrome {
@@ -15,12 +15,13 @@
   align-items: center;
   place-content: end;
   position: fixed;
-  height: 4em;
+  height: 3em;
   gap: 1em;
+  grid-row: 1;
 }
 
 .content {
-  position: relative;
-  top: 4em;
-  height: calc(100% - 4em);
+  height: 100%;
+  grid-row: 2;
+  overflow: hidden;
 }

@@ -9,6 +9,7 @@
   justify-items: center;
   background-color: var(--background-color);
   z-index: 1;
+  position: absolute;
 }
 
 .prompt {

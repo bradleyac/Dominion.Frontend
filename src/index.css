@@ -15,28 +15,18 @@ p {
   margin: 0;
 }
 
-body {
-  margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-}
-
 code {
   font-family:
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 button {
+  font-family: inherit;
   background-color: var(--button-color);
   color: inherit;
   border: none;
   border-radius: 1em;
   box-shadow: 0 0 1px 1px #9e4c98, 0 0 var(--shadow-depth) 0px var(--shadow-color);
-  ;
   padding: 0.5em;
   font-size: var(--large-font-size);
   width: max-content;
@@ -51,22 +41,16 @@ button {
   }
 }
 
-/* 
-button:hover:not(:disabled) {
-  background-color: rgb(from var(--button-color) calc(r + 15) calc(g + 15) calc(b + 15));
-} */
-
 body {
   text-align: center;
-  --card-normal-width: 13em;
-  --highlight-radius: 0.25em;
-  --highlight-blur-radius: 0.4em;
-  max-height: 100svh;
+  --card-normal-width: 4.25em;
+  --highlight-radius: 0.1em;
+  --highlight-blur-radius: 0.2em;
   height: 100svh;
-  width: 100%;
+  width: 100svw;
   display: flex;
   overflow: hidden;
-  --font-size: calc(1svmin);
+  --font-size: calc(4svmin);
   --large-font-size: calc(1.3em);
   font-size: var(--font-size);
   --background-color: #1a1918;
@@ -76,6 +60,12 @@ body {
   --icon-width: 1.5em;
   --shadow-depth: .5em;
   --shadow-color: rgb(10, 10, 10);
+  margin: 0;
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {

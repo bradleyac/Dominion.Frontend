@@ -32,7 +32,7 @@ const authConfig: TAuthConfig = {
   },
   decodeToken: false,
   autoLogin: false,
-  storage: "local",
+  storage: "session",
 
   onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn(),
 };
@@ -49,9 +49,9 @@ if (container) {
           <HashRouter>
             <Routes>
               <Route index element={<Landing />} />
-              <Route element={<Layout />}>
-                <Route path="games" element={<GameList />} />
-              </Route>
+              {/* <Route element={<Layout />}> */}
+              <Route path="games" element={<GameList />} />
+              {/* </Route> */}
             </Routes>
           </HashRouter>
         </AuthProvider>

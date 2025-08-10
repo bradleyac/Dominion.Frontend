@@ -1,7 +1,7 @@
 import { JSX, useContext, useEffect } from "react";
 import { Status } from "../status/Status";
 import { Board } from "../board/Board";
-import { Log } from "../log/Log";
+import { History, HistoryButton } from "../history/History";
 import { PlayArea } from "../playArea/PlayArea";
 import { Player } from "../player/Player";
 import { SignalrContext } from "../../app/signalrContext";
@@ -17,9 +17,10 @@ import { React } from "../choice/React";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import { GameInfo } from "../gameInfo/GameInfo";
+import { GameInfoButton } from "../gameInfo/GameInfo";
 
 import styles from "./Game.module.css";
+import { KingdomButton } from "../kingdom/Kingdom";
 
 export const Game = ({
   gameId,
@@ -64,8 +65,11 @@ export const Game = ({
         <GameContext value={{ gameId }}>
           <Status hasNextGame={hasNextGame} nextGame={nextGame} />
           <Board />
-          <Log />
-          <GameInfo />
+          <div className={styles.buttons}>
+            <GameInfoButton />
+            <KingdomButton />
+            <HistoryButton />
+          </div>
           <PlayArea />
           <Reveal />
           <PrivateReveal />

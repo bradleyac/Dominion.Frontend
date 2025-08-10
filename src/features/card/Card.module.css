@@ -75,7 +75,7 @@
 }
 
 .dimmed:not(:hover) {
-  opacity: 0.625;
+  /* opacity: 0.625; */
 }
 
 div[draggable="true"] .dimmed {
@@ -83,10 +83,10 @@ div[draggable="true"] .dimmed {
 }
 
 .cardFrame:not(:hover) .card.compact {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1.5 / 1;
   grid-template:
-    "card-front" 84%
-    "card-bottom" 16% / 1fr;
+    "card-front" 78%
+    "card-bottom" 22% / 1fr;
 }
 
 .cardFrame:hover .card.compact {
@@ -105,7 +105,7 @@ div[draggable="true"] .dimmed {
   transition: transform 0.25s ease;
 }
 
-.cardFrame:hover .card.compact > * {
+.cardFrame:hover .card.compact>* {
   display: none;
 }
 
@@ -127,14 +127,15 @@ div[draggable="true"] .dimmed {
 }
 
 .remaining {
+  box-sizing: content-box;
   grid-area: card-bottom;
   background-color: inherit;
+  font-weight: 300;
   color: rgb(0, 0, 0);
   border-radius: 50%;
-  width: 1.75em;
+  width: 1em;
   aspect-ratio: 1 / 1;
   align-content: center;
-  font-weight: 500;
   align-self: end;
   justify-self: end;
   position: relative;

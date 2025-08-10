@@ -1,10 +1,10 @@
 .hud {
   grid-area: player;
   display: grid;
-  grid-template: "resources hand discard deck controls" 1fr / 2fr 10fr auto auto 10em;
+  grid-template: "resources hand deck controls" 1fr "resources hand discard controls" 1fr / 2fr 10fr auto auto;
   width: 100%;
   height: 100%;
-  gap: 1em;
+  column-gap: 1em;
   padding: 0 1em;
   align-items: center;
   justify-items: center;
@@ -26,21 +26,28 @@
 }
 
 .hand {
+  font-size: .65em;
   grid-area: hand;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: 1em;
+  gap: .1em;
   justify-self: start;
+  padding: .5em;
+  max-width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .deck {
   grid-area: deck;
+  font-size: .4em;
 }
 
 .discard {
   grid-area: discard;
+  font-size: .4em;
 }
 
 .controls {
@@ -48,8 +55,10 @@
   grid-area: controls;
   display: grid;
   grid-template: "endActionPhase" "endTurn" "undo" "return" / 1fr;
-  gap: 1em;
+  gap: .5em;
   justify-content: center;
+  position: relative;
+  bottom: 30%;
 
   >button {
     width: 100%;

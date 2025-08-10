@@ -1,10 +1,12 @@
 .gameList {
-  height: calc(100svh - 2em);
-  width: calc(100svw - 2em);
+  height: calc(100svh - 3em);
+  width: 100svw;
   display: flex;
   flex-direction: column;
   gap: 1em;
-  margin: 1em;
+  margin: 0;
+  padding: 1em;
+  overflow-y: scroll;
 }
 
 .buttons {
@@ -16,15 +18,16 @@
 
 .listings {
   width: 100%;
-  height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
-  grid-template-rows: repeat(auto-fill, 15em);
+  grid-template-columns: repeat(auto-fill, minmax(min(16em, 100%), 1fr));
+  grid-auto-rows: 14em;
+  /* grid-template-rows: repeat(auto-fill, 15em); */
   gap: 1em;
 }
 
 .gameListing {
   height: 100%;
+  width: 100%;
   display: grid;
   grid-template: "enter . . abandon " auto "name name name name" auto
     "players players players players" 1fr / auto 1fr 1fr auto;
@@ -32,6 +35,7 @@
   padding: 1em;
   background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
   border-radius: 0.5em;
+  overflow: hidden;
 
   &:hover {
     background-color: rgb(from var(--background-color) calc(r + 30) calc(g + 30) calc(b + 30));
@@ -40,6 +44,7 @@
 
 .emptyListing {
   height: 100%;
+  width: 100%;
   background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
   border-radius: 0.5em;
   place-items: center;

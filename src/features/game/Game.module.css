@@ -1,6 +1,6 @@
 .game {
   height: 100%;
-  width: 100%;
+  width: 100svw;
   display: grid;
   grid-template: "board board gameInfo" 33.5% "choice choice log" 8% "play-area play-area log" 25.5% "player player player" 33% / auto 1fr;
   overflow: hidden;
@@ -32,4 +32,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-self: end;
+  margin: .5em;
+  gap: .5em;
+
+  >button {
+    width: 100%;
+  }
 }

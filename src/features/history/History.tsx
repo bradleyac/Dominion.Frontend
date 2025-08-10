@@ -1,9 +1,14 @@
 import { JSX, useEffect, useRef } from "react";
 import { selectLog } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
-import styles from "./Log.module.css";
+import styles from "./History.module.css";
+import { ModalButton } from "../modal/Modal";
 
-export const Log = (): JSX.Element => {
+export const HistoryButton = () => (<ModalButton text="History" title="View Game History">
+  <History />
+</ModalButton>);
+
+export const History = (): JSX.Element => {
   const log = useAppSelector(selectLog)!;
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
