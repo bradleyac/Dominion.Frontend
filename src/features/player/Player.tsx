@@ -29,7 +29,6 @@ export const Resources = ({
   const currentPlayerId = useAppSelector(selectCurrentPlayerId);
   const playerId = useAppSelector(selectMyPlayerId);
   const isCurrentPlayer = currentPlayerId === playerId;
-  const litClass = isCurrentPlayer ? "lit" : "lowLit";
   const signalrConnector = useContext(SignalrContext);
   const { gameId } = useContext(GameContext);
   const { coffers, villagers, coins, actions, buys } = resources;
