@@ -1,7 +1,7 @@
 .hud {
   grid-area: player;
   display: grid;
-  grid-template: "resources hand deck controls" 1fr "resources hand discard controls" 1fr / 2fr 10fr auto auto;
+  grid-template: "resources hand controls" 1fr / auto 1fr auto;
   width: 100%;
   height: 100%;
   column-gap: 1em;
@@ -9,7 +9,6 @@
   align-items: center;
   justify-items: center;
   position: relative;
-  /* background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20)); */
 }
 
 .hudActive {
@@ -19,20 +18,20 @@
 
 .playerName {
   position: absolute;
-  left: 0px;
-  top: 0;
+  left: .5em;
+  top: -2em;
   z-index: 1;
   padding: 0.5em;
 }
 
 .hand {
-  font-size: .65em;
+  /* font-size: .65em; */
   grid-area: hand;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: .1em;
+  gap: .3em;
   justify-self: start;
   padding: .5em;
   max-width: 100%;
@@ -43,24 +42,53 @@
 .deck {
   grid-area: deck;
   font-size: .4em;
+  place-self: center;
+  margin-left: 1em;
 }
 
 .discard {
   grid-area: discard;
   font-size: .4em;
+  place-self: center;
+  margin-right: 1em;
 }
 
 .controls {
-  width: 100%;
   grid-area: controls;
-  display: grid;
-  grid-template: "endActionPhase" "endTurn" "undo" "return" / 1fr;
+  display: flex;
+  flex-direction: row;
   gap: .5em;
-  justify-content: center;
-  position: relative;
-  bottom: 30%;
+  position: absolute;
+  bottom: .5em;
+  right: -.5em;
+}
 
-  >button {
-    width: 100%;
-  }
+.resourceIcon {
+  width: min-content;
+  opacity: .5;
+}
+
+.resources {
+  grid-area: resources;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: .5em;
+  justify-items: center;
+  align-items: center;
+  padding: .25em 0;
+}
+
+.resources.active>.resourceIcon {
+  opacity: unset;
+}
+
+
+
+.resourceCounts {
+  min-height: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: .25em;
 }

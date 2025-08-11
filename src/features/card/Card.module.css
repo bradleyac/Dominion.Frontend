@@ -9,16 +9,16 @@
 }
 
 .card {
+  min-height: 100%;
   display: grid;
-  grid-template: "card-front" 100% / 1fr;
+  grid-template: "card-front" 100% "card-bottom" 0% / 1fr;
   align-items: center;
   justify-content: center;
   aspect-ratio: 59 / 93;
   background-color: #f0f0f0;
-  border-radius: 0.5em;
-  gap: 0.25em;
+  border-radius: 0.25em;
 
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   border: none;
 
@@ -26,22 +26,6 @@
 
   box-shadow: 0 0 1px 1px black;
   transition: opacity 0.25s ease;
-}
-
-.card::before {
-  content: "";
-  height: 100%;
-  width: 100%;
-}
-
-@keyframes rotate {
-  0% {
-    transform: translate(-25%) rotate(0deg);
-  }
-
-  100% {
-    transform: translate(-25%) rotate(360deg);
-  }
 }
 
 .highlightedBuy {
@@ -74,19 +58,15 @@
     0 0 0px 2.5px gold;
 }
 
-.dimmed:not(:hover) {
-  /* opacity: 0.625; */
-}
-
 div[draggable="true"] .dimmed {
   opacity: unset;
 }
 
 .cardFrame:not(:hover) .card.compact {
-  aspect-ratio: 1.5 / 1;
+  aspect-ratio: 1 / 1;
   grid-template:
-    "card-front" 78%
-    "card-bottom" 22% / 1fr;
+    "card-front" 85%
+    "card-bottom" 15% / 1fr;
 }
 
 .cardFrame:hover .card.compact {
@@ -122,7 +102,7 @@ div[draggable="true"] .dimmed {
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: 96%;
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   box-shadow: inherit;
 }
 
@@ -132,7 +112,7 @@ div[draggable="true"] .dimmed {
   background-color: inherit;
   font-weight: 300;
   color: rgb(0, 0, 0);
-  border-radius: 50%;
+  border-radius: .25em;
   width: 1em;
   aspect-ratio: 1 / 1;
   align-content: center;

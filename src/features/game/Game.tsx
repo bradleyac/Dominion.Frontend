@@ -21,6 +21,8 @@ import { GameInfoButton } from "../gameInfo/GameInfo";
 
 import styles from "./Game.module.css";
 import { KingdomButton } from "../kingdom/Kingdom";
+import { IconButton } from "../modal/Modal";
+import { isTouchDevice } from "../../app/utils";
 
 export const Game = ({
   gameId,
@@ -50,25 +52,19 @@ export const Game = ({
     return <Loading />;
   }
 
-  const isTouchDevice = () => {
-    if ("ontouchstart" in window) {
-      return true;
-    }
-    return false;
-  };
-
   const backendForDnd = isTouchDevice() ? TouchBackend : HTML5Backend;
 
   return (
     <div className={styles.game}>
       <DndProvider backend={backendForDnd}>
         <GameContext value={{ gameId }}>
-          <Status hasNextGame={hasNextGame} nextGame={nextGame} />
+          {/* <Status hasNextGame={hasNextGame} nextGame={nextGame} /> */}
           <Board />
           <div className={styles.buttons}>
             <GameInfoButton />
             <KingdomButton />
             <HistoryButton />
+            <IconButton icon="Leave" title="Leave Game" onClick={() => leaveGame()} lit={false} />
           </div>
           <PlayArea />
           <Reveal />
@@ -77,7 +73,7 @@ export const Game = ({
           <Arrange />
           <React />
           <Choice />
-          <Player leaveGame={leaveGame} />
+          <Player />
           {gameResult && (
             <div className={styles.overlay}>
               <div className={styles.result}>

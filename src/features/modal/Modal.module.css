@@ -7,3 +7,11 @@
   background-color: rgb(0, 0, 0, 0.5);
   z-index: 2;
 }
+
+.lit {
+  box-shadow: 0 0 .125em 2px white;
+}
+
+.iconButton:disabled {
+  opacity: unset;
+}

@@ -72,15 +72,10 @@ export const Card = ({
         onClick={onClick}
       >
         {isCompact && (
-          <>
-            <div
-              className={styles.cardBottom}
-              style={{ backgroundImage: `url(${cardData.imgSrc})` }}
-            />
-            {count !== undefined && (
-              <div className={styles.remaining}>{count}</div>
-            )}
-          </>
+          <div className={styles.cardBottom} style={{ backgroundImage: `url(${cardData.imgSrc})` }} />)}
+
+        {count !== undefined && (zone !== "Hand" || count > 1) && (
+          <div className={styles.remaining}>{count}</div>
         )}
       </div>
     </div>

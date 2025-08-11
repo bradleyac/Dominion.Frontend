@@ -4,7 +4,7 @@ import { useAppSelector } from "../../app/hooks";
 import styles from "./History.module.css";
 import { ModalButton } from "../modal/Modal";
 
-export const HistoryButton = () => (<ModalButton text="History" title="View Game History">
+export const HistoryButton = () => (<ModalButton icon="History" title="View Game History">
   <History />
 </ModalButton>);
 

@@ -2,11 +2,21 @@ import { PropsWithChildren, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 
-export const ModalButton = ({ text, title, children }: PropsWithChildren<{ text: string, title: string }>) => {
+export type IconType = "Kingdom" | "History" | "Info" | "Leave" | "Undo" | "EndTurn" | "EndPhase" | "Coins" | "Actions" | "Buys" | "Cleanup";
+
+export const IconButton = ({ icon, title, lit, onClick, disabled = false }: { icon: IconType, title: string, lit: boolean, onClick: () => void, disabled?: boolean }) => {
+  return (
+    <button disabled={disabled} className={`${styles.iconButton} icon icon${icon} ${lit && styles.lit}`} title={title} onClick={onClick}>
+    </button>
+  );
+}
+
+export const ModalButton = ({ text, icon, title, children }: PropsWithChildren<{ text?: string, icon?: IconType, title: string }>) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <button title={title} onClick={() => setShowModal(true)}>{text}</button>
+      {icon ? <IconButton icon={icon} lit={false} title={title} onClick={() => setShowModal(true)} />
+        : <button title={title} onClick={() => setShowModal(true)}>{text ?? ""}</button>}
       <Modal showing={showModal} close={() => setShowModal(false)}>
         {children}
       </Modal>

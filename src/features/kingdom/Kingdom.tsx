@@ -7,7 +7,7 @@ import { Card } from "../card/Card";
 import styles from "./Kingdom.module.css";
 import { ModalButton } from "../modal/Modal";
 
-export const KingdomButton = () => (<ModalButton text="Kingdom" title="View Kingdom Cards">
+export const KingdomButton = () => (<ModalButton icon="Kingdom" title="View Kingdom Cards">
   <Kingdom />
 </ModalButton>);
 

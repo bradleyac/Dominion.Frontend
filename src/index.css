@@ -28,9 +28,8 @@ button {
   border-radius: 1em;
   box-shadow: 0 0 1px 1px #9e4c98, 0 0 var(--shadow-depth) 0px var(--shadow-color);
   padding: 0.5em;
-  font-size: var(--large-font-size);
+  font-size: var(--font-size);
   width: max-content;
-  align-self: center;
 
   &:disabled {
     opacity: .5;
@@ -74,16 +73,71 @@ body {
 
 /* css.gg icons */
 
+.lit {
+  box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
+}
+
+.lowLit {
+  box-shadow: 0 0 calc(var(--highlight-blur-radius)) 0px #0ddddd;
+}
+
 .icon {
   aspect-ratio: 1 / 1;
   width: var(--icon-width);
-  background-size: cover;
+  border: .25em solid transparent;
+  background-size: 75%;
+  background-position: center;
   background-repeat: no-repeat;
   background-color: var(--color);
+  border-radius: .25em;
 }
 
 button.icon:hover:not(:disabled) {
   background-color: rgb(from var(--color) calc(r + 15) calc(g + 15) calc(b + 15));
+}
+
+.iconEndPhase {
+  background-image: url("/icons/skip.svg");
+}
+
+.iconEndTurn {
+  background-image: url("/icons/fastForward.svg");
+}
+
+.iconUndo {
+  background-image: url("/icons/undo.svg");
+}
+
+.iconLeave {
+  background-image: url("/icons/door.svg");
+}
+
+.iconInfo {
+  background-image: url("/icons/users.svg");
+}
+
+.iconHistory {
+  background-image: url("/icons/scroll.svg");
+}
+
+.iconKingdom {
+  background-image: url("/icons/castle.svg");
+}
+
+.iconCleanup {
+  background-image: url("/icons/broom.svg");
+}
+
+.iconActions {
+  background-image: url("/icons/gear.svg");
+}
+
+.iconBuys {
+  background-image: url("/icons/buy.svg");
+}
+
+.iconCoins {
+  background-image: url("/icons/coins.svg");
 }
 
 .iconLogOut {

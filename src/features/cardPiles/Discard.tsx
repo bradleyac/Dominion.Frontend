@@ -14,7 +14,7 @@ export const DiscardPile = (): JSX.Element => {
         <Card
           cardId={lastCard.cardId}
           cardInstanceId={lastCard.instanceId}
-          isCompact={false}
+          isCompact={true}
           zone="Discard"
         />
       ) : (

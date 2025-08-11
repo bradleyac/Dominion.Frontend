@@ -1,18 +1,10 @@
 .status {
   grid-area: status;
   display: grid;
-  grid-template: "nextGame gameId turn player phase kingdom" 100% / 20em 30em 20em 30em 20em 20em;
+  grid-template: "nextGame" 100% / auto;
   gap: 1em;
   width: auto;
   position: absolute;
-}
-
-.status>div:not(.kingdom) {
-  background-color: rgb(61, 63, 64);
-  border-radius: 1em;
-  justify-content: center;
-  align-content: center;
-  /* padding: .5em; */
 }
 
 .nextGame {
@@ -23,38 +15,4 @@
 
 .lit {
   box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
-}
-
-.gameId {
-  grid-area: gameId;
-}
-
-.turn {
-  grid-area: turn;
-}
-
-.turn::before {
-  content: "Turn ";
-}
-
-.player {
-  grid-area: player;
-}
-
-.player::after {
-  content: "'s Turn";
-}
-
-.phase {
-  grid-area: phase;
-}
-
-.phase::after {
-  content: " Phase";
-}
-
-.kingdom {
-  grid-area: kingdom;
-  justify-self: start;
-  align-self: center;
 }

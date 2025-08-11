@@ -3,7 +3,7 @@ import { selectActivePlayer, selectCurrentPlayer, selectGameDisplayName, selectM
 import { ModalButton } from "../modal/Modal";
 import styles from "./GameInfo.module.css";
 
-export const GameInfoButton = () => (<ModalButton text="Info" title="View Game Info">
+export const GameInfoButton = () => (<ModalButton icon="Info" title="View Game Info">
   <GameInfo />
 </ModalButton>);
 
