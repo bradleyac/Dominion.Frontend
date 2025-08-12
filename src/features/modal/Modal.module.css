@@ -15,3 +15,11 @@
 .iconButton:disabled {
   opacity: unset;
 }
+
+.toggled {
+  transform: rotate(-90deg);
+}
+
+.toggleable {
+  transition: transform .2s linear;
+}

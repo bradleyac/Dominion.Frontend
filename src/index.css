@@ -96,6 +96,10 @@ button.icon:hover:not(:disabled) {
   background-color: rgb(from var(--color) calc(r + 15) calc(g + 15) calc(b + 15));
 }
 
+.iconEllipsis {
+  background-image: url("/icons/ellipsis.svg");
+}
+
 .iconEndPhase {
   background-image: url("/icons/skip.svg");
 }

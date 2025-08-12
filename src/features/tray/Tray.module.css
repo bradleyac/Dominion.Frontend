@@ -1,0 +1,21 @@
+.tray {
+  gap: .5em;
+  transition: left .2s linear;
+  position: relative;
+}
+
+.open {
+  left: 0;
+}
+
+.closed {
+  left: 200%;
+}
+
+.trayContainer {
+  padding: .5em;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}

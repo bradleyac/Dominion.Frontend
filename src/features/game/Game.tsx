@@ -22,6 +22,7 @@ import styles from "./Game.module.css";
 import { KingdomButton } from "../kingdom/Kingdom";
 import { IconButton } from "../modal/Modal";
 import { isTouchDevice } from "../../app/utils";
+import { Tray } from "../tray/Tray";
 
 export const Game = ({
   gameId,
@@ -59,12 +60,18 @@ export const Game = ({
         <GameContext value={{ gameId }}>
           {/* <Status hasNextGame={hasNextGame} nextGame={nextGame} /> */}
           <Board />
-          <div className={styles.buttons}>
-            <GameInfoButton />
-            <KingdomButton />
-            <HistoryButton />
-            <IconButton icon="Leave" title="Leave Game" onClick={() => leaveGame()} lit={false} />
+
+          <div className={styles.tray}>
+            <Tray>
+              <div className={styles.buttons}>
+                <GameInfoButton />
+                <KingdomButton />
+                <HistoryButton />
+                <IconButton icon="Leave" title="Leave Game" onClick={() => leaveGame()} lit={false} />
+              </div>
+            </Tray>
           </div>
+
           <PlayArea />
           <Reveal />
           <PrivateReveal />
@@ -84,7 +91,7 @@ export const Game = ({
           )}
         </GameContext>
       </DndProvider>
-    </div>
+    </div >
   );
 };
 

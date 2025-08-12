@@ -43,11 +43,17 @@
 }
 
 .buttons {
+  margin-top: .5em;
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
-  position: absolute;
-  right: 0;
-  margin: .5em;
   gap: .5em;
+}
+
+.tray {
+  position: absolute;
+  padding: .5em;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 }
