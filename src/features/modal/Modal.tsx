@@ -2,11 +2,13 @@ import { PropsWithChildren, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 
-export type IconType = "Kingdom" | "History" | "Info" | "Leave" | "Undo" | "EndTurn" | "EndPhase" | "Coins" | "Actions" | "Buys" | "Cleanup" | "Ellipsis";
+export type IconType = "Kingdom" | "History" | "Info" | "Leave" | "Undo" | "EndTurn" | "EndPhase" | "Coins" | "Actions" | "Buys" | "Cleanup" | "Ellipsis" | "Triangle";
 
-export const ToggleableIconButton = ({ icon, title, toggled, onClick }: { icon: IconType, title: string, toggled: boolean, onClick: () => void }) => {
+export const ToggleableIconButton = ({ icon, title, toggled, onClick, animation }: { icon: IconType, title: string, toggled: boolean, onClick: () => void, animation: "flip" | "rotate" }) => {
+  const rotateClass = animation === "flip" ? styles.flip : styles.rotate;
+  const iconClass = `${styles.iconButton} icon icon${icon} ${styles.toggleable} ${toggled ? styles.toggled : styles.untoggled} ${rotateClass}`;
   return (
-    <button className={`${styles.iconButton} icon icon${icon} ${styles.toggleable} ${toggled && styles.toggled}`} title={title} onClick={onClick}>
+    <button className={iconClass} title={title} onClick={onClick}>
     </button>
   );
 }

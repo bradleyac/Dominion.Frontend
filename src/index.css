@@ -41,21 +41,30 @@ button {
 }
 
 body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+
+#root {
+  width: 100%;
+  height: 100%;
+  padding: .25em;
   text-align: center;
   --card-normal-width: 4.25em;
   --highlight-radius: 0.1em;
-  --highlight-blur-radius: 0.2em;
+  --highlight-blur-radius: 0.15em;
   height: 100svh;
   width: 100svw;
   display: flex;
   overflow: hidden;
-  --font-size: calc(4svmin);
-  --large-font-size: calc(1.3em);
   font-size: var(--font-size);
   --background-color: #1a1918;
   background-color: var(--background-color);
-  --color: rgb(148, 131, 151);
-  color: var(--color);
+  --icon-color: rgb(148, 131, 151);
+  color: var(--icon-color);
   --icon-width: 1.5em;
   --shadow-depth: .5em;
   --shadow-color: rgb(10, 10, 10);
@@ -65,6 +74,12 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-size: calc(3.75svh);
+
+  @media (max-aspect-ratio: 1.31) {
+    --font-size: calc(3.75svw / 1.31);
+  }
 }
 
 ::selection {
@@ -88,12 +103,16 @@ body {
   background-size: 75%;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: var(--color);
+  background-color: var(--icon-color);
   border-radius: .25em;
 }
 
 button.icon:hover:not(:disabled) {
-  background-color: rgb(from var(--color) calc(r + 15) calc(g + 15) calc(b + 15));
+  background-color: rgb(from var(--icon-color) calc(r + 15) calc(g + 15) calc(b + 15));
+}
+
+.iconTriangle {
+  background-image: url("/icons/triangle.svg");
 }
 
 .iconEllipsis {

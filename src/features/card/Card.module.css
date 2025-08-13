@@ -62,14 +62,15 @@ div[draggable="true"] .dimmed {
   opacity: unset;
 }
 
-.cardFrame:not(:hover) .card.compact {
+.cardFrame .card.compact {
   aspect-ratio: 1 / 1;
+  width: var(--card-normal-width);
   grid-template:
     "card-front" 85%
     "card-bottom" 15% / 1fr;
 }
 
-.cardFrame:hover .card.compact {
+/* .cardFrame:hover .card.compact {
   aspect-ratio: 59 / 93;
   position: absolute;
   top: 0px;
@@ -87,7 +88,7 @@ div[draggable="true"] .dimmed {
 
 .cardFrame:hover .card.compact>* {
   display: none;
-}
+} */
 
 .cardFront {
   background-size: cover;
@@ -120,7 +121,7 @@ div[draggable="true"] .dimmed {
   justify-self: end;
   position: relative;
   z-index: 0.5;
-  left: 0.25em;
-  top: 0.25em;
+  /* left: 0.25em;
+  top: 0.25em; */
   box-shadow: 0 0 1px 1px black;
 }

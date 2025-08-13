@@ -1,6 +1,5 @@
 .playArea {
   font-size: .6em;
-  grid-area: play-area;
   display: grid;
   grid-template: "title" auto "in-play" 1fr / 1fr;
   width: 100%;

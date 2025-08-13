@@ -1,0 +1,32 @@
+.resourceIcon {
+  width: min-content;
+  opacity: .5;
+  display: flex;
+  flex-direction: row;
+  gap: .25em;
+}
+
+.resources {
+  grid-area: resources;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-auto-flow: column;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-items: center;
+  align-items: start;
+  gap: .5em;
+}
+
+.resources.active>.resourceIcon {
+  opacity: unset;
+}
+
+.resourceCounts {
+  min-width: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: .25em;
+}

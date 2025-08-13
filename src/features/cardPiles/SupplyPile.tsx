@@ -6,9 +6,11 @@ import styles from "./SupplyPile.module.css";
 export const SupplyPile = ({
   cardPile,
   gridArea,
+  isCompact = true,
 }: {
   cardPile: CardPileState;
   gridArea: string;
+  isCompact?: boolean;
 }): JSX.Element => {
   return (
     <div
@@ -18,7 +20,7 @@ export const SupplyPile = ({
     >
       <Card
         cardId={cardPile.cardId}
-        isCompact={true}
+        isCompact={isCompact}
         count={cardPile.count}
         zone="Supply"
       />

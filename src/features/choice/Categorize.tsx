@@ -79,6 +79,7 @@ export const CategorizeImpl = ({
               key={cardInstance.instanceId}
               cardInstance={cardInstance}
               zone="PrivateReveal"
+              isCompact={true}
             />
           ))}
         </CategoryZone>
@@ -107,7 +108,7 @@ export const CategoryZone = ({
 
   return drop(
     <div className={styles.zone}>
-      <h2>{category}</h2>
+      <div>{category}</div>
       <div className={styles.cards}>{children}</div>
     </div>,
   );

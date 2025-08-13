@@ -1,12 +1,12 @@
 .arrange {
-  grid-area: play-area;
   justify-content: center;
   align-content: center;
   justify-items: center;
   width: 100%;
   height: 100%;
-  background-color: var(--background-color);
   z-index: 1;
+  position: absolute;
+  overflow: hidden;
 }
 
 .cards {
@@ -19,9 +19,7 @@
   position: relative;
   box-shadow: 0 0 1px 1px black;
   border-radius: 0.5em;
-  background-color: rgb(
-    from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20)
-  );
+  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
   padding: 1em;
 }
 

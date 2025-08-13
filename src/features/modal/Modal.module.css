@@ -9,15 +9,24 @@
 }
 
 .lit {
-  box-shadow: 0 0 .125em 2px white;
+  box-shadow: 0px 0px 0 .125em rgb(145, 184, 255);
 }
 
 .iconButton:disabled {
   opacity: unset;
+  background-color: rgb(from var(--icon-color) r g b / .5);
 }
 
-.toggled {
+.iconButton {
+  height: fit-content;
+}
+
+.rotate.toggled {
   transform: rotate(-90deg);
+}
+
+.flip.toggled {
+  transform: rotateY(180deg);
 }
 
 .toggleable {

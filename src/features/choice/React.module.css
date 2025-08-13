@@ -1,5 +1,4 @@
 .react {
-  grid-area: play-area;
   justify-content: center;
   align-content: center;
   justify-items: center;
@@ -7,6 +6,9 @@
   height: 100%;
   background-color: var(--background-color);
   z-index: 1;
+  position: absolute;
+  overflow: hidden;
+  font-size: .8em;
 }
 
 .cards {

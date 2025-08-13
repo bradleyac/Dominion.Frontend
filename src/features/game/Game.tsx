@@ -23,6 +23,7 @@ import { KingdomButton } from "../kingdom/Kingdom";
 import { IconButton } from "../modal/Modal";
 import { isTouchDevice } from "../../app/utils";
 import { Tray } from "../tray/Tray";
+import { Resources } from "../resources/Resources";
 
 export const Game = ({
   gameId,
@@ -39,6 +40,13 @@ export const Game = ({
   const connector = useContext(SignalrContext);
   const gameResult = useAppSelector(selectGameResult);
   const loadedGameId = useAppSelector(selectGameId);
+
+  useEffect(() => {
+    const root = document.getElementById("root");
+    if (root && root.requestFullscreen) {
+      root?.requestFullscreen();
+    }
+  }, [gameId])
 
   useEffect(() => {
     connector?.retrieveGameState(gameId).then((state) => {
@@ -65,20 +73,25 @@ export const Game = ({
             <Tray>
               <div className={styles.buttons}>
                 <GameInfoButton />
-                <KingdomButton />
                 <HistoryButton />
                 <IconButton icon="Leave" title="Leave Game" onClick={() => leaveGame()} lit={false} />
               </div>
             </Tray>
           </div>
 
-          <PlayArea />
-          <Reveal />
-          <PrivateReveal />
-          <Categorize />
-          <Arrange />
-          <React />
-          <Choice />
+          <div className={styles.playArea}>
+            <PlayArea />
+            <Reveal />
+            <PrivateReveal />
+            <Categorize />
+            <Arrange />
+            <React />
+            <Choice />
+          </div>
+
+          <div className={styles.resources}>
+            <Resources />
+          </div>
           <Player />
           {gameResult && (
             <div className={styles.overlay}>

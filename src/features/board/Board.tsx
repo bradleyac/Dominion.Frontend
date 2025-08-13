@@ -10,7 +10,6 @@ export const Board = (): JSX.Element => {
   const kingdomCards = useAppSelector(selectKingdomCards)!;
   const defaults = kingdomCards.filter(kc => gridAreaMap[kc.cardId] !== undefined);
   const nonDefaults = kingdomCards.filter(kc => gridAreaMap[kc.cardId] === undefined);
-  const [showModal, setShowModal] = useState(false);
   const defaultPiles = (<>{defaults.map((cardPile: CardPileState) => (
     <SupplyPile
       cardPile={cardPile}
@@ -27,21 +26,17 @@ export const Board = (): JSX.Element => {
       cardPile={cardPile}
       key={cardPile.cardId}
       gridArea={`pile${i++}`}
+      isCompact={false}
     />
   ))}
   </>);
 
   return (
     <div className={styles.board}>
-      <div className={styles.defaults} onClick={() => setShowModal(true)}>
+      <div className={styles.defaults}>
         {defaultPiles}
       </div>
       {nonDefaultPiles}
-      <Modal showing={showModal} close={() => setShowModal(false)}>
-        <div className={styles.overlayDefaults}>
-          {defaultPiles}
-        </div>
-      </Modal>
     </div>
   );
 };

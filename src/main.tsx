@@ -32,7 +32,7 @@ const authConfig: TAuthConfig = {
   decodeToken: false,
   autoLogin: false,
   storage: "session",
-
+  refreshTokenExpiresIn: 86400, // 24 hours
   onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn(),
 };
 

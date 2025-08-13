@@ -6,11 +6,11 @@
   justify-content: center;
 }
 
-.supplyPile > .card {
+.supplyPile>.card {
   grid-area: card;
 }
 
-.supplyPile:hover > .card.compact {
+/* .supplyPile:hover > .card.compact {
   aspect-ratio: 59 / 93;
   position: absolute;
   transform: scale(1.5);
@@ -27,4 +27,4 @@
   background-repeat: no-repeat;
   background-position-y: 96%;
   border-radius: 0.5em;
-}
+} */

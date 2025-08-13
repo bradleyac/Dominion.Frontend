@@ -74,7 +74,7 @@ export const Card = ({
         {isCompact && (
           <div className={styles.cardBottom} style={{ backgroundImage: `url(${cardData.imgSrc})` }} />)}
 
-        {count !== undefined && (zone !== "Hand" || count > 1) && (
+        {count !== undefined && (zone === "Supply" || count > 1) && (
           <div className={styles.remaining}>{count}</div>
         )}
       </div>
@@ -85,9 +85,11 @@ export const Card = ({
 export const DraggableCard = ({
   cardInstance,
   zone,
+  isCompact = false,
 }: {
   cardInstance: CardInstance;
   zone: CardZone;
+  isCompact?: boolean;
 }): JSX.Element | null => {
   const [, drag] = useDrag(() => ({
     type: ItemTypes.CARD,
@@ -99,7 +101,7 @@ export const DraggableCard = ({
       <Card
         cardId={cardInstance.cardId}
         cardInstanceId={cardInstance.instanceId}
-        isCompact={false}
+        isCompact={isCompact}
         zone={zone}
       />
     </div>,

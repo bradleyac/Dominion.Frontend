@@ -1,19 +1,35 @@
 .tray {
   gap: .5em;
-  transition: left .2s linear;
+  transition: left .2s linear, right .2s linear;
   position: relative;
 }
 
-.open {
+.arrowTray {
+  gap: .5em;
+  transition: left .2s linear, right .2s linear;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+.openRight {
   left: 0;
 }
 
-.closed {
+.closedRight {
   left: 200%;
 }
 
+.openLeft {
+  right: 0;
+}
+
+.closedLeft {
+  right: 35%;
+}
+
 .trayContainer {
-  padding: .5em;
   overflow: hidden;
   display: flex;
   flex-direction: column;

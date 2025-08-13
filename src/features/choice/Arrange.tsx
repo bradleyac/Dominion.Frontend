@@ -58,6 +58,7 @@ export const ArrangeImpl = ({
               key={cardInstance.instanceId}
               cardInstance={cardInstance}
               zone="PrivateReveal"
+              isCompact={true}
             />
           </IndexedZone>
         ))}
