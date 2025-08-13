@@ -33,7 +33,7 @@ export const Choice = (): JSX.Element => {
     if (playerId === currentPlayer && activePlayer !== currentPlayer) {
       return (
         <div className={styles.choice}>
-          <div className={styles.prompt}>Waiting on {activePlayer}</div>
+          <div className={styles.prompt}>Waiting for {activePlayer ?? "joiners"}</div>
         </div>
       );
     } else {
