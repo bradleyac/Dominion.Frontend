@@ -9,7 +9,6 @@
 }
 
 .card {
-  min-height: 100%;
   display: grid;
   grid-template: "card-front" 100% "card-bottom" 0% / 1fr;
   align-items: center;
