@@ -69,31 +69,6 @@ div[draggable="true"] .dimmed {
     "card-bottom" 15% / 1fr;
 }
 
-/* .cardFrame:hover .card.compact {
-  aspect-ratio: 59 / 93;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  transform: scale(1.2);
-  transform-origin: left top;
-  transition: transform 0.2s ease-in-out;
-  z-index: 100;
-}
-
-.cardFrame:hover .card:not(.compact, .dimmed) {
-  transform: scale(1.05);
-  transition: transform 0.25s ease;
-}
-
-.cardFrame:hover .card.compact>* {
-  display: none;
-} */
-
-.cardFront {
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .cardBottom {
   grid-area: card-bottom;
   width: 100%;
@@ -101,9 +76,14 @@ div[draggable="true"] .dimmed {
   align-self: end;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position-y: 96%;
   border-radius: 0.25em;
+  background-position-y: 96%;
   box-shadow: inherit;
+}
+
+.cardFront {
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .remaining {

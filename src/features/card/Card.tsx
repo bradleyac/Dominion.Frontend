@@ -20,6 +20,7 @@ export const Card = ({
   zone,
   count,
   selectable = true,
+  compactStyle = "showBottom"
 }: {
   cardId: number;
   cardInstanceId?: string;
@@ -27,6 +28,7 @@ export const Card = ({
   zone: CardZone;
   count?: number;
   selectable?: boolean;
+  compactStyle?: "showBottom" | "hideBottom";
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const signalrConnector = useContext(SignalrContext);
@@ -64,10 +66,12 @@ export const Card = ({
     }
   }
 
+  const comnpactClass = isCompact ? styles.compact : "";
+
   return (
     <div className={`${styles.cardFrame}`}>
       <div
-        className={`${styles.card} ${styles.cardFront} ${highlightClass} ${isCompact ? styles.compact : ""}`}
+        className={`${styles.card} ${styles.cardFront} ${highlightClass} ${comnpactClass}`}
         style={{ backgroundImage: `url(${cardData.imgSrc})` }}
         onClick={onClick}
       >

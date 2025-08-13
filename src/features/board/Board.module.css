@@ -7,7 +7,7 @@
     ) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width
     ) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
 
-  gap: .25em;
+  gap: .35em;
   justify-self: start;
   padding-top: .25em;
 }
@@ -19,5 +19,5 @@
   grid-area: defaults;
   display: grid;
   grid-template: "estate duchy province" min-content "copper silver gold" min-content ". . curse" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
-  gap: .25em;
+  gap: .35em;
 }

@@ -22,3 +22,12 @@ export const groupCards = (cards: CardInstance[], selectedCards: (string | numbe
 
   return Object.values(groupedCards).flatMap((group) => [group.unselected, group.selected]).filter(cards => cards.length > 0);
 }
+
+export const groupAdjacentCards = (cards: CardInstance[]): CardInstance[][] => cards.reduce((groups, card) => {
+  if (groups.at(-1)?.[0].cardId === card.cardId) {
+    groups[groups.length - 1].push(card);
+    return groups;
+  }
+  groups.push([card]);
+  return groups;
+}, [] as CardInstance[][]);

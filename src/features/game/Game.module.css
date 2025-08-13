@@ -54,6 +54,7 @@
 }
 
 .playArea {
+  font-size: .75em;
   grid-area: play-area;
   display: grid;
   height: 100%;

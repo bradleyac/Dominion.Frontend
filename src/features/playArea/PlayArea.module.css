@@ -1,7 +1,6 @@
 .playArea {
-  font-size: .6em;
   display: grid;
-  grid-template: "title" auto "in-play" 1fr / 1fr;
+  grid-template: "in-play" 1fr / 1fr;
   width: 100%;
   height: 100%;
   gap: 1em;
@@ -16,13 +15,13 @@
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: 1em;
-  margin-right: -4em;
+  gap: .25em;
+  margin-right: 0em;
 }
 
-.inPlay>*:nth-child(n - 1) * {
+.inPlay>*:nth-child(n - 1)>* {
   opacity: unset;
-  margin-left: -4em;
+  margin-left: 0em;
 
   &:hover {
     z-index: 1;

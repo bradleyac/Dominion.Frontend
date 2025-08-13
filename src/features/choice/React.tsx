@@ -28,7 +28,7 @@ export const ReactImpl = ({
             className={styles.effect}
             key={effectReference.cardInstance.instanceId}
           >
-            <h2>{effectReference.prompt}</h2>
+            <div>{effectReference.prompt}</div>
             <Card
               cardId={effectReference.cardInstance.cardId}
               cardInstanceId={effectReference.cardInstance.instanceId}

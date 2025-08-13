@@ -38,12 +38,13 @@ export const Player = (): JSX.Element => {
   const hand = useAppSelector(selectHand);
   const myName = useAppSelector(selectPlayerId);
   const activePlayer = useAppSelector(selectActivePlayer);
+  const isActive = activePlayer === myName;
   return (
     <div
-      className={`${styles.hud} ${activePlayer === myName ? styles.hudActive : ""}`}
+      className={styles.hud}
     >
-      <div className={styles.playerName}>{myName}</div>
+      <div className={`${styles.playerName} ${isActive && styles.active}`}>{myName}</div>
       <Hand hand={hand} />
-    </div>
+    </div >
   );
 };
