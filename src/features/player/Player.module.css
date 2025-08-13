@@ -11,21 +11,24 @@
 }
 
 .active {
-  box-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
+  box-shadow: var(--indicator-shadow);
 }
 
 .playerName {
-  font-size: .5em;
-  /* display: none; */
   position: absolute;
-  left: .5em;
-  top: -2em;
+  font-size: .5em;
   z-index: 1;
-  padding: 0.5em;
+  padding: 0.25em;
   border-radius: .25em;
+  align-self: start;
+  justify-self: start;
+  z-index: 2;
+  top: -2em;
+  left: .25em;
 }
 
 .hand {
+  min-height: calc(93 / 59 * var(--card-normal-width) + 1em);
   font-size: .8em;
   grid-area: hand;
   display: grid;

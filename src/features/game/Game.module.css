@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template: "board board" min-content "icons play-area" 1fr "icons player" 1fr / auto 1fr;
+  grid-template: "board board" min-content "icons play-area" 1fr "icons player" max-content / auto 1fr;
   align-items: start;
   justify-content: center;
   justify-items: center;

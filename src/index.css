@@ -75,10 +75,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --indicator-shadow: calc(-1 * var(--highlight-radius)) calc(1 * var(--highlight-radius)) var(--highlight-blur-radius) var(--highlight-radius) var(--background-color),
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
+
   --font-size: calc(3.75svh);
 
-  @media (max-aspect-ratio: 1.31) {
-    --font-size: calc(3.75svw / 1.31);
+  @media (max-aspect-ratio: 1.35) {
+    --font-size: calc(3.75svw / 1.35);
   }
 }
 
