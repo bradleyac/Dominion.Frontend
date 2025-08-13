@@ -20,7 +20,6 @@ export const Card = ({
   zone,
   count,
   selectable = true,
-  compactStyle = "showBottom"
 }: {
   cardId: number;
   cardInstanceId?: string;
@@ -28,7 +27,6 @@ export const Card = ({
   zone: CardZone;
   count?: number;
   selectable?: boolean;
-  compactStyle?: "showBottom" | "hideBottom";
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const signalrConnector = useContext(SignalrContext);

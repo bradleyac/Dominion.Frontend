@@ -20,7 +20,6 @@ export const PlayArea = (): JSX.Element => {
       cardInstanceId={cards[0].instanceId}
       key={cards[0].instanceId}
       isCompact={true}
-      compactStyle="hideBottom"
       zone="Play"
       count={cards.length}
     />
