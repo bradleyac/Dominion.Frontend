@@ -1,10 +1,9 @@
-import { JSX, useState } from "react";
+import { JSX } from "react";
 import { SupplyPile } from "../cardPiles/SupplyPile";
 import styles from "./Board.module.css";
 import { CardPileState, selectKingdomCards } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import { gridAreaMap } from "../card/cards";
-import { Modal } from "../modal/Modal";
 
 export const Board = (): JSX.Element => {
   const kingdomCards = useAppSelector(selectKingdomCards)!;

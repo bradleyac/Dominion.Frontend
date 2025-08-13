@@ -19,7 +19,6 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import { GameInfoButton } from "../gameInfo/GameInfo";
 
 import styles from "./Game.module.css";
-import { KingdomButton } from "../kingdom/Kingdom";
 import { IconButton } from "../modal/Modal";
 import { isTouchDevice } from "../../app/utils";
 import { Tray } from "../tray/Tray";

@@ -1,7 +1,6 @@
 import { JSX } from "react";
 import styles from "./Reveal.module.css";
 import {
-  CardInstance,
   PlayerSelectChoice,
   selectActiveChoice,
   selectPrivateReveal,
