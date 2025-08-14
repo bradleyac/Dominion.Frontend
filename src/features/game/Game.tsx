@@ -23,6 +23,7 @@ import { IconButton } from "../modal/Modal";
 import { isTouchDevice } from "../../app/utils";
 import { Tray } from "../tray/Tray";
 import { Resources } from "../resources/Resources";
+import { GameControls } from "../gameControls/GameControls";
 
 export const Game = ({
   gameId,
@@ -69,6 +70,7 @@ export const Game = ({
           <Board />
 
           <div className={styles.tray}>
+            <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />
             <Tray>
               <div className={styles.buttons}>
                 <GameInfoButton />

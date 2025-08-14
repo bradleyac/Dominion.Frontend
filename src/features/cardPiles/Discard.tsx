@@ -3,6 +3,7 @@ import { Card } from "../card/Card";
 import { selectDiscard } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./Discard.module.css";
+import { ReactiveCount } from "../reactiveCount/ReactiveCount";
 
 export const DiscardPile = (): JSX.Element => {
   const discard = useAppSelector(selectDiscard)!;
@@ -20,7 +21,7 @@ export const DiscardPile = (): JSX.Element => {
       ) : (
         <div className={`${styles.card} ${styles.white}`}></div>
       )}
-      <div className={styles.remaining}>{discard.length}</div>
+      <div className={styles.remaining}><ReactiveCount count={discard.length} /></div>
     </div>
   );
 };

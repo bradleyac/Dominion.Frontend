@@ -21,7 +21,6 @@
   flex-direction: row;
   gap: 1em;
   position: relative;
-  /* border-radius: 0.5em; */
   padding: 0.5em 1em 1em 1em;
 }
 

@@ -201,7 +201,7 @@ const GameListing = ({
       className={`${styles.gameListing} ${game.activePlayerId === playerId && styles.active}`}
       onClick={joinGame}
     >
-      <h2 className={styles.name}>{game.displayName}</h2>
+      <div className={styles.name}>{game.displayName}</div>
       <div className={styles.players}>
         {game.players.map((player) => (
           <PlayerEntry key={player}>
@@ -209,7 +209,7 @@ const GameListing = ({
           </PlayerEntry>
         ))}
       </div>
-      {inGame && <button title="Abandon Game" className={`${styles.abandon} icon iconClose`} onClick={abandonGame}></button>}
+      {inGame && <button title="Abandon Game" className={`${styles.abandon} icon iconClose`} onClick={e => { e.stopPropagation(); abandonGame(); }}></button>}
     </div>
   );
 };

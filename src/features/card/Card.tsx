@@ -12,6 +12,7 @@ import { SignalrContext } from "../../app/signalrContext";
 import { GameContext } from "../game/gameContext";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../dnd/types";
+import { ReactiveCount } from "../reactiveCount/ReactiveCount";
 
 export const Card = ({
   cardId,
@@ -77,7 +78,7 @@ export const Card = ({
           <div className={styles.cardBottom} style={{ backgroundImage: `url(${cardData.imgSrc})` }} />)}
 
         {count !== undefined && (zone === "Supply" || count > 1) && (
-          <div className={styles.remaining}>{count}</div>
+          <div className={styles.remaining}><ReactiveCount count={count} /></div>
         )}
       </div>
     </div>

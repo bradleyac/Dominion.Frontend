@@ -16,18 +16,11 @@
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
   gap: .25em;
-  margin-right: 0em;
+  /* margin-right: -4em; */
 }
 
-.inPlay>*:nth-child(n - 1)>* {
-  opacity: unset;
-  margin-left: 0em;
-
-  &:hover {
-    z-index: 1;
-    transform: scale(1.05);
-    transition: transform 0.25s ease;
-  }
+.inPlay.stacked>*:nth-child(n - 1)>* {
+  margin-left: -3em;
 }
 
 .title {

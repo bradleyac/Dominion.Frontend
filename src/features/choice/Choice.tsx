@@ -1,7 +1,8 @@
-import { JSX, useContext } from "react";
+import { JSX, useContext, useEffect } from "react";
 import { GameContext } from "../game/gameContext";
 import { SignalrContext } from "../../app/signalrContext";
 import {
+  PlayerReactChoice,
   PlayerSelectChoice,
   selectActiveChoice,
   selectActivePlayer,
@@ -29,6 +30,28 @@ export const Choice = (): JSX.Element => {
   const canObscureHand = activeChoice?.$type !== "select" || (activeChoice as PlayerSelectChoice)?.filter.from !== "Hand";
   const choiceClass = canObscureHand ? styles.choice : `${styles.choice} ${styles.noObscureHand}`;
 
+  useEffect(() => {
+    if (activeChoice?.$type === "select") {
+      const selectChoice = activeChoice as PlayerSelectChoice;
+      if (selectChoice.filter.maxCount === 1 && filterSatisfied) {
+        signalrConnector?.chooseCards(
+          gameId,
+          activeChoice.id,
+          selectedCards,
+        )
+      }
+    }
+    else if (activeChoice?.$type === "react") {
+      if (filterSatisfied) {
+        signalrConnector?.chooseCards(
+          gameId,
+          activeChoice.id,
+          selectedCards,
+        )
+      }
+    }
+  }, [activeChoice, filterSatisfied, gameId, selectedCards])
+
   if (!activeChoice) {
     if (playerId === currentPlayer && activePlayer !== currentPlayer) {
       return (
@@ -40,6 +63,7 @@ export const Choice = (): JSX.Element => {
       return <></>;
     }
   }
+
 
   return (
     <div className={choiceClass}>

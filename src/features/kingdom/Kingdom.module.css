@@ -9,6 +9,8 @@
   display: grid;
 
   grid-template-rows: auto 1fr;
+  z-index: 9001;
+  position: absolute;
 }
 
 .cards {

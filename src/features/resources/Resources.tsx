@@ -1,4 +1,4 @@
-import { JSX, useContext } from "react";
+import { JSX, Ref, RefObject, useContext, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { SignalrContext } from "../../app/signalrContext";
 import { GameContext } from "../game/gameContext";
@@ -9,6 +9,7 @@ import { KingdomButton } from "../kingdom/Kingdom";
 import { IconButton, IconType } from "../modal/Modal";
 
 import styles from "./Resources.module.css";
+import { ReactiveCount } from "../reactiveCount/ReactiveCount";
 
 export const Resources = () => {
   const phase = useAppSelector(selectPhase);
@@ -18,6 +19,7 @@ export const Resources = () => {
   const signalrConnector = useContext(SignalrContext);
   const { coffers, villagers, coins, actions, buys } = useAppSelector(selectResources);
   const { gameId } = useContext(GameContext);
+
   return (
     <div className={`${styles.resources} ${isCurrentPlayer && styles.active}`}>
       <Deck />
@@ -38,7 +40,7 @@ const ResourceIcon = ({ type, lit, disabled = false, counts = [], onClick = () =
       <IconButton icon={type} lit={lit} title="End Action Phase" onClick={onClick} disabled={disabled} />
       <div className={styles.resourceCounts}>
         {counts.map((count, index) => (
-          <span key={index} className={styles.resourceCount}>{count}</span>
+          <ReactiveCount key={index} count={count} />
         ))}
       </div>
     </div>

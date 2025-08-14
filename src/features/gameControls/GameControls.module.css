@@ -1,10 +1,8 @@
-.status {
-  grid-area: status;
+.gameControls {
   display: grid;
   grid-template: "nextGame" 100% / auto;
   gap: 1em;
   width: auto;
-  position: absolute;
 }
 
 .nextGame {

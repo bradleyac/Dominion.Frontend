@@ -17,8 +17,7 @@ export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
   const expandedGroups = groupCards(hand, selectedCards);
 
   const cards = expandedGroups.map(cards => {
-    console.log(cards);
-    const topCard = cards[0];
+    const topCard = cards.at(-1)!;
     return (
       <Card
         cardId={topCard.cardId}

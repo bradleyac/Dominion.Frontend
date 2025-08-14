@@ -1,12 +1,13 @@
 import { JSX } from "react";
-import styles from "./Status.module.css";
+import styles from "./GameControls.module.css";
 import {
   selectActivePlayer,
   selectMyPlayerId,
 } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
+import { IconButton } from "../modal/Modal";
 
-export const Status = ({
+export const GameControls = ({
   nextGame,
   hasNextGame,
 }: {
@@ -17,14 +18,9 @@ export const Status = ({
   const myPlayerId = useAppSelector(selectMyPlayerId);
 
   return (
-    <div className={styles.status}>
+    <div className={styles.gameControls}>
       {hasNextGame && (
-        <button
-          className={`${styles.nextGame} ${myPlayerId !== activePlayerId && styles.lit}`}
-          onClick={(_) => nextGame()}
-        >
-          Next Game
-        </button>
+        <IconButton icon="Triangle" title="Next Game" lit={myPlayerId !== activePlayerId} onClick={() => nextGame()} />
       )}
     </div>
   );

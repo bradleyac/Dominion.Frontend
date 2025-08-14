@@ -33,7 +33,7 @@ export const ReactImpl = ({
               cardId={effectReference.cardInstance.cardId}
               cardInstanceId={effectReference.cardInstance.instanceId}
               zone="TempSelect"
-              isCompact={true}
+              isCompact={false}
             />
           </div>
         ))}
