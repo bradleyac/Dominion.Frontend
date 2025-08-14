@@ -2,7 +2,7 @@
   text-align: start;
   width: 22em;
   height: calc(100% - 2em);
-  max-height: 45svh;
+  max-height: 45dvh;
   display: grid;
   grid-auto-flow: row;
   align-content: start;
