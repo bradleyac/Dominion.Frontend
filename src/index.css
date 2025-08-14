@@ -49,15 +49,11 @@ body {
 
 
 #root {
-  width: 100%;
-  height: 100%;
   padding: .25em;
   text-align: center;
   --card-normal-width: 4.25em;
   --highlight-radius: 0.1em;
   --highlight-blur-radius: 0.15em;
-  height: 100svh;
-  width: 100svw;
   display: flex;
   overflow: hidden;
   font-size: var(--font-size);
@@ -78,18 +74,14 @@ body {
   --indicator-shadow:
     0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
 
-  --font-size: calc(3.6svh);
 
-  @media (display-mode: fullscreen) {
-    --font-size: calc(3.6lvh);
-  }
+  height: 100dvh;
+  width: 100dvw;
+
+  --font-size: calc(3.6dvh);
 
   @media (max-aspect-ratio: 1.28) {
-    --font-size: calc(3.6svw / 1.28);
-
-    @media (display-mode: fullscreen) {
-      --font-size: calc(3.6lvw / 1.28);
-    }
+    --font-size: calc(3.6dvw / 1.28);
   }
 }
 
