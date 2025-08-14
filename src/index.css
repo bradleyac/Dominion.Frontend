@@ -80,8 +80,16 @@ body {
 
   --font-size: calc(3.6svh);
 
+  @media (display-mode: fullscreen) {
+    --font-size: calc(3.6lvh);
+  }
+
   @media (max-aspect-ratio: 1.28) {
     --font-size: calc(3.6svw / 1.28);
+
+    @media (display-mode: fullscreen) {
+      --font-size: calc(3.6lvw / 1.28);
+    }
   }
 }
 
