@@ -2,7 +2,6 @@ import { JSX, useContext, useEffect } from "react";
 import { GameContext } from "../game/gameContext";
 import { SignalrContext } from "../../app/signalrContext";
 import {
-  PlayerReactChoice,
   PlayerSelectChoice,
   selectActiveChoice,
   selectActivePlayer,
@@ -30,6 +29,7 @@ export const Choice = (): JSX.Element => {
   const canObscureHand = activeChoice?.$type !== "select" || (activeChoice as PlayerSelectChoice)?.filter.from !== "Hand";
   const choiceClass = canObscureHand ? styles.choice : `${styles.choice} ${styles.noObscureHand}`;
 
+  // TODO: This isn't great as an effect. It works, but it has a slight delay before it submits.
   useEffect(() => {
     if (activeChoice?.$type === "select") {
       const selectChoice = activeChoice as PlayerSelectChoice;

@@ -20,8 +20,6 @@ export const groupCards = (cards: CardInstance[], selectedCards: (string | numbe
     return groups;
   }, {});
 
-  console.log("groupedCards", groupedCards);
-
   return Object.values(groupedCards).sort(({ firstIndex: aIndex }, { firstIndex: bIndex }) => aIndex - bIndex).flatMap((group) => [group.unselected, group.selected]).filter(cards => cards.length > 0);
 }
 
