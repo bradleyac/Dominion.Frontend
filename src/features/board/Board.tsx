@@ -35,7 +35,9 @@ export const Board = (): JSX.Element => {
       <div className={styles.defaults}>
         {defaultPiles}
       </div>
-      {nonDefaultPiles}
+      <div className={styles.nonDefaults}>
+        {nonDefaultPiles}
+      </div>
     </div>
   );
 };

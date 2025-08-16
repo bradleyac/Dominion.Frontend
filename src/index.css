@@ -54,7 +54,6 @@ body {
   --card-normal-width: 4.25em;
   --highlight-radius: 0.1em;
   --highlight-blur-radius: 0.15em;
-  display: flex;
   overflow: hidden;
   font-size: var(--font-size);
   --background-color: #1a1918;

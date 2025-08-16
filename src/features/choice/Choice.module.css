@@ -11,6 +11,7 @@
   position: fixed;
   place-self: center;
   bottom: 0;
+  left: 45%;
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
 }
 
