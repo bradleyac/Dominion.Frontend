@@ -1,18 +1,10 @@
 import { JSX, useContext, useEffect } from "react";
 import { Board } from "../board/Board";
 import { HistoryButton } from "../history/History";
-import { PlayArea } from "../playArea/PlayArea";
-import { Player } from "../player/Player";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectGameId, selectGameResult, updateState } from "./gameSlice";
+import { selectGameId, updateState } from "./gameSlice";
 import { GameContext } from "./gameContext";
-import { PrivateReveal, Reveal } from "../reveal/Reveal";
-import { Choice } from "../choice/Choice";
-import { Categorize } from "../choice/Categorize";
-import { Arrange } from "../choice/Arrange";
-import { Result } from "../result/Result";
-import { React } from "../choice/React";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -22,8 +14,8 @@ import styles from "./Game.module.css";
 import { IconButton } from "../modal/Modal";
 import { isTouchDevice } from "../../app/utils";
 import { Tray } from "../tray/Tray";
-import { Resources } from "../resources/Resources";
 import { GameControls } from "../gameControls/GameControls";
+import { NotBoard } from "../notBoard/NotBoard";
 
 export const Game = ({
   gameId,
@@ -38,7 +30,6 @@ export const Game = ({
 }): JSX.Element => {
   const dispatch = useAppDispatch();
   const connector = useContext(SignalrContext);
-  const gameResult = useAppSelector(selectGameResult);
   const loadedGameId = useAppSelector(selectGameId);
 
   useEffect(() => {
@@ -66,8 +57,14 @@ export const Game = ({
     <div className={styles.game}>
       <DndProvider backend={backendForDnd}>
         <GameContext value={{ gameId }}>
-          {/* <Status hasNextGame={hasNextGame} nextGame={nextGame} /> */}
-          <Board />
+
+          <div className={styles.board}>
+            <Board />
+          </div>
+
+          <div className={styles.notBoard}>
+            <NotBoard leaveGame={leaveGame} />
+          </div>
 
           <div className={styles.tray}>
             <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />
@@ -80,29 +77,6 @@ export const Game = ({
             </Tray>
           </div>
 
-          <div className={styles.playArea}>
-            <PlayArea />
-            <Reveal />
-            <PrivateReveal />
-            <Categorize />
-            <Arrange />
-            <React />
-            <Choice />
-          </div>
-
-          <div className={styles.resources}>
-            <Resources />
-          </div>
-          <Player />
-          {gameResult && (
-            <div className={styles.overlay}>
-              <div className={styles.result}>
-                <Result result={gameResult} />
-                <button onClick={leaveGame}>Leave Game</button>
-                {hasNextGame && <button onClick={nextGame}>Next Game</button>}
-              </div>
-            </div>
-          )}
         </GameContext>
       </DndProvider>
     </div >

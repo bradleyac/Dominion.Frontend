@@ -3,31 +3,29 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template: "board board" 50% "icons play-area" 1fr "icons player" max-content / auto 1fr;
+  grid-template: "board" 1fr "not-board" 1fr / 1fr;
   align-items: start;
   justify-content: center;
   justify-items: center;
   --icon-width: 2.5em;
+
+  @media (min-aspect-ratio: 1.8) {
+    grid-template: "not-board board" 1fr / 1fr 1fr;
+  }
 }
 
-.overlay {
+.board {
+  grid-area: board;
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-color: rgba(26, 25, 24, 0.5);
-  display: grid;
+  border: var(--layout-border);
 }
 
-.result {
-  align-self: center;
-  justify-self: center;
-  background-color: var(--background-color);
-  padding: 1em;
-  box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .5em;
+.notBoard {
+  grid-area: not-board;
+  width: 100%;
+  height: 100%;
+  border: var(--layout-border);
 }
 
 .loading {
@@ -50,25 +48,8 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 0;
   display: flex;
   align-items: end;
   gap: .5em;
-}
-
-.playArea {
-  font-size: .75em;
-  grid-area: play-area;
-  display: grid;
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-.resources {
-  grid-area: icons;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: end;
 }

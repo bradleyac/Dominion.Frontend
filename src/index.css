@@ -49,6 +49,7 @@ body {
 
 
 #root {
+  /* --layout-border: 2px solid fuchsia; */
   padding: .25em;
   text-align: center;
   --card-normal-width: 4.25em;

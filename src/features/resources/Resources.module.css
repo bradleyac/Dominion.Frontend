@@ -7,7 +7,6 @@
 }
 
 .resources {
-  grid-area: resources;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto auto auto;

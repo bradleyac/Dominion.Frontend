@@ -31,12 +31,14 @@ export const Board = (): JSX.Element => {
   </>);
 
   return (
-    <div className={styles.board}>
-      <div className={styles.defaults}>
-        {defaultPiles}
-      </div>
-      <div className={styles.nonDefaults}>
-        {nonDefaultPiles}
+    <div className={styles.container}>
+      <div className={styles.board}>
+        <div className={styles.defaults}>
+          {defaultPiles}
+        </div>
+        <div className={styles.nonDefaults}>
+          {nonDefaultPiles}
+        </div>
       </div>
     </div>
   );

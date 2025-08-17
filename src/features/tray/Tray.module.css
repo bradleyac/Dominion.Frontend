@@ -4,15 +4,6 @@
   position: relative;
 }
 
-.arrowTray {
-  gap: .5em;
-  transition: left .2s linear, right .2s linear;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-}
-
 .openRight {
   left: 0;
 }
@@ -21,16 +12,7 @@
   left: 200%;
 }
 
-.openLeft {
-  right: 0;
-}
-
-.closedLeft {
-  right: 35%;
-}
-
 .trayContainer {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: .5em;

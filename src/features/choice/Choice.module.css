@@ -1,22 +1,19 @@
 .choice {
   display: grid;
   grid-template: "prompt" auto "actions" 1fr / 1fr;
-  width: fit-content;
   gap: 1em;
   padding: 1em;
   align-items: center;
   justify-items: center;
   background-color: var(--background-color);
   z-index: 10;
-  position: fixed;
+  width: max-content;
+  height: max-content;
+  position: relative;
   place-self: center;
   bottom: 0;
-  left: 45%;
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
-}
-
-.noObscureHand {
-  position: absolute;
+  border: var(--layout-border);
 }
 
 .prompt {

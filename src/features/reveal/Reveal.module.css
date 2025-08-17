@@ -2,8 +2,9 @@
   display: grid;
   grid-template: "title" auto "cards" 1fr / 1fr;
   width: max-content;
-  place-self: center;
-  height: 100%;
+  align-self: end;
+  justify-self: center;
+  height: max-content;
   gap: .25em;
   padding: .5em;
   align-items: center;

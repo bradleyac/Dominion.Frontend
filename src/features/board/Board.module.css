@@ -1,29 +1,82 @@
+.container {
+  container-type: size;
+  container-name: board;
+  width: 100%;
+  height: 100%;
+}
+
 .board {
-  grid-area: board;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template:
-    "defaults nonDefaults" 1fr / 1fr 2fr;
+    "defaults nonDefaults" 1fr / max-content 1fr;
   justify-self: start;
+  /* border: 2px solid fuchsia; */
+  gap: .3em;
 }
 
 .defaults {
   /* font-size: .90em; */
-  width: 100%;
-  height: 100%;
+  font-size: clamp(1px, 2.875cqw, 5.5cqh);
+  width: max-content;
+  height: max-content;
   grid-area: defaults;
   display: grid;
-  grid-template: "estate duchy province" min-content "copper silver gold" min-content ". . curse" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+  grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-normal-width) var(--card-normal-width);
   gap: .30em;
+  place-self: start;
 }
 
 .nonDefaults {
-  width: 100%;
-  height: 100%;
+  font-size: clamp(1px, 3.4cqw, min(3.265cqw, 7.25cqh));
+  width: max-content;
+  height: max-content;
   grid-area: nonDefaults;
   display: grid;
   grid-template: "pile5 pile4 pile3 pile2 pile1" 1fr
     "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
   gap: .30em;
+  place-self: start;
+}
+
+/* @container board (max-aspect-ratio: 2) {
+  .defaults {
+    grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-normal-width) var(--card-normal-width);
+  }
+
+  .nonDefaults {
+    font-size: clamp(1px, 3.3cqw, 7.25cqh);
+  }
+} */
+
+@container board (max-aspect-ratio: 1.2) {
+  .board {
+    grid-template: "nonDefaults" max-content "defaults" min-content / 1fr
+  }
+
+  .defaults {
+    display: grid;
+    grid-template: "curse estate duchy province copper silver gold" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    font-size: clamp(1px, 5.35cqh, 3.15cqw);
+  }
+
+  .nonDefaults {
+    font-size: clamp(1px, 10cqh, min(7.25cqh, 4.4cqw));
+    place-self: end;
+  }
+}
+
+@container board (max-aspect-ratio: .8) {
+  .defaults {
+    display: grid;
+    grid-template: "curse estate duchy province" min-content ". copper silver gold" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    font-size: clamp(1px, 10cqh, min(7.25cqh, 4.4cqw));
+    justify-self: end;
+  }
+
+  .nonDefaults {
+    font-size: clamp(1px, 10cqh, min(7.25cqh, 4.4cqw));
+    place-self: end;
+  }
 }
