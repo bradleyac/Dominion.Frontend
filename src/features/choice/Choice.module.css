@@ -1,4 +1,5 @@
 .choice {
+  font-size: .9em;
   display: grid;
   grid-template: "prompt" auto "actions" 1fr / 1fr;
   gap: 1em;
@@ -9,7 +10,7 @@
   z-index: 10;
   width: max-content;
   height: max-content;
-  position: absolute;
+  position: relative;
   justify-self: center;
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   border: var(--layout-border);

@@ -1,6 +1,6 @@
 .categorize {
   width: 100%;
-  height: max-content;
+  /* height: min-content; */
   justify-content: center;
   align-content: center;
   justify-items: center;
