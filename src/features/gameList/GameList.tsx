@@ -1,4 +1,4 @@
-import { JSX, PropsWithChildren, useContext, useEffect, useState } from "react";
+import { JSX, PropsWithChildren, useEffect, useState } from "react";
 import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router";
 import { useSignalr } from "../../app/useSignalr";
 import { clearGame, updateState } from "../game/gameSlice";
 import styles from "./GameList.module.css";
-import { AuthContext, IAuthContext } from "react-oauth2-code-pkce";
 
 export type Game = {
   activePlayerId?: string;
@@ -27,8 +26,6 @@ export const GameList = (): JSX.Element => {
   const [gameId, setGameId] = useState<string | undefined>(undefined);
   const playerId = useAppSelector(selectPlayerId);
   const authenticated = useAppSelector(selectIsAuthenticated);
-  const ctx = useContext<IAuthContext>(AuthContext);
-  console.log(ctx);
 
   const myGames = [
     ...games.filter((game) => game.players.includes(playerId ?? "")),
@@ -135,6 +132,12 @@ export const GameList = (): JSX.Element => {
     console.log({ gameId });
   }
 
+  if (!ready) {
+    return (<div className={styles.waiting}>
+      <p>Waiting for server...</p>
+    </div>);
+  }
+
   const hasNextGame =
     !!gameId &&
     myGames.filter((g) => g.gameId !== gameId && g.activePlayerId === playerId)
@@ -222,9 +225,7 @@ const NewGameListing = ({
     <button title="New Game" className={`${styles.enter} icon iconAdd`} onClick={createGame}></button>
   </div>;
 
-// const PlayerEntry = ({ children }: PropsWithChildren<void>())) => 
-
-export const PlayerEntry = ({
+const PlayerEntry = ({
   children,
 }: PropsWithChildren<{
 }>): JSX.Element | null => <div className={styles.playerEntry}><PlayerIcon />{children}</div>;

@@ -29,7 +29,7 @@
 }
 
 .hand {
-  min-height: calc(93 / 59 * var(--card-normal-width) + 1em);
+  min-height: calc(93 / 59 * var(--card-normal-width) + .5em);
   font-size: .8em;
   grid-area: hand;
   display: grid;
@@ -44,4 +44,5 @@
   z-index: 1;
   padding: 0.25em;
   justify-self: start;
+  align-self: end;
 }

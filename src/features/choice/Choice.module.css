@@ -9,9 +9,8 @@
   z-index: 10;
   width: max-content;
   height: max-content;
-  position: relative;
-  place-self: center;
-  bottom: 0;
+  position: absolute;
+  justify-self: center;
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   border: var(--layout-border);
 }

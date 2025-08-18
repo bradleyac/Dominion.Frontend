@@ -73,6 +73,9 @@
   .prompt {
     &.obscureHand {
       grid-area: player;
+      height: max-content;
+      width: max-content;
+      justify-self: center;
     }
 
     &.obscurePlayArea {
@@ -80,12 +83,9 @@
     }
 
     z-index: 10;
-    height: max-content;
-    width: max-content;
-    place-self: center;
   }
 
   .notBoard {
-    grid-template: "icons play-area" 2fr "icons play-area" 1fr "icons player" 1fr / max-content 1fr;
+    grid-template: "icons play-area" 2fr "icons play-area" 1fr "icons player" max-content / max-content 1fr;
   }
 }

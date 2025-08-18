@@ -26,8 +26,6 @@ export const Choice = (): JSX.Element => {
   const activePlayer = useAppSelector(selectActivePlayer);
   const currentPlayer = useAppSelector(selectCurrentPlayer);
   const playerId = useAppSelector(selectMyPlayerId);
-  const canObscureHand = activeChoice?.$type !== "select" || (activeChoice as PlayerSelectChoice)?.filter.from !== "Hand";
-  const choiceClass = canObscureHand ? styles.choice : `${styles.choice} ${styles.noObscureHand}`;
 
   // TODO: This isn't great as an effect. It works, but it has a slight delay before it submits.
   useEffect(() => {
@@ -66,7 +64,7 @@ export const Choice = (): JSX.Element => {
 
 
   return (
-    <div className={choiceClass}>
+    <div className={styles.choice}>
       <div className={styles.prompt}>{activeChoice.prompt}</div>
       <div className={styles.actions}>
         {filterSatisfied && activeChoice.$type === "select" && (
