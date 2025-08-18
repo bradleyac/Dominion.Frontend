@@ -67,6 +67,8 @@
   grid-area: prompt;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @container not-board (min-aspect-ratio: 1.8) {
