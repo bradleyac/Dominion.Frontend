@@ -68,13 +68,7 @@ export const Game = ({
 
           <div className={styles.tray}>
             <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />
-            <Tray>
-              <div className={styles.buttons}>
-                <GameInfoButton />
-                <HistoryButton />
-                <IconButton icon="Leave" title="Leave Game" onClick={() => leaveGame()} lit={false} />
-              </div>
-            </Tray>
+            <Tray leaveGame={leaveGame} />
           </div>
 
         </GameContext>

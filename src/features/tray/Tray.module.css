@@ -1,19 +1,41 @@
 .tray {
   gap: .5em;
-  transition: left .2s linear, right .2s linear;
+  transition: right .2s linear;
   position: relative;
 }
 
 .openRight {
-  left: 0;
+  right: 0;
 }
 
 .closedRight {
-  left: 200%;
+  right: -200%;
 }
 
 .trayContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: .5em;
+  align-items: end;
+}
+
+.buttons {
+  margin-top: .5em;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: .5em;
+}
+
+@media (max-aspect-ratio: 1.7) {
+  .buttons {
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .trayContainer {
+    flex-direction: column;
+  }
 }

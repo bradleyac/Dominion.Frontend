@@ -18,7 +18,8 @@
 
 .defaults {
   /* font-size: .90em; */
-  font-size: clamp(1px, 2.875cqw, 5.5cqh);
+  /* font-size: clamp(1px, 3.4cqw, min(2.59cqw, 5.5cqh)); */
+  font-size: min(2.59cqw, 5.5cqh);
   width: max-content;
   height: max-content;
   grid-area: defaults;
@@ -29,7 +30,7 @@
 }
 
 .nonDefaults {
-  font-size: clamp(1px, 3.4cqw, min(3.265cqw, 7.25cqh));
+  font-size: min(3.4cqw, 7.25cqh);
   width: max-content;
   height: max-content;
   grid-area: nonDefaults;
@@ -58,7 +59,8 @@
   .defaults {
     display: grid;
     grid-template: "curse estate duchy province copper silver gold" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
-    font-size: clamp(1px, 5.35cqh, 3.15cqw);
+    font-size: clamp(1px, 5.35cqh, 3.133cqw);
+    place-self: end;
   }
 
   .nonDefaults {

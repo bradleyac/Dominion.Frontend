@@ -7,7 +7,7 @@
 
 .notBoard {
   display: grid;
-  grid-template: "icons play-area" 2fr "icons prompt" 1fr "icons player" 1fr / max-content 1fr;
+  grid-template: "icons play-area" 2fr "icons prompt" 1fr "icons player" max-content / max-content 1fr;
   width: 100%;
   height: 100%;
 }
@@ -22,11 +22,14 @@
 }
 
 .overlay {
-  width: 100%;
-  height: 100%;
+  width: 100dvw;
+  height: 100dvh;
   position: absolute;
+  left: 0;
+  top: 0;
   background-color: rgba(26, 25, 24, 0.5);
   display: grid;
+  z-index: 10;
 }
 
 .result {
