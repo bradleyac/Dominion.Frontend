@@ -7,7 +7,7 @@
 
 .userChrome {
   width: 100%;
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  background-color: var(--lighter-background);
   padding: .5em;
   display: flex;
   flex-direction: row;

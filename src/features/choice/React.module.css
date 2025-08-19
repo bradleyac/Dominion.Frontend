@@ -11,7 +11,7 @@
   position: absolute;
   overflow: hidden;
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  background-color: var(--lighter-background);
 }
 
 .cards {

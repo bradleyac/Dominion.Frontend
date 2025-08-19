@@ -35,20 +35,20 @@
   grid-template: "name abandon" auto "players players" 1fr / 1fr auto;
   gap: 1em;
   padding: 1em;
-  background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
+  background-color: var(--lighter-background);
   border-radius: 0.5em;
   overflow: hidden;
   align-items: center;
 
   &:hover {
-    background-color: rgb(from var(--background-color) calc(r + 30) calc(g + 30) calc(b + 30));
+    background-color: oklch(from var(--lighter-background) calc(l + .1) c h);
   }
 }
 
 .emptyListing {
   height: 100%;
   width: 100%;
-  background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
+  background-color: var(--lighter-background);
   border-radius: 0.5em;
   place-items: center;
   place-content: center;

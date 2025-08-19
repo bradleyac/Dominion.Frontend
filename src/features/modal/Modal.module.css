@@ -9,12 +9,7 @@
 }
 
 .lit {
-  box-shadow: 0px 0px var(--highlight-blur-radius) var(--highlight-radius) rgb(145, 184, 255);
-}
-
-.iconButton:disabled {
-  opacity: unset;
-  background-color: rgb(from var(--icon-color) r g b / .5);
+  box-shadow: 0 0 0 var(--highlight-radius) var(--icon-highlight-color);
 }
 
 .iconButton {

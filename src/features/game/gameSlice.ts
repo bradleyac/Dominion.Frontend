@@ -1,7 +1,7 @@
 import { type PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
 import { CardData, CardFilter, CardZone } from "../card/cards";
-import { getCardClickAction } from "./getCardClickAction";
+import { getCardClickAction } from "../card/getCardClickAction";
 
 export type ActiveGameState = {
   gameState: GameState;
@@ -85,6 +85,7 @@ export type PlayerReactChoice = PlayerChoice & {
 export type FullPlayerState = {
   playerId: string;
   hand: CardInstance[];
+  playAllTreasuresValue: number;
   deckCount: number;
   discard: CardInstance[];
   play: CardInstance[];
@@ -137,6 +138,7 @@ const initialState: ActiveGameState = {
       deckCount: 0,
       discard: [],
       hand: [],
+      playAllTreasuresValue: 0,
       play: [],
       privateReveal: [],
       activeChoice: undefined,
@@ -219,6 +221,9 @@ export const gameSlice = createAppSlice({
     clearGame: create.reducer((_) => {
       return initialState;
     }),
+    gameChanged: create.reducer((_, action: PayloadAction<string>) => {
+      return { ...initialState, gameState: { ...initialState.gameState, gameId: action.payload } }
+    })
   }),
   selectors: {
     selectGameId: (state) => state.gameState.gameId,
@@ -246,6 +251,7 @@ export const gameSlice = createAppSlice({
     selectInPlay: (state) => state.gameState.me.play,
     selectPrivateReveal: (state) => state.gameState.me.privateReveal,
     selectResources: (state) => state.gameState.me.resources,
+    selectHandValue: state => state.gameState.me.playAllTreasuresValue,
     selectLog: (state) => state.gameState.log.messages,
     selectCardClickAction: (
       state: ActiveGameState,
@@ -284,7 +290,7 @@ export const gameSlice = createAppSlice({
       } else if (state.gameState.me.activeChoice.$type === "react") {
         return state.selectedCards.length === 1;
       }
-      return false; // For now, we only handle select choices
+      return false;
     },
     selectCategorizations: (state) => state.categorizedCards,
     selectArrangedCards: (state) => state.arrangedCards,
@@ -299,6 +305,7 @@ export const {
   cardCategorized,
   cardsArranged,
   clearGame,
+  gameChanged
 } = gameSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
@@ -324,6 +331,7 @@ export const {
   selectInPlay,
   selectPrivateReveal,
   selectResources,
+  selectHandValue,
   selectLog,
   selectCardClickAction,
   selectActiveChoice,

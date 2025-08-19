@@ -2,7 +2,7 @@
   height: calc(100%);
   width: calc(100%);
   padding: 0em 1em 1em 1em;
-  background-color: rgb(from var(--background-color) calc(r + 10) calc(g + 10) calc(b + 10));
+  background-color: var(--lighter-background);
   overflow: scroll;
   /* border-radius: 1em; */
   box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
@@ -18,7 +18,7 @@
   height: max-content;
   display: grid;
   grid-template: "pile5 pile4 pile3 pile2 pile1" 1fr
-    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
   grid-auto-flow: column;
   gap: .125em;
   font-size: 1.4em;

@@ -31,7 +31,7 @@ export const Reveal = (): JSX.Element => {
         cardId={topCard.cardId}
         cardInstanceId={topCard.instanceId}
         key={topCard.instanceId}
-        isCompact={true}
+        isCompact={false}
         zone="Reveal"
         count={cards.length}
       />
@@ -66,7 +66,7 @@ export const PrivateReveal = (): JSX.Element => {
         cardId={topCard.cardId}
         cardInstanceId={topCard.instanceId}
         key={topCard.instanceId}
-        isCompact={true}
+        isCompact={false}
         zone="PrivateReveal"
         count={cards.length}
       />

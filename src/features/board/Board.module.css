@@ -24,7 +24,7 @@
   height: max-content;
   grid-area: defaults;
   display: grid;
-  grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-normal-width) var(--card-normal-width);
+  grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-width) var(--card-width);
   gap: .30em;
   place-self: start;
 }
@@ -36,14 +36,14 @@
   grid-area: nonDefaults;
   display: grid;
   grid-template: "pile5 pile4 pile3 pile2 pile1" 1fr
-    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
   gap: .30em;
   place-self: start;
 }
 
 /* @container board (max-aspect-ratio: 2) {
   .defaults {
-    grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-normal-width) var(--card-normal-width);
+    grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-width) var(--card-width);
   }
 
   .nonDefaults {
@@ -58,7 +58,7 @@
 
   .defaults {
     display: grid;
-    grid-template: "curse estate duchy province copper silver gold" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    grid-template: "curse estate duchy province copper silver gold" min-content / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
     font-size: clamp(1px, 5.35cqh, 3.133cqw);
     place-self: end;
   }
@@ -72,7 +72,7 @@
 @container board (max-aspect-ratio: .8) {
   .defaults {
     display: grid;
-    grid-template: "curse estate duchy province" min-content ". copper silver gold" min-content / var(--card-normal-width) var(--card-normal-width) var(--card-normal-width) var(--card-normal-width);
+    grid-template: "curse estate duchy province" min-content ". copper silver gold" min-content / var(--card-width) var(--card-width) var(--card-width) var(--card-width);
     font-size: clamp(1px, 10cqh, min(7.25cqh, 4.4cqw));
     justify-self: end;
   }

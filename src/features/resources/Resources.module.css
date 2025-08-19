@@ -1,6 +1,5 @@
 .resourceIcon {
   width: min-content;
-  opacity: .5;
   display: flex;
   flex-direction: row;
   gap: .25em;
@@ -16,10 +15,6 @@
   justify-items: center;
   align-items: start;
   gap: .5em;
-}
-
-.resources.active>.resourceIcon {
-  opacity: unset;
 }
 
 .resourceCounts {

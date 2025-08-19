@@ -19,10 +19,10 @@
   grid-template: "category" auto "cards" 1fr / 1fr;
   align-items: center;
   width: max-content;
-  min-width: calc(var(--card-normal-width) + 2em + 2px);
+  min-width: calc(var(--card-width) + 2em + 2px);
   box-shadow: 0 0 1px 1px black;
   border-radius: 0.5em;
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  background-color: var(--lighter-background);
 }
 
 .zone:nth-child(1) {

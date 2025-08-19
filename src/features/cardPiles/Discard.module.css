@@ -6,7 +6,7 @@
 
   align-items: center;
   justify-content: center;
-  width: var(--card-normal-width);
+  width: var(--card-width);
   height: 100%;
   gap: 0.5em;
   font-size: .35em;
@@ -37,7 +37,7 @@
   border: none;
 
   /* font-size: var(--card-normal-font-size); */
-  width: var(--card-normal-width);
+  width: var(--card-width);
 }
 
 .white {

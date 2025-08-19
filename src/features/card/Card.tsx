@@ -59,6 +59,9 @@ export const Card = ({
           signalrConnector?.playCard(gameId, cardInstanceId);
         }
         return;
+      case "playThenBuy":
+        signalrConnector?.playAllTreasuresAndBuy(gameId, cardId);
+        return;
       case "none":
       default:
         return;
@@ -117,6 +120,8 @@ function getHighlightClass(clickAction: ActionType) {
       return styles.highlightedBuy;
     case "play":
       return styles.highlightedPlay;
+    case "playThenBuy":
+      return styles.highlightedPlayThenBuy;
     case "select":
       return styles.highlightedSelect;
     case "deselect":

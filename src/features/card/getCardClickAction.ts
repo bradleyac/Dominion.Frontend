@@ -3,8 +3,8 @@ import {
   PlayerChoice,
   PlayerResources,
   PlayerSelectChoice,
-} from "./gameSlice";
-import { ActionType, CardData, CardZone } from "../card/cards";
+} from "../game/gameSlice";
+import { ActionType, CardData, CardZone } from "./cards";
 
 export function getCardClickAction(
   state: ActiveGameState,
@@ -90,6 +90,11 @@ export function getCardClickAction(
             card.types.includes("Treasure")
             ? "play"
             : "none";
+        case "Supply":
+          return resources.buys > 0 &&
+            state.gameState!.kingdomState.supply.find(
+              (cps) => cps.cardId === card.id && cps.count > 0,
+            ) ? (card.cost <= resources.coins ? "buy" : card.cost <= resources.coins + state.gameState.me.playAllTreasuresValue ? "playThenBuy" : "none") : "none";
         default:
           return "none";
       }
@@ -100,12 +105,9 @@ export function getCardClickAction(
           return card.types.includes("Treasure") ? "play" : "none";
         case "Supply":
           return resources.buys > 0 &&
-            card.cost <= resources.coins &&
             state.gameState!.kingdomState.supply.find(
               (cps) => cps.cardId === card.id && cps.count > 0,
-            )
-            ? "buy"
-            : "none";
+            ) ? (card.cost <= resources.coins ? "buy" : card.cost <= resources.coins + state.gameState.me.playAllTreasuresValue ? "playThenBuy" : "none") : "none";
         default:
           return "none";
       }

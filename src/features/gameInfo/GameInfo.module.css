@@ -8,7 +8,7 @@
   padding: 1em;
   gap: 1em;
   justify-self: end;
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  background-color: var(--lighter-background);
   box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
 }
 

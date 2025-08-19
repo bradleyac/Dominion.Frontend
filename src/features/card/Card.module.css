@@ -20,22 +20,30 @@
   background-repeat: no-repeat;
   border: none;
 
-  width: var(--card-normal-width);
+  width: var(--card-width);
 
   box-shadow: 0 0 1px 1px black;
   transition: opacity 0.25s ease;
+  --highlight-blur-radius: 0;
+  --highlight-radius: .125em;
 }
 
 .highlightedBuy {
   box-shadow:
     0 0 1px 1px black,
-    0 0 var(--highlight-blur-radius) var(--highlight-radius) rgb(233, 208, 68);
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 100);
+}
+
+.highlightedPlayThenBuy {
+  box-shadow:
+    0 0 1px 1px black,
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 150);
 }
 
 .highlightedPlay {
   box-shadow:
     0 0 1px 1px black,
-    0 0 var(--highlight-blur-radius) var(--highlight-radius) #0ddddd;
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 200);
 }
 
 .highlightedDiscard {
@@ -53,7 +61,7 @@
 .highlightedSelected {
   box-shadow:
     0 0 1px 1px black,
-    0 0 0px 2.5px gold;
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.25 100);
 }
 
 div[draggable="true"] .dimmed {
@@ -62,7 +70,7 @@ div[draggable="true"] .dimmed {
 
 .cardFrame .card.compact {
   aspect-ratio: 1 / 1;
-  width: var(--card-normal-width);
+  width: var(--card-width);
   grid-template:
     "card-front" 85%
     "card-bottom" 15% / 1fr;
@@ -77,7 +85,7 @@ div[draggable="true"] .dimmed {
   background-repeat: no-repeat;
   border-radius: 0.25em;
   background-position-y: 96%;
-  box-shadow: inherit;
+  box-shadow: 0 -.05em .1em var(--shadow-color);
 }
 
 .cardFront {

@@ -6,6 +6,7 @@
   height: max-content;
   z-index: 1;
   position: absolute;
+  bottom: 0;
   overflow: hidden;
 }
 
@@ -19,7 +20,7 @@
   position: relative;
   box-shadow: 0 0 1px 1px black;
   border-radius: 0.5em;
-  background-color: rgb(from var(--background-color) calc(r + 20) calc(g + 20) calc(b + 20));
+  background-color: var(--lighter-background);
   padding: 1em;
 }
 
