@@ -1,6 +1,10 @@
 import { useContext, useEffect } from "react";
 import styles from "./Layout.module.css";
-import { selectIsAuthenticated, selectPlayerId, userLoggedOut } from "../auth/authSlice";
+import {
+  selectIsAuthenticated,
+  selectPlayerId,
+  userLoggedOut,
+} from "../auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Outlet, useNavigate } from "react-router";
 import { AuthContext, IAuthContext } from "react-oauth2-code-pkce";
@@ -16,13 +20,15 @@ export const Layout = () => {
     }
   }, [isAuthenticated]);
 
-  return <div className={styles.container}>
-    <UserChrome />
-    <div className={styles.content}>
-      <Outlet />
+  return (
+    <div className={styles.container}>
+      <UserChrome />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
-  </div>
-}
+  );
+};
 
 const UserChrome = () => {
   const { logOut } = useContext<IAuthContext>(AuthContext);
@@ -36,9 +42,21 @@ const UserChrome = () => {
   }
 
   if (isAuthenticated) {
-    return <div className={styles.userChrome}>{playerId}<button title="Log Out" className="icon iconLogOut" onClick={doLogOut}></button></div>
+    return (
+      <div className={styles.userChrome}>
+        {playerId}
+        <button
+          title="Log Out"
+          className="icon iconLogOut"
+          onClick={doLogOut}
+        ></button>
+      </div>
+    );
+  } else {
+    return (
+      <div className={styles.userChrome}>
+        <p>Logged out.</p>
+      </div>
+    );
   }
-  else {
-    return <div className={styles.userChrome}><p>Logged out.</p></div>
-  }
-}
+};

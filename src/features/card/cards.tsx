@@ -7,7 +7,13 @@ export type CardType =
   | "Victory"
   | "Attack"
   | "Reaction";
-export type ActionType = "select" | "deselect" | "buy" | "play" | "playThenBuy" | "none";
+export type ActionType =
+  | "select"
+  | "deselect"
+  | "buy"
+  | "play"
+  | "playThenBuy"
+  | "none";
 export type CardZone =
   | "Supply"
   | "Trash"

@@ -94,7 +94,14 @@ export function getCardClickAction(
           return resources.buys > 0 &&
             state.gameState!.kingdomState.supply.find(
               (cps) => cps.cardId === card.id && cps.count > 0,
-            ) ? (card.cost <= resources.coins ? "buy" : card.cost <= resources.coins + state.gameState.me.playAllTreasuresValue ? "playThenBuy" : "none") : "none";
+            )
+            ? card.cost <= resources.coins
+              ? "buy"
+              : card.cost <=
+                  resources.coins + state.gameState.me.playAllTreasuresValue
+                ? "playThenBuy"
+                : "none"
+            : "none";
         default:
           return "none";
       }
@@ -107,7 +114,14 @@ export function getCardClickAction(
           return resources.buys > 0 &&
             state.gameState!.kingdomState.supply.find(
               (cps) => cps.cardId === card.id && cps.count > 0,
-            ) ? (card.cost <= resources.coins ? "buy" : card.cost <= resources.coins + state.gameState.me.playAllTreasuresValue ? "playThenBuy" : "none") : "none";
+            )
+            ? card.cost <= resources.coins
+              ? "buy"
+              : card.cost <=
+                  resources.coins + state.gameState.me.playAllTreasuresValue
+                ? "playThenBuy"
+                : "none"
+            : "none";
         default:
           return "none";
       }

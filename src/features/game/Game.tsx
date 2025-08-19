@@ -34,7 +34,7 @@ export const Game = ({
     if (root && root.requestFullscreen) {
       root?.requestFullscreen();
     }
-  }, [gameId])
+  }, [gameId]);
 
   useEffect(() => {
     connector?.retrieveGameState(gameId).then((state) => {
@@ -54,7 +54,6 @@ export const Game = ({
     <div className={styles.game}>
       <DndProvider backend={backendForDnd}>
         <GameContext value={{ gameId }}>
-
           <div className={styles.board}>
             <Board />
           </div>
@@ -67,10 +66,9 @@ export const Game = ({
             <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />
             <Tray leaveGame={leaveGame} />
           </div>
-
         </GameContext>
       </DndProvider>
-    </div >
+    </div>
   );
 };
 

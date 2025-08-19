@@ -103,8 +103,10 @@ export class SignalrConnector {
   ): Promise<void> => {
     await this.connection.invoke<any>("playCardAsync", gameId, cardInstanceId);
   };
-  public playAllTreasures = (gameId: string) => this.connection.invoke<any>("playAllTreasuresAsync", gameId);
-  public playAllTreasuresAndBuy = (gameId: string, cardId: number) => this.connection.invoke<any>("playAllTreasuresAndBuyAsync", gameId, cardId);
+  public playAllTreasures = (gameId: string) =>
+    this.connection.invoke<any>("playAllTreasuresAsync", gameId);
+  public playAllTreasuresAndBuy = (gameId: string, cardId: number) =>
+    this.connection.invoke<any>("playAllTreasuresAndBuyAsync", gameId, cardId);
   public buyCard = async (gameId: string, cardId: number): Promise<void> => {
     await this.connection.invoke<any>("buyCardAsync", gameId, cardId);
   };

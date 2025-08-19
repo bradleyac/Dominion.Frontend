@@ -2,10 +2,7 @@ import { JSX, PropsWithChildren, useEffect, useState } from "react";
 import { Game } from "../game/Game";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  selectIsAuthenticated,
-  selectPlayerId,
-} from "../auth/authSlice";
+import { selectIsAuthenticated, selectPlayerId } from "../auth/authSlice";
 import { useNavigate } from "react-router";
 import { useSignalr } from "../../app/useSignalr";
 import { clearGame, updateState } from "../game/gameSlice";
@@ -79,7 +76,10 @@ export const GameList = (): JSX.Element => {
       return;
     }
     signalr.current?.listGames().then((games) => setGames(games));
-    const intervalId = setInterval(() => signalr.current?.listGames().then((games) => setGames(games)), 30000);
+    const intervalId = setInterval(
+      () => signalr.current?.listGames().then((games) => setGames(games)),
+      30000,
+    );
     return () => clearInterval(intervalId);
   }, [ready]);
 
@@ -133,9 +133,11 @@ export const GameList = (): JSX.Element => {
   }
 
   if (!ready) {
-    return (<div className={styles.waiting}>
-      <p>Waiting for server...</p>
-    </div>);
+    return (
+      <div className={styles.waiting}>
+        <p>Waiting for server...</p>
+      </div>
+    );
   }
 
   const hasNextGame =
@@ -207,12 +209,19 @@ const GameListing = ({
       <div className={styles.name}>{game.displayName}</div>
       <div className={styles.players}>
         {game.players.map((player) => (
-          <PlayerEntry key={player}>
-            {player}
-          </PlayerEntry>
+          <PlayerEntry key={player}>{player}</PlayerEntry>
         ))}
       </div>
-      {inGame && <button title="Abandon Game" className={`${styles.abandon} icon iconClose`} onClick={e => { e.stopPropagation(); abandonGame(); }}></button>}
+      {inGame && (
+        <button
+          title="Abandon Game"
+          className={`${styles.abandon} icon iconClose`}
+          onClick={(e) => {
+            e.stopPropagation();
+            abandonGame();
+          }}
+        ></button>
+      )}
     </div>
   );
 };
@@ -221,13 +230,23 @@ const NewGameListing = ({
   createGame,
 }: {
   createGame: () => void;
-}): JSX.Element => <div className={styles.emptyListing}>
-    <button title="New Game" className={`${styles.enter} icon iconAdd`} onClick={createGame}></button>
-  </div>;
+}): JSX.Element => (
+  <div className={styles.emptyListing}>
+    <button
+      title="New Game"
+      className={`${styles.enter} icon iconAdd`}
+      onClick={createGame}
+    ></button>
+  </div>
+);
 
 const PlayerEntry = ({
   children,
-}: PropsWithChildren<{
-}>): JSX.Element | null => <div className={styles.playerEntry}><PlayerIcon />{children}</div>;
+}: PropsWithChildren<{}>): JSX.Element | null => (
+  <div className={styles.playerEntry}>
+    <PlayerIcon />
+    {children}
+  </div>
+);
 
 const PlayerIcon = () => <span className="icon iconUser"></span>;

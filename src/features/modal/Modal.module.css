@@ -25,7 +25,7 @@
 }
 
 .toggleable {
-  transition: transform .2s linear;
+  transition: transform 0.2s linear;
 }
 
 @media (max-aspect-ratio: 1.7) {

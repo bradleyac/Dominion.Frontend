@@ -2,7 +2,7 @@
   width: min-content;
   display: flex;
   flex-direction: row;
-  gap: .25em;
+  gap: 0.25em;
 }
 
 .resources {
@@ -14,7 +14,7 @@
   flex-wrap: wrap;
   justify-items: center;
   align-items: start;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .resourceCounts {
@@ -22,5 +22,5 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  gap: .25em;
+  gap: 0.25em;
 }

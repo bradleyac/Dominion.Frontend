@@ -9,11 +9,10 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template:
-    "defaults nonDefaults" 1fr / max-content 1fr;
+  grid-template: "defaults nonDefaults" 1fr / max-content 1fr;
   justify-self: start;
   /* border: 2px solid fuchsia; */
-  gap: .3em;
+  gap: 0.3em;
 }
 
 .defaults {
@@ -24,8 +23,10 @@
   height: max-content;
   grid-area: defaults;
   display: grid;
-  grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-width) var(--card-width);
-  gap: .30em;
+  grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(
+      --card-width
+    ) var(--card-width);
+  gap: 0.3em;
   place-self: start;
 }
 
@@ -35,9 +36,12 @@
   height: max-content;
   grid-area: nonDefaults;
   display: grid;
-  grid-template: "pile5 pile4 pile3 pile2 pile1" 1fr
-    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
-  gap: .30em;
+  grid-template:
+    "pile5 pile4 pile3 pile2 pile1" 1fr
+    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(
+      --card-width
+    ) var(--card-width) var(--card-width) var(--card-width);
+  gap: 0.3em;
   place-self: start;
 }
 
@@ -53,12 +57,16 @@
 
 @container board (max-aspect-ratio: 1.2) {
   .board {
-    grid-template: "nonDefaults" max-content "defaults" min-content / 1fr
+    grid-template: "nonDefaults" max-content "defaults" min-content / 1fr;
   }
 
   .defaults {
     display: grid;
-    grid-template: "curse estate duchy province copper silver gold" min-content / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
+    grid-template: "curse estate duchy province copper silver gold" min-content / var(
+        --card-width
+      ) var(--card-width) var(--card-width) var(--card-width) var(
+        --card-width
+      ) var(--card-width) var(--card-width);
     font-size: clamp(1px, 5.35cqh, 3.133cqw);
     place-self: end;
   }
@@ -72,7 +80,9 @@
 @container board (max-aspect-ratio: .8) {
   .defaults {
     display: grid;
-    grid-template: "curse estate duchy province" min-content ". copper silver gold" min-content / var(--card-width) var(--card-width) var(--card-width) var(--card-width);
+    grid-template: "curse estate duchy province" min-content ". copper silver gold" min-content / var(
+        --card-width
+      ) var(--card-width) var(--card-width) var(--card-width);
     font-size: clamp(1px, 10cqh, min(7.25cqh, 4.4cqw));
     justify-self: end;
   }

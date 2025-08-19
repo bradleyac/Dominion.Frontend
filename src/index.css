@@ -1,6 +1,6 @@
 html {
   --background-color: oklch(21.42% 0.0025 67.7);
-  --button-color: oklch(37.53% 0.0000 0);
+  --button-color: oklch(37.53% 0 0);
   background-color: var(--background-color);
   box-sizing: border-box;
 }
@@ -26,17 +26,19 @@ button {
   color: inherit;
   border: none;
   border-radius: 1em;
-  box-shadow: 0 0 1px 1px #9e4c98, 0 0 var(--shadow-depth) 0px var(--shadow-color);
+  box-shadow:
+    0 0 1px 1px #9e4c98,
+    0 0 var(--shadow-depth) 0px var(--shadow-color);
   padding: 0.5em;
   font-size: var(--font-size);
   width: max-content;
 
   &:disabled {
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &:hover:not(:disabled) {
-    background-color: oklch(from var(--button-color) calc(l + .1) c h);
+    background-color: oklch(from var(--button-color) calc(l + 0.1) c h);
   }
 }
 
@@ -47,10 +49,9 @@ body {
   margin: 0;
 }
 
-
 #root {
   /* --layout-border: 2px solid fuchsia; */
-  padding: .25em;
+  padding: 0.25em;
   text-align: center;
   --card-width: 4.25em;
   --highlight-radius: 0.1em;
@@ -58,14 +59,14 @@ body {
   overflow: hidden;
   font-size: var(--font-size);
   --background-color: oklch(21.42% 0.0025 67.7);
-  --lighter-background: oklch(from var(--background-color) calc(l + .1) c h);
+  --lighter-background: oklch(from var(--background-color) calc(l + 0.1) c h);
   background-color: var(--background-color);
   --icon-color: oklch(70% 0.08 318.5);
-  --icon-highlight-color: oklch(80% .4 250);
+  --icon-highlight-color: oklch(80% 0.4 250);
   color: var(--icon-color);
   --icon-width: 1.5em;
-  --shadow-depth: .5em;
-  --shadow-color: oklch(17.30% 0.0000 0);
+  --shadow-depth: 0.5em;
+  --shadow-color: oklch(17.3% 0 0);
   margin: 0;
   font-family: "Jersey 15", sans-serif;
   font-weight: 400;
@@ -73,9 +74,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --indicator-shadow:
-    0 0 var(--highlight-blur-radius) var(--highlight-radius) var(--icon-highlight-color);
-
+  --indicator-shadow: 0 0 var(--highlight-blur-radius) var(--highlight-radius)
+    var(--icon-highlight-color);
 
   height: 100dvh;
   width: 100dvw;
@@ -96,16 +96,16 @@ body {
 .icon {
   aspect-ratio: 1 / 1;
   width: var(--icon-width);
-  border: .25em solid transparent;
+  border: 0.25em solid transparent;
   background-size: 75%;
   background-position: center;
   background-repeat: no-repeat;
   background-color: var(--icon-color);
-  border-radius: .25em;
+  border-radius: 0.25em;
 }
 
 button.icon:hover:not(:disabled) {
-  background-color: oklch(from var(--icon-color) calc(l + .1) c h);
+  background-color: oklch(from var(--icon-color) calc(l + 0.1) c h);
 }
 
 .iconTriangle {

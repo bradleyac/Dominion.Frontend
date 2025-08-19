@@ -26,7 +26,7 @@
 
 .player {
   text-align: left;
-  padding: .5em;
+  padding: 0.5em;
   box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
 }
 
@@ -36,11 +36,15 @@
 }
 
 .activePlayer {
-  box-shadow: 0 0 2px 0px yellow, 0 0 var(--shadow-depth) 1px var(--shadow-color);
+  box-shadow:
+    0 0 2px 0px yellow,
+    0 0 var(--shadow-depth) 1px var(--shadow-color);
 }
 
 .currentPlayer {
-  box-shadow: 0 0 2px 0px blueviolet, 0 0 var(--shadow-depth) 1px var(--shadow-color);
+  box-shadow:
+    0 0 2px 0px blueviolet,
+    0 0 var(--shadow-depth) 1px var(--shadow-color);
 }
 
 .turn {

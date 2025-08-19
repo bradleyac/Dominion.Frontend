@@ -23,7 +23,7 @@ export const Reveal = (): JSX.Element => {
   }
 
   const groupedCards = groupCards(reveal, selectedCards);
-  const mappedCards = groupedCards.map(cards => {
+  const mappedCards = groupedCards.map((cards) => {
     console.log(cards);
     const topCard = cards[0];
     return (
@@ -58,7 +58,7 @@ export const PrivateReveal = (): JSX.Element => {
   }
 
   const groupedCards = groupCards(privateReveal, selectedCards);
-  const mappedCards = groupedCards.map(cards => {
+  const mappedCards = groupedCards.map((cards) => {
     console.log(cards);
     const topCard = cards[0];
     return (

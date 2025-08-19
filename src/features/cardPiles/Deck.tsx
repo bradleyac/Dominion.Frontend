@@ -10,7 +10,9 @@ export const Deck = (): JSX.Element => {
     <div className={styles.deck}>
       <div className={styles.title}>Deck</div>
       <div className={`${styles.card} ${deckCount === 0 || styles.cardBack}`} />
-      <div className={styles.remaining}><ReactiveCount count={deckCount} /></div>
+      <div className={styles.remaining}>
+        <ReactiveCount count={deckCount} />
+      </div>
     </div>
   );
 };

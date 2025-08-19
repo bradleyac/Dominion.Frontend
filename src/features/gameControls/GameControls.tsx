@@ -1,9 +1,6 @@
 import { JSX } from "react";
 import styles from "./GameControls.module.css";
-import {
-  selectActivePlayer,
-  selectMyPlayerId,
-} from "../game/gameSlice";
+import { selectActivePlayer, selectMyPlayerId } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import { IconButton } from "../modal/Modal";
 
@@ -20,7 +17,12 @@ export const GameControls = ({
   return (
     <div className={styles.gameControls}>
       {hasNextGame && (
-        <IconButton icon="Triangle" title="Next Game" lit={myPlayerId !== activePlayerId} onClick={() => nextGame()} />
+        <IconButton
+          icon="Triangle"
+          title="Next Game"
+          lit={myPlayerId !== activePlayerId}
+          onClick={() => nextGame()}
+        />
       )}
     </div>
   );

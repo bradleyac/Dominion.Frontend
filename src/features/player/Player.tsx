@@ -11,12 +11,11 @@ import { useAppSelector } from "../../app/hooks";
 import { selectPlayerId } from "../auth/authSlice";
 import { groupCards } from "../../app/utils";
 
-
 export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
   const selectedCards = useAppSelector(selectSelectedCards);
   const expandedGroups = groupCards(hand, selectedCards);
 
-  const cards = expandedGroups.map(cards => {
+  const cards = expandedGroups.map((cards) => {
     const topCard = cards.at(-1)!;
     return (
       <Card
@@ -39,11 +38,11 @@ export const Player = (): JSX.Element => {
   const activePlayer = useAppSelector(selectActivePlayer);
   const isActive = activePlayer === myName;
   return (
-    <div
-      className={styles.hud}
-    >
-      <div className={`${styles.playerName} ${isActive && styles.active}`}>{myName}</div>
+    <div className={styles.hud}>
+      <div className={`${styles.playerName} ${isActive && styles.active}`}>
+        {myName}
+      </div>
       <Hand hand={hand} />
-    </div >
+    </div>
   );
 };

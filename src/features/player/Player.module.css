@@ -17,24 +17,24 @@
 
 .playerName {
   position: absolute;
-  font-size: .75em;
+  font-size: 0.75em;
   padding: 0.25em;
-  border-radius: .25em;
+  border-radius: 0.25em;
   align-self: start;
   justify-self: start;
   top: -2em;
-  left: .25em;
+  left: 0.25em;
 }
 
 .hand {
-  min-height: calc(93 / 59 * var(--card-width) + .5em);
-  font-size: .8em;
+  min-height: calc(93 / 59 * var(--card-width) + 0.5em);
+  font-size: 0.8em;
   grid-area: hand;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--card-width);
   grid-template-rows: 1fr;
-  gap: .35em;
+  gap: 0.35em;
   width: 100%;
   justify-content: start;
   overflow-x: scroll;

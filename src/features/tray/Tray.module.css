@@ -1,6 +1,6 @@
 .tray {
-  gap: .5em;
-  transition: right .2s linear;
+  gap: 0.5em;
+  transition: right 0.2s linear;
   position: relative;
 }
 
@@ -15,17 +15,17 @@
 .trayContainer {
   display: flex;
   flex-direction: row;
-  gap: .5em;
+  gap: 0.5em;
   align-items: end;
 }
 
 .buttons {
-  margin-top: .5em;
+  margin-top: 0.5em;
   display: grid;
   grid-template-rows: 1fr;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 @media (max-aspect-ratio: 1.7) {

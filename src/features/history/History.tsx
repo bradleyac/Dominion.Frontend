@@ -4,9 +4,11 @@ import { useAppSelector } from "../../app/hooks";
 import styles from "./History.module.css";
 import { ModalButton } from "../modal/Modal";
 
-export const HistoryButton = () => (<ModalButton icon="History" title="View Game History">
-  <History />
-</ModalButton>);
+export const HistoryButton = () => (
+  <ModalButton icon="History" title="View Game History">
+    <History />
+  </ModalButton>
+);
 
 export const History = (): JSX.Element => {
   const log = useAppSelector(selectLog)!;
@@ -24,9 +26,7 @@ export const History = (): JSX.Element => {
     <div className={styles.log}>
       History
       <div>
-        {log?.map((message, i) => (
-          <p key={i}>{message}</p>
-        ))}
+        {log?.map((message, i) => <p key={i}>{message}</p>)}
         <div ref={messagesEndRef} />
       </div>
     </div>

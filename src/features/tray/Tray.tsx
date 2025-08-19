@@ -9,14 +9,27 @@ export const Tray = ({ leaveGame }: { leaveGame: () => Promise<void> }) => {
   const [open, setOpen] = useState(false);
   return (
     <div className={styles.trayContainer}>
-      <div className={`${styles.tray} ${open ? styles.openRight : styles.closedRight}`}>
+      <div
+        className={`${styles.tray} ${open ? styles.openRight : styles.closedRight}`}
+      >
         <div className={styles.buttons}>
           <GameInfoButton />
           <HistoryButton />
-          <IconButton icon="Leave" title="Leave Game" onClick={leaveGame} lit={false} />
+          <IconButton
+            icon="Leave"
+            title="Leave Game"
+            onClick={leaveGame}
+            lit={false}
+          />
         </div>
       </div>
-      <ToggleableIconButton toggled={open} icon="Ellipsis" title="More Options" animation="rotate" onClick={() => setOpen(open => !open)} />
+      <ToggleableIconButton
+        toggled={open}
+        icon="Ellipsis"
+        title="More Options"
+        animation="rotate"
+        onClick={() => setOpen((open) => !open)}
+      />
     </div>
-  )
-}
+  );
+};
