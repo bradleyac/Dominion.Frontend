@@ -2,7 +2,7 @@ import { JSX, useContext } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { SignalrContext } from "../../app/signalrContext";
 import { GameContext } from "../game/gameContext";
-import { selectCurrentPlayer, selectHandValue, selectMyPlayerId, selectPhase, selectResources } from "../game/gameSlice";
+import { selectCurrentPlayer, selectMyPlayerId, selectPhase, selectResources } from "../game/gameSlice";
 import { Deck } from "../cardPiles/Deck";
 import { DiscardPile } from "../cardPiles/Discard";
 import { KingdomButton } from "../kingdom/Kingdom";
@@ -18,7 +18,6 @@ export const Resources = () => {
   const isCurrentPlayer = currentPlayerId === playerId;
   const signalrConnector = useContext(SignalrContext);
   const { coffers, villagers, coins, actions, buys } = useAppSelector(selectResources);
-  const handValue = useAppSelector(selectHandValue);
   const { gameId } = useContext(GameContext);
 
   return (
