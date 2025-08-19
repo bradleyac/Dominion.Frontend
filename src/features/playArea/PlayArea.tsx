@@ -27,13 +27,8 @@ export const PlayArea = (): JSX.Element => {
   ));
 
   return (
-    <div
-      className={styles.playArea}
-      onClick={() => setStacked((stacked) => !stacked)}
-    >
-      <div className={`${styles.inPlay} ${stacked && styles.stacked}`}>
-        {cards}
-      </div>
+    <div className={styles.playArea} onClick={() => setStacked(stacked => !stacked)}>
+      <div className={`${styles.inPlay} ${stacked && styles.stacked}`}>{cards}</div>
     </div>
   );
 };

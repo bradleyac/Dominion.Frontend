@@ -21,9 +21,7 @@ export const DiscardPile = (): JSX.Element => {
       ) : (
         <div className={`${styles.card} ${styles.white}`}></div>
       )}
-      <div className={styles.remaining}>
-        <ReactiveCount count={discard.length} />
-      </div>
+      <div className={styles.remaining}><ReactiveCount count={discard.length} /></div>
     </div>
   );
 };

@@ -32,28 +32,36 @@ export const Choice = (): JSX.Element => {
     if (activeChoice?.$type === "select") {
       const selectChoice = activeChoice as PlayerSelectChoice;
       if (selectChoice.filter.maxCount === 1 && filterSatisfied) {
-        signalrConnector?.chooseCards(gameId, activeChoice.id, selectedCards);
-      }
-    } else if (activeChoice?.$type === "react") {
-      if (filterSatisfied) {
-        signalrConnector?.chooseCards(gameId, activeChoice.id, selectedCards);
+        signalrConnector?.chooseCards(
+          gameId,
+          activeChoice.id,
+          selectedCards,
+        )
       }
     }
-  }, [activeChoice, filterSatisfied, gameId, selectedCards]);
+    else if (activeChoice?.$type === "react") {
+      if (filterSatisfied) {
+        signalrConnector?.chooseCards(
+          gameId,
+          activeChoice.id,
+          selectedCards,
+        )
+      }
+    }
+  }, [activeChoice, filterSatisfied, gameId, selectedCards])
 
   if (!activeChoice) {
     if (playerId === currentPlayer && activePlayer !== currentPlayer) {
       return (
         <div className={styles.choice}>
-          <div className={styles.prompt}>
-            Waiting for {activePlayer ?? "joiners"}
-          </div>
+          <div className={styles.prompt}>Waiting for {activePlayer ?? "joiners"}</div>
         </div>
       );
     } else {
       return <></>;
     }
   }
+
 
   return (
     <div className={styles.choice}>

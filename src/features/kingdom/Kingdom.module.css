@@ -17,19 +17,17 @@
   width: max-content;
   height: max-content;
   display: grid;
-  grid-template:
-    "pile5 pile4 pile3 pile2 pile1" 1fr
-    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(
-      --card-width
-    ) var(--card-width) var(--card-width) var(--card-width);
+  grid-template: "pile5 pile4 pile3 pile2 pile1" 1fr
+    "pile10 pile9 pile8 pile7 pile6" 1fr / var(--card-width) var(--card-width) var(--card-width) var(--card-width) var(--card-width);
   grid-auto-flow: column;
-  gap: 0.125em;
+  gap: .125em;
   font-size: 1.4em;
   place-items: center;
   place-content: center;
   place-self: center;
 
-  > * {
+
+  >* {
     box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   }
 }

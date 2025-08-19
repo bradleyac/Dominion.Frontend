@@ -5,8 +5,8 @@
   align-self: end;
   justify-self: center;
   height: max-content;
-  gap: 0.25em;
-  padding: 0.5em;
+  gap: .25em;
+  padding: .5em;
   align-items: center;
   justify-items: center;
   background-color: var(--background-color);
@@ -22,9 +22,9 @@
   grid-auto-flow: column;
   grid-auto-columns: min-content;
   grid-template-rows: 1fr;
-  gap: 0.5em;
+  gap: .5em;
   overflow: scroll;
-  padding: 0.25em;
+  padding: .25em;
   justify-content: center;
   width: 100%;
 }

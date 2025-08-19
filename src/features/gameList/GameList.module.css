@@ -7,7 +7,7 @@
   margin: 0;
   padding: 1em;
   overflow-y: scroll;
-  font-size: 0.7em;
+  font-size: .7em;
 }
 
 .buttons {
@@ -25,7 +25,7 @@
   grid-template-rows: 11em;
   gap: 1em;
   overflow: scroll hidden;
-  padding: 0.5em 0 0.5em 0;
+  padding: .5em 0 .5em 0;
 }
 
 .gameListing {
@@ -41,7 +41,7 @@
   align-items: center;
 
   &:hover {
-    background-color: oklch(from var(--lighter-background) calc(l + 0.1) c h);
+    background-color: oklch(from var(--lighter-background) calc(l + .1) c h);
   }
 }
 
@@ -59,7 +59,7 @@
   grid-area: players;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: .5em;
 }
 
 .playerEntry {
@@ -67,7 +67,7 @@
   grid-auto-flow: column;
   grid-auto-columns: auto 1fr;
   justify-items: start;
-  gap: 0.5em;
+  gap: .5em;
 }
 
 .active {

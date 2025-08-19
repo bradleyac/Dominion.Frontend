@@ -41,11 +41,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5em;
+  gap: .5em;
 }
 
 .playArea {
-  font-size: 0.75em;
+  font-size: .75em;
   grid-area: play-area;
   display: grid;
   height: 100%;

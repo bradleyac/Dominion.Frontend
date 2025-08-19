@@ -1,21 +1,11 @@
 import { useAppSelector } from "../../app/hooks";
-import {
-  selectActivePlayer,
-  selectCurrentPlayer,
-  selectGameDisplayName,
-  selectMyPlayerId,
-  selectPhase,
-  selectPlayerIds,
-  selectTurn,
-} from "../game/gameSlice";
+import { selectActivePlayer, selectCurrentPlayer, selectGameDisplayName, selectMyPlayerId, selectPhase, selectPlayerIds, selectTurn } from "../game/gameSlice";
 import { ModalButton } from "../modal/Modal";
 import styles from "./GameInfo.module.css";
 
-export const GameInfoButton = () => (
-  <ModalButton icon="Info" title="View Game Info">
-    <GameInfo />
-  </ModalButton>
-);
+export const GameInfoButton = () => (<ModalButton icon="Info" title="View Game Info">
+  <GameInfo />
+</ModalButton>);
 
 export const GameInfo = () => {
   const gameName = useAppSelector(selectGameDisplayName);
@@ -32,39 +22,19 @@ export const GameInfo = () => {
       <p className={styles.turn}>Turn {turn}</p>
       <p className={styles.phase}>{currentPhase} Phase</p>
       <div className={styles.players}>
-        {allPlayers.map((player) => (
-          <Player
-            key={player}
-            player={player}
-            myPlayerId={myPlayerId}
-            activePlayerId={activePlayerId}
-            currentPlayerId={currentPlayerId}
-          />
-        ))}
+        {allPlayers.map(player => <Player key={player} player={player} myPlayerId={myPlayerId} activePlayerId={activePlayerId} currentPlayerId={currentPlayerId} />)}
       </div>
     </div>
   );
-};
+}
 
-const Player = ({
-  player,
-  myPlayerId,
-  activePlayerId,
-  currentPlayerId,
-}: {
-  player: string;
-  myPlayerId: string;
-  activePlayerId?: string;
-  currentPlayerId: string;
-}) => {
+const Player = ({ player, myPlayerId, activePlayerId, currentPlayerId }: { player: string, myPlayerId: string, activePlayerId?: string, currentPlayerId: string }) => {
   const isMe = player === myPlayerId;
   const isActive = player === activePlayerId;
   const isCurrent = player === currentPlayerId;
   return (
-    <div
-      className={`${styles.player} ${isMe && styles.myPlayer} ${isActive && styles.activePlayer} ${isCurrent && styles.currentPlayer}`}
-    >
+    <div className={`${styles.player} ${isMe && styles.myPlayer} ${isActive && styles.activePlayer} ${isCurrent && styles.currentPlayer}`}>
       {player}
     </div>
   );
-};
+}

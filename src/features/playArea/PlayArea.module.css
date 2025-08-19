@@ -16,11 +16,11 @@
   grid-auto-flow: column;
   grid-auto-columns: auto;
   grid-template-rows: 1fr;
-  gap: 0.25em;
+  gap: .25em;
   /* margin-right: -4em; */
 }
 
-.inPlay.stacked > *:nth-child(n - 1) > * {
+.inPlay.stacked>*:nth-child(n - 1)>* {
   margin-left: -3em;
 }
 

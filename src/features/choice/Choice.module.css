@@ -1,5 +1,5 @@
 .choice {
-  font-size: 0.9em;
+  font-size: .9em;
   display: grid;
   grid-template: "prompt" auto "actions" 1fr / 1fr;
   gap: 1em;

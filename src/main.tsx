@@ -24,10 +24,10 @@ const authConfig: TAuthConfig = {
   scope: "openid profile email",
   extraTokenParameters: {
     client_secret: "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",
-    access_type: "offline",
+    access_type: "offline"
   },
   extraAuthParameters: {
-    prompt: "select_account",
+    prompt: "select_account"
   },
   decodeToken: false,
   autoLogin: false,
@@ -54,8 +54,8 @@ if (container) {
             </Routes>
           </HashRouter>
         </AuthProvider>
-      </Provider>
-    </StrictMode>,
+      </Provider >
+    </StrictMode >
   );
 } else {
   throw new Error(

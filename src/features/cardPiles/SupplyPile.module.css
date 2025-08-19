@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-.supplyPile > .card {
+.supplyPile>.card {
   grid-area: card;
 }
 

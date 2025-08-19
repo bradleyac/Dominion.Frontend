@@ -210,7 +210,7 @@ export const gameSlice = createAppSlice({
       if (
         !action.payload.me.activeChoice ||
         state.gameState?.me.activeChoice?.id !==
-          action.payload.me.activeChoice.id
+        action.payload.me.activeChoice.id
       ) {
         state.selectedCards = [];
         state.categorizedCards = {};
@@ -222,22 +222,19 @@ export const gameSlice = createAppSlice({
       return initialState;
     }),
     gameChanged: create.reducer((_, action: PayloadAction<string>) => {
-      return {
-        ...initialState,
-        gameState: { ...initialState.gameState, gameId: action.payload },
-      };
-    }),
+      return { ...initialState, gameState: { ...initialState.gameState, gameId: action.payload } }
+    })
   }),
   selectors: {
     selectGameId: (state) => state.gameState.gameId,
-    selectGameDisplayName: (state) => state.gameState.displayName,
+    selectGameDisplayName: state => state.gameState.displayName,
     selectKingdomCards: (state) => state.gameState.kingdomState.supply,
     selectNonDefaultKingdomCards: (state) =>
       state.gameState.kingdomState.supply.filter(
         (c) => ![5, 6, 7, 8, 9, 10, 11].includes(c.cardId),
       ),
     selectPhase: (state) => state.gameState.turnState.phase,
-    selectPlayerIds: (state) => state.gameState.playerIds,
+    selectPlayerIds: state => state.gameState.playerIds,
     selectCurrentPlayer: (state) =>
       state.gameState!.turnState.currentTurnPlayerId,
     selectActivePlayer: (state) => state.gameState.turnState.activePlayerId,
@@ -254,7 +251,7 @@ export const gameSlice = createAppSlice({
     selectInPlay: (state) => state.gameState.me.play,
     selectPrivateReveal: (state) => state.gameState.me.privateReveal,
     selectResources: (state) => state.gameState.me.resources,
-    selectHandValue: (state) => state.gameState.me.playAllTreasuresValue,
+    selectHandValue: state => state.gameState.me.playAllTreasuresValue,
     selectLog: (state) => state.gameState.log.messages,
     selectCardClickAction: (
       state: ActiveGameState,
@@ -308,7 +305,7 @@ export const {
   cardCategorized,
   cardsArranged,
   clearGame,
-  gameChanged,
+  gameChanged
 } = gameSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.

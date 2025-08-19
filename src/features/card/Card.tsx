@@ -78,16 +78,10 @@ export const Card = ({
         onClick={onClick}
       >
         {isCompact && (
-          <div
-            className={styles.cardBottom}
-            style={{ backgroundImage: `url(${cardData.imgSrc})` }}
-          />
-        )}
+          <div className={styles.cardBottom} style={{ backgroundImage: `url(${cardData.imgSrc})` }} />)}
 
         {count !== undefined && (zone === "Supply" || count > 1) && (
-          <div className={styles.remaining}>
-            <ReactiveCount count={count} />
-          </div>
+          <div className={styles.remaining}><ReactiveCount count={count} /></div>
         )}
       </div>
     </div>
