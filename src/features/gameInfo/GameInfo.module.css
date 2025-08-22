@@ -1,15 +1,14 @@
 .container {
   width: 22em;
-  height: calc(100% - 2em);
-  grid-area: gameInfo;
+  height: fit-content;
   display: grid;
   grid-template: "name name" "turn phase" "players players" 1fr / 1fr 1fr;
-  margin: 1em;
-  padding: 1em;
+  padding: 0 1em 1em 1em;
   gap: 1em;
   justify-self: end;
   background-color: var(--lighter-background);
   box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
+  border-radius: .25em;
 }
 
 .name {

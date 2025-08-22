@@ -10,6 +10,7 @@ import styles from "./Player.module.css";
 import { useAppSelector } from "../../app/hooks";
 import { selectPlayerId } from "../auth/authSlice";
 import { groupCards } from "../../app/utils";
+import { Deck, Discard } from "../cardPiles/CardPile";
 
 
 export const Hand = ({ hand }: { hand: CardInstance[] }): JSX.Element => {
@@ -44,6 +45,12 @@ export const Player = (): JSX.Element => {
     >
       <div className={`${styles.playerName} ${isActive && styles.active}`}>{myName}</div>
       <Hand hand={hand} />
+      <div className={styles.deck}>
+        <Deck />
+      </div>
+      <div className={styles.discard}>
+        <Discard />
+      </div>
     </div >
   );
 };

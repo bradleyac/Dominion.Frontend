@@ -4,16 +4,12 @@
   width: max-content;
   align-self: end;
   justify-self: center;
-  height: max-content;
   gap: .25em;
-  padding: .5em;
   align-items: center;
   justify-items: center;
   background-color: var(--background-color);
   z-index: 1;
-  position: absolute;
   overflow: hidden;
-  box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
 }
 
 .revealedCards {
@@ -23,7 +19,7 @@
   grid-auto-columns: min-content;
   grid-template-rows: 1fr;
   gap: .5em;
-  overflow: scroll;
+  overflow-x: scroll;
   padding: .25em;
   justify-content: center;
   width: 100%;

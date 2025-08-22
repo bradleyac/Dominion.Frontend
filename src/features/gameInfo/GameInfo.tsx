@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../app/hooks";
+import { DraggableFrame } from "../draggableFrame/DraggableFrame";
 import { selectActivePlayer, selectCurrentPlayer, selectGameDisplayName, selectMyPlayerId, selectPhase, selectPlayerIds, selectTurn } from "../game/gameSlice";
 import { ModalButton } from "../modal/Modal";
 import styles from "./GameInfo.module.css";
@@ -17,14 +18,16 @@ export const GameInfo = () => {
   const allPlayers = useAppSelector(selectPlayerIds);
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.name}>{gameName}</h2>
-      <p className={styles.turn}>Turn {turn}</p>
-      <p className={styles.phase}>{currentPhase} Phase</p>
-      <div className={styles.players}>
-        {allPlayers.map(player => <Player key={player} player={player} myPlayerId={myPlayerId} activePlayerId={activePlayerId} currentPlayerId={currentPlayerId} />)}
+    <DraggableFrame>
+      <div className={styles.container}>
+        <h2 className={styles.name}>{gameName}</h2>
+        <p className={styles.turn}>Turn {turn}</p>
+        <p className={styles.phase}>{currentPhase} Phase</p>
+        <div className={styles.players}>
+          {allPlayers.map(player => <Player key={player} player={player} myPlayerId={myPlayerId} activePlayerId={activePlayerId} currentPlayerId={currentPlayerId} />)}
+        </div>
       </div>
-    </div>
+    </DraggableFrame>
   );
 }
 

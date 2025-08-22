@@ -3,15 +3,9 @@
   align-content: center;
   justify-items: center;
   justify-self: center;
-  align-self: end;
-  width: max-content;
-  height: max-content;
   background-color: var(--background-color);
   z-index: 1;
-  position: absolute;
   overflow: hidden;
-  box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
-  background-color: var(--lighter-background);
 }
 
 .cards {

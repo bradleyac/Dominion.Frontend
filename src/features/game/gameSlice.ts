@@ -35,11 +35,13 @@ export type KingdomState = {
   reveal: CardInstance[];
 };
 
+export type Phase = "Action" | "BuyOrPlay" | "Buy" | "Cleanup";
+
 export type TurnState = {
   currentTurnPlayerId: string;
   activePlayerId?: string;
   turn: number;
-  phase: "Action" | "BuyOrPlay" | "Buy" | "Cleanup";
+  phase: Phase;
 };
 
 export type LogState = {
@@ -247,7 +249,8 @@ export const gameSlice = createAppSlice({
     selectMyName: (state) => state.gameState.me.playerId,
     selectHand: (state) => state.gameState.me.hand,
     selectDeckCount: (state) => state.gameState.me.deckCount,
-    selectDiscard: (state) => state.gameState.me.discard,
+    selectDiscardCount: (state) => state.gameState.me.discard.length,
+    selectDiscardTopCard: (state) => state.gameState.me.discard.at(-1)?.cardId,
     selectInPlay: (state) => state.gameState.me.play,
     selectPrivateReveal: (state) => state.gameState.me.privateReveal,
     selectResources: (state) => state.gameState.me.resources,
@@ -327,7 +330,8 @@ export const {
   selectTurn,
   selectHand,
   selectDeckCount,
-  selectDiscard,
+  selectDiscardCount,
+  selectDiscardTopCard,
   selectInPlay,
   selectPrivateReveal,
   selectResources,

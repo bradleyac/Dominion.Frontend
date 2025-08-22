@@ -31,7 +31,7 @@ export class SignalrConnector {
     this.idToken = idToken;
     this.connection = new HubConnectionBuilder()
       .withUrl(URL, { accessTokenFactory: this.idTokenFactory })
-      .withAutomaticReconnect()
+      .withAutomaticReconnect([0, 2, 2, 2, 10, 10, 10, 30, 30, 30, 30])
       .build();
     this.gameListEvents = ({ onGameCreated, onGameEnded, onGameUpdated }) => {
       this.connection.on("gameCreated", (payload) => {
@@ -47,6 +47,7 @@ export class SignalrConnector {
       return () => {
         this.connection.off("gameCreated");
         this.connection.off("gameEnded");
+        this.connection.off("gameUpdated");
       };
     };
     this.gameEvents = ({ onStateUpdated }) => {
@@ -59,7 +60,7 @@ export class SignalrConnector {
       };
     };
   }
-  private idTokenFactory = () => this.idToken ?? "";
+  private idTokenFactory = () => { console.log(this.idToken); return this.idToken ?? "" };
   public setIdToken = (idToken: string | undefined) => (this.idToken = idToken);
   public listGames = async (): Promise<Game[]> => {
     return await this.connection.invoke("getAllGamesAsync");

@@ -1,8 +1,9 @@
 import { PropsWithChildren, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
+import { DraggableFrame } from "../draggableFrame/DraggableFrame";
 
-export type IconType = "Kingdom" | "History" | "Info" | "Leave" | "Undo" | "EndTurn" | "EndPhase" | "Coins" | "Actions" | "Buys" | "Cleanup" | "Ellipsis" | "Triangle";
+export type IconType = "Kingdom" | "History" | "Info" | "Leave" | "Undo" | "EndTurn" | "EndPhase" | "Coins" | "Actions" | "Buys" | "Cleanup" | "Ellipsis" | "Triangle" | "Eye";
 
 export const ToggleableIconButton = ({ icon, title, toggled, onClick, animation }: { icon: IconType, title: string, toggled: boolean, onClick: () => void, animation: "flip" | "rotate" }) => {
   const rotateClass = animation === "flip" ? styles.flip : styles.rotate;
@@ -43,6 +44,16 @@ export const Modal = ({ showing, close, children }: PropsWithChildren<{ showing:
       <div className={styles.modalOverlay} onClick={close}>
         {children}
       </div>,
+      document.getElementById("root")!,
+    ))
+}
+
+export const PersistentModal = ({ children }: PropsWithChildren<{}>) => {
+  return (
+    createPortal(
+      <DraggableFrame>
+        {children}
+      </DraggableFrame>,
       document.getElementById("root")!,
     ))
 }

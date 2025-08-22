@@ -9,22 +9,3 @@
 .supplyPile>.card {
   grid-area: card;
 }
-
-/* .supplyPile:hover > .card.compact {
-  aspect-ratio: 59 / 93;
-  position: absolute;
-  transform: scale(1.5);
-  transition: transform 0.2s ease;
-  z-index: 1;
-}
-
-.supplyPile:not(:hover) .cardBottom {
-  display: block;
-  width: 100%;
-  height: 16%;
-  align-self: end;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: 96%;
-  border-radius: 0.5em;
-} */

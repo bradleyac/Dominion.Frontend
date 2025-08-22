@@ -33,7 +33,7 @@ const authConfig: TAuthConfig = {
   autoLogin: false,
   storage: "session",
   refreshTokenExpiresIn: 86400, // 24 hours
-  onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn(),
+  // onRefreshTokenExpire: (event: TRefreshTokenExpiredEvent) => event.logIn(),
 };
 
 const container = document.getElementById("root");

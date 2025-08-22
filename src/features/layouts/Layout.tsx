@@ -11,7 +11,6 @@ export const Layout = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log("navigating...");
       navigate("/");
     }
   }, [isAuthenticated]);

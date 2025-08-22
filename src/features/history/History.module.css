@@ -1,16 +1,18 @@
 .log {
   text-align: start;
+  position: relative;
   width: 22em;
-  height: calc(100% - 2em);
-  max-height: 45dvh;
+  height: 15em;
+  padding: 1em;
   display: grid;
   grid-auto-flow: row;
   align-content: start;
-  overflow: scroll;
-  padding: 1em;
-  margin: 1em;
-  grid-area: log;
   background-color: var(--lighter-background);
   box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
-  justify-self: end;
+}
+
+.messages {
+  overflow-y: scroll;
+  display: grid;
+  grid-auto-flow: row;
 }

@@ -1,0 +1,69 @@
+.eye {
+  background-size: 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-color: transparent !important; */
+  border: none;
+  box-shadow: none;
+  width: var(--icon-width);
+  height: var(--icon-width);
+  align-self: center;
+  justify-self: start;
+}
+
+.handle {
+  height: min-content;
+  background-color: var(--lighter-background);
+  border-radius: .25em .25em 0 0;
+  touch-action: none;
+  margin-bottom: -.125em;
+  /* box-shadow: 0 0 var(--shadow-depth) var(--shadow-color); */
+  display: grid;
+  z-index: 2;
+}
+
+.draggableFrame {
+  position: relative;
+  align-self: center;
+  z-index: 1000;
+  display: grid;
+  transform-origin: 50% 50%;
+  border-radius: .25em;
+
+  &.hidden {
+    .handle {
+      width: calc(var(--icon-width));
+      height: calc(var(--icon-width));
+      place-content: center;
+      background-color: transparent;
+    }
+
+    .content {
+      visibility: hidden;
+    }
+
+    .eye {
+      /* border: .25em solid transparent; */
+      background-color: var(--icon-color);
+      transform: scale(1.5);
+      animation: 4s pulse infinite alternate;
+    }
+  }
+
+  &.visible {
+    .eye {
+      background-color: var(--icon-color);
+      border-radius: .25em 0;
+    }
+  }
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 var(--highlight-radius) .03125em var(--icon-color);
+  }
+
+  to {
+    box-shadow: 0 0 var(--highlight-radius) .0625em var(--icon-highlight-color);
+  }
+}

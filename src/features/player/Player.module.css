@@ -1,13 +1,15 @@
 .hud {
   display: grid;
-  grid-template: "hand" 1fr / 1fr;
-  width: 100%;
+  grid-template: "hand discard deck" 1fr / 1fr var(--card-width) var(--card-width);
+  row-gap: .125em;
+  width: calc(100% - .25em);
   height: max-content;
   column-gap: 1em;
   align-items: end;
   justify-items: start;
   position: relative;
   place-self: end;
+  margin-right: .25em;
   /* border: 2px solid fuchsia; */
 }
 
@@ -17,18 +19,17 @@
 
 .playerName {
   position: absolute;
+  left: 0;
+  top: -2em;
+  grid-area: hand;
+  z-index: 2;
   font-size: .75em;
   padding: 0.25em;
-  border-radius: .25em;
-  align-self: start;
-  justify-self: start;
-  top: -2em;
-  left: .25em;
+  border-radius: .5em;
 }
 
 .hand {
-  min-height: calc(93 / 59 * var(--card-width) + .5em);
-  font-size: .8em;
+  min-height: calc(93 / 59 * var(--card-width) + .25em);
   grid-area: hand;
   display: grid;
   grid-auto-flow: column;
@@ -40,7 +41,17 @@
   overflow-x: scroll;
   position: relative;
   z-index: 1;
-  padding: 0.25em;
   justify-self: start;
   align-self: end;
+  padding: .125em
+}
+
+.deck {
+  grid-area: deck;
+  width: 100%;
+}
+
+.discard {
+  grid-area: discard;
+  width: 100%;
 }

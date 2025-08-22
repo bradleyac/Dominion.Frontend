@@ -1,11 +1,13 @@
 .playArea {
+  font-size: .9em;
   display: grid;
   grid-template: "in-play" 1fr / 1fr;
   width: 100%;
-  height: max-content;
+
+  height: 100%;
   align-self: end;
   gap: 1em;
-  padding: 1em;
+  padding: .25em;
   align-items: center;
   justify-items: center;
 }

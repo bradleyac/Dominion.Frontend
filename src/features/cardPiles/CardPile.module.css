@@ -1,0 +1,57 @@
+.pile {
+  display: grid;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 59 / 93;
+  place-self: end;
+  position: relative;
+  perspective: 100em;
+  perspective-origin: -7em 15em;
+
+  * {
+    transform-style: preserve-3d;
+  }
+
+  .layers,
+  .layer {
+    position: absolute;
+    inset: 0;
+  }
+
+}
+
+.remaining {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  align-self: end;
+  place-items: center;
+  place-content: center;
+  background-color: rgb(from var(--background-color) r g b / 1);
+  border-radius: .25em;
+  width: 1.25em;
+  height: 1.25em;
+  box-shadow: 0 0 1px 1px black;
+}
+
+.layer {
+  place-self: center;
+  --layer-offset: .2em;
+  width: 100%;
+  background-color: white;
+  --n: calc(var(--i) / var(--layers-count));
+  transform: translateZ(calc(var(--i) * var(--layer-offset)));
+  box-shadow: 0 0 0px .5px black;
+  aspect-ratio: 59 / 93;
+  border-radius: .25em;
+
+  &:last-of-type {
+    background-image: var(--imgUrl);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    box-shadow: unset;
+  }
+}

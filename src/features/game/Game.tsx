@@ -2,7 +2,7 @@ import { JSX, useContext, useEffect } from "react";
 import { Board } from "../board/Board";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectGameId, updateState } from "./gameSlice";
+import { selectActiveChoice, selectGameId, selectGameResult, updateState } from "./gameSlice";
 import { GameContext } from "./gameContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -12,7 +12,16 @@ import styles from "./Game.module.css";
 import { isTouchDevice } from "../../app/utils";
 import { Tray } from "../tray/Tray";
 import { GameControls } from "../gameControls/GameControls";
-import { NotBoard } from "../notBoard/NotBoard";
+import { Player } from "../player/Player";
+import { Choice } from "../choice/Choice";
+import { PlayArea } from "../playArea/PlayArea";
+import { PrivateReveal, Reveal } from "../reveal/Reveal";
+import { Categorize } from "../choice/Categorize";
+import { Arrange } from "../choice/Arrange";
+import { React } from "../choice/React";
+import { Resources } from "../resources/Resources";
+import { Result } from "../result/Result";
+import { PersistentModal } from "../modal/Modal";
 
 export const Game = ({
   gameId,
@@ -28,11 +37,15 @@ export const Game = ({
   const dispatch = useAppDispatch();
   const connector = useContext(SignalrContext);
   const loadedGameId = useAppSelector(selectGameId);
+  const gameResult = useAppSelector(selectGameResult);
+  const activeChoice = useAppSelector(selectActiveChoice);
+  // const activePlayerId = useAppSelector(selectActivePlayer);
+  // const currentPlayerId = useAppSelector(selectCurrentPlayer);
 
   useEffect(() => {
     const root = document.getElementById("root");
     if (root && root.requestFullscreen) {
-      root?.requestFullscreen();
+      root?.requestFullscreen().catch(console.log);
     }
   }, [gameId])
 
@@ -59,15 +72,52 @@ export const Game = ({
             <Board />
           </div>
 
-          <div className={styles.notBoard}>
-            <NotBoard leaveGame={leaveGame} />
-          </div>
 
           <div className={styles.tray}>
-            <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />
             <Tray leaveGame={leaveGame} />
           </div>
 
+          <div className={styles.playArea}>
+            <PlayArea />
+          </div>
+
+          <div className={styles.resources}>
+            <Resources />
+          </div>
+
+          <div className={styles.player}>
+            <Player />
+          </div>
+
+          {activeChoice && <PersistentModal key={activeChoice.id}>
+            <div className={styles.choices}>
+              <div className={styles.choicesTop}>
+                <Reveal />
+                <PrivateReveal />
+                <Arrange />
+                <Categorize />
+                <React />
+              </div>
+              <div className={styles.choicesBottom}>
+                <Choice />
+              </div>
+            </div>
+          </PersistentModal>}
+
+          <div className={styles.gameControls}>
+            {hasNextGame && <GameControls hasNextGame={hasNextGame} nextGame={nextGame} />}
+          </div>
+
+          {
+            gameResult && (
+              <div className={styles.overlay}>
+                <div className={styles.result}>
+                  <Result result={gameResult} />
+                  <button onClick={leaveGame}>Leave Game</button>
+                </div>
+              </div>
+            )
+          }
         </GameContext>
       </DndProvider>
     </div >

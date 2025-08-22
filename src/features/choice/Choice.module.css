@@ -3,16 +3,12 @@
   display: grid;
   grid-template: "prompt" auto "actions" 1fr / 1fr;
   gap: 1em;
-  padding: 1em;
-  align-items: center;
-  justify-items: center;
-  background-color: var(--background-color);
+  place-items: center;
+  background-color: var(--lighter-background);
   z-index: 10;
   width: max-content;
   height: max-content;
   position: relative;
-  justify-self: center;
-  box-shadow: 0 0 var(--shadow-depth) 0 var(--shadow-color);
   border: var(--layout-border);
 }
 

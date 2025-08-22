@@ -22,7 +22,8 @@
 
   width: var(--card-width);
 
-  box-shadow: 0 0 1px 1px black;
+  --card-default-shadow: 0 0 1px 1px black, -.05em .1em .1em black;
+  box-shadow: var(--card-default-shadow);
   transition: opacity 0.25s ease;
   --highlight-blur-radius: 0;
   --highlight-radius: .125em;
@@ -30,37 +31,37 @@
 
 .highlightedBuy {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 100);
 }
 
 .highlightedPlayThenBuy {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 150);
 }
 
 .highlightedPlay {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.15 200);
 }
 
 .highlightedDiscard {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) #dd00d0;
 }
 
 .highlightedSelect {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) #64b4ff;
 }
 
 .highlightedSelected {
   box-shadow:
-    0 0 1px 1px black,
+    var(--card-default-shadow),
     0 0 var(--highlight-blur-radius) var(--highlight-radius) oklch(85.45% 0.25 100);
 }
 

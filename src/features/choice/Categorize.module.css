@@ -1,15 +1,11 @@
 .categorize {
   width: 100%;
-  /* height: min-content; */
   justify-content: center;
   align-content: center;
   justify-items: center;
   display: grid;
   grid-template: "left default right" 1fr / auto auto auto;
-  gap: 1em;
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
+  gap: .5em;
   overflow: hidden;
 }
 
@@ -17,12 +13,12 @@
   padding: .5em 0 0 0;
   display: grid;
   grid-template: "category" auto "cards" 1fr / 1fr;
+  gap: .5em;
   align-items: center;
   width: max-content;
   min-width: calc(var(--card-width) + 2em + 2px);
-  box-shadow: 0 0 1px 1px black;
-  border-radius: 0.5em;
-  background-color: var(--lighter-background);
+  border-radius: 0.25em;
+  background-color: oklch(from var(--lighter-background) calc(l + .1) c h);
 }
 
 .zone:nth-child(1) {
@@ -50,6 +46,6 @@
   grid-area: cards;
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: .3em;
   margin: 0 1em 1em 1em;
 }

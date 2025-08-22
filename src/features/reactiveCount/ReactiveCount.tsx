@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react";
 
 const incrementStates = [
   { color: "inherit" },
-  { color: "oklch(from var(--icon-color) calc(l + .1) c h" },
+  { color: "oklch(from var(--color) calc(l + .1) c h" },
   { color: "inherit" },
 ]
 
 const decrementStates = [
   { color: "inherit" },
-  { color: "oklch(from var(--icon-color) calc(l - .1) c h" },
+  { color: "oklch(from var(--color) calc(l - .1) c h" },
   { color: "inherit" },
 ]
 
