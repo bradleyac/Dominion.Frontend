@@ -8,9 +8,9 @@
   justify-content: center;
   justify-items: center;
   --icon-width: 2.5em;
-
-  /* @media (min-aspect-ratio: 1.7) {
-    grid-template: "not-board board" 1fr "player player" max-content / 1fr 1fr;
+  /* 
+  @media (max-aspect-ratio: .6) {
+    grid-template: "board board board board board board" 1.5fr ". . . . resources tray" max-content "play-area play-area play-area play-area play-area play-area" 1fr "player player player player player player" max-content / 1fr 1fr 1fr 1fr max-content max-content;
   } */
 }
 
@@ -59,7 +59,6 @@
 }
 
 .playArea {
-  font-size: .75em;
   grid-area: play-area;
   display: grid;
   height: 100%;
@@ -109,7 +108,7 @@
   grid-auto-rows: max-content;
   width: max-content;
   height: max-content;
-  background-color: var(--background-color);
+  background-color: var(--lighter-background);
   box-shadow: 0 0 var(--shadow-depth) var(--shadow-color);
   border-radius: 0 0 .25em .25em;
 }

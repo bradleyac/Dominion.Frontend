@@ -3,7 +3,6 @@
   align-content: center;
   justify-items: center;
   justify-self: center;
-  background-color: var(--background-color);
   z-index: 1;
   overflow: hidden;
 }
@@ -16,7 +15,7 @@
   flex-direction: row;
   gap: 1em;
   position: relative;
-  padding: 0.5em 1em 1em 1em;
+  padding: 0.125em;
 }
 
 .effect {

@@ -9,6 +9,7 @@
   align-content: start;
   background-color: var(--lighter-background);
   box-shadow: 0 0 var(--shadow-depth) 1px var(--shadow-color);
+  border-radius: .25em;
 }
 
 .messages {
