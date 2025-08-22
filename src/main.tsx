@@ -1,13 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-// import { App } from "./App";
 import { store } from "./app/store";
 import "./index.css";
 import {
   AuthProvider,
   TAuthConfig,
-  TRefreshTokenExpiredEvent,
 } from "react-oauth2-code-pkce";
 import { HashRouter, Route, Routes } from "react-router";
 import { Landing } from "./features/landing/Landing";
