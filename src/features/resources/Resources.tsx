@@ -75,12 +75,10 @@ export const Resources = () => {
 
 const ResourceIcon = ({ type, lit, title, disabled = false, counts = [], onClick = () => { } }: { type: IconType, lit: boolean, title?: string, disabled?: boolean, counts?: number[], onClick?: () => void }): JSX.Element => {
   return (
-    <div className={styles.resourceIcon}>
+    <div className={styles.resource}>
       <div className={styles.resourceCounts}>
         {counts.map((count, index) => (
-          <Fragment key={index}>
-            <ReactiveCount key={index} count={count} />
-          </Fragment>
+          <ReactiveCount key={index} count={count} />
         ))}
       </div>
       <IconButton icon={type} lit={lit} title={title ?? ""} onClick={onClick} disabled={disabled} />

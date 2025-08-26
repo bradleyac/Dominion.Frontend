@@ -29,6 +29,7 @@
   display: grid;
   transform-origin: 50% 50%;
   border-radius: .25em;
+  background: var(--interaction-gradient);
 
   &.hidden {
     .handle {

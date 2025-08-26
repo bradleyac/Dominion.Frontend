@@ -61,14 +61,13 @@ body {
   font-size: var(--font-size);
   --background-color: oklch(24.995% 0.00302 16.842);
   --lighter-background: oklch(from var(--background-color) calc(l + .1) c h);
+  --interaction-gradient: linear-gradient(45deg, oklch(.8 .2 120 / .06125), oklch(.8 .2 180 / .06125));
+  background: linear-gradient(45deg, oklch(.8 .2 300 / .06125), oklch(.8 .2 360 / .06125));
   background-color: var(--background-color);
-  /* --icon-color: oklch(70% 0.08 318.5); */
-  /* --icon-color: oklch(75% 0.25 290); */
   --icon-color: oklch(60% 0.1289 301.8);
   --icon-highlight-color: oklch(80% .2 301.8);
   --button-color: oklch(37.53% 0.0000 0);
   --color: oklch(from var(--icon-color) 70% c h);
-  /* color: var(--icon-color); */
   color: var(--color);
   --icon-width: 1.5em;
   --shadow-depth: .25em;

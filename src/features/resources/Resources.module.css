@@ -10,7 +10,7 @@
   gap: .5em;
 }
 
-.resourceIcon {
+.resource {
   width: min-content;
   display: flex;
   flex-direction: row;
