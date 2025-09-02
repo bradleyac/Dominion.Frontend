@@ -29,7 +29,6 @@
   display: grid;
   transform-origin: 50% 50%;
   border-radius: .25em;
-  background: var(--interaction-gradient);
 
   &.hidden {
     .handle {
@@ -52,6 +51,8 @@
   }
 
   &.visible {
+    background: var(--interaction-gradient);
+
     .eye {
       background-color: var(--icon-color);
       border-radius: .25em 0;

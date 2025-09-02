@@ -12,11 +12,6 @@ p {
   margin: 0;
 }
 
-code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
 button {
   font-family: inherit;
   background-color: var(--button-color);
@@ -44,9 +39,23 @@ body {
   margin: 0;
 }
 
-
 #root {
-  /* --layout-border: 2px solid fuchsia; */
+  --card-width: 4.25em;
+  --highlight-radius: 0.1em;
+  --highlight-blur-radius: 0;
+  --background-color: oklch(24.995% 0.00302 16.842);
+  --lighter-background: oklch(from var(--background-color) calc(l + .1) c h);
+  --interaction-gradient: linear-gradient(45deg, oklch(.8 .2 120 / .06125), oklch(.8 .2 180 / .06125));
+  --icon-color: oklch(60% 0.1289 301.8);
+  --icon-highlight-color: oklch(80% .2 301.8);
+  --button-color: oklch(37.53% 0.0000 0);
+  --color: oklch(from var(--icon-color) 70% c h);
+  --icon-width: 1.5em;
+  --shadow-depth: .25em;
+  --shadow-color: oklch(17.30% 0.0000 0);
+  --indicator-shadow:
+    0 0 var(--highlight-blur-radius) var(--highlight-radius) var(--icon-highlight-color);
+
   display: grid;
   grid-template: "root" 1fr / 1fr;
   place-items: center;
@@ -54,24 +63,11 @@ body {
   text-shadow: -.05em .1em .1em black;
   padding: .25em;
   text-align: center;
-  --card-width: 4.25em;
-  --highlight-radius: 0.1em;
-  --highlight-blur-radius: 0;
   overflow: hidden;
   font-size: var(--font-size);
-  --background-color: oklch(24.995% 0.00302 16.842);
-  --lighter-background: oklch(from var(--background-color) calc(l + .1) c h);
-  --interaction-gradient: linear-gradient(45deg, oklch(.8 .2 120 / .06125), oklch(.8 .2 180 / .06125));
   background: linear-gradient(45deg, oklch(.8 .2 300 / .06125), oklch(.8 .2 360 / .06125));
   background-color: var(--background-color);
-  --icon-color: oklch(60% 0.1289 301.8);
-  --icon-highlight-color: oklch(80% .2 301.8);
-  --button-color: oklch(37.53% 0.0000 0);
-  --color: oklch(from var(--icon-color) 70% c h);
   color: var(--color);
-  --icon-width: 1.5em;
-  --shadow-depth: .25em;
-  --shadow-color: oklch(17.30% 0.0000 0);
   margin: 0;
   font-family: "Jersey 15", sans-serif;
   font-weight: 400;
@@ -79,10 +75,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
-
-  --indicator-shadow:
-    0 0 var(--highlight-blur-radius) var(--highlight-radius) var(--icon-highlight-color);
-
 
   height: 100dvh;
   width: 100dvw;
