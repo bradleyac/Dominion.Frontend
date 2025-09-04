@@ -33,8 +33,8 @@ button {
 }
 
 body {
-  height: 100%;
-  width: 100%;
+  height: 100svh;
+  width: 100svh;
   overflow: hidden;
   margin: 0;
   --bg-start: oklch(.4 .06 320 / 1);
