@@ -37,11 +37,16 @@ body {
   width: 100%;
   overflow: hidden;
   margin: 0;
-  --bg-start: oklch(.4 .06 320 / 1);
-  --bg-end: oklch(.35 .06 345 / 1);
-  --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
-  background: var(--bg);
-  background-clip: border-box;
+  --bg-start: oklch(.4 .06 320);
+  --bg-end: oklch(.35 .06 345);
+  --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end), var(--bg-end));
+  background-image: var(--bg);
+  background-color: var(--bg-end);
+}
+
+::backdrop {
+  background-image: var(--bg);
+  background-color: var(--bg-end);
 }
 
 #root {
@@ -63,7 +68,7 @@ body {
     0 0 var(--highlight-blur-radius) var(--highlight-radius) var(--icon-highlight-color);
 
   display: grid;
-  background: var(--bg);
+  /* background: var(--bg); */
   grid-template: "root" 1fr / 1fr;
   place-items: center;
   place-content: center;
