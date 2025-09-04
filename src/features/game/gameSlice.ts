@@ -1,4 +1,4 @@
-import { type PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, type PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
 import { CardData, CardFilter, CardZone } from "../card/cards";
 import { getCardClickAction } from "../card/getCardClickAction";
@@ -231,16 +231,13 @@ export const gameSlice = createAppSlice({
     selectGameId: (state) => state.gameState.gameId,
     selectGameDisplayName: state => state.gameState.displayName,
     selectKingdomCards: (state) => state.gameState.kingdomState.supply,
-    selectNonDefaultKingdomCards: (state) =>
-      state.gameState.kingdomState.supply.filter(
-        (c) => ![5, 6, 7, 8, 9, 10, 11].includes(c.cardId),
-      ),
     selectPhase: (state) => state.gameState.turnState.phase,
     selectPlayerIds: state => state.gameState.playerIds,
     selectCurrentPlayer: (state) =>
       state.gameState!.turnState.currentTurnPlayerId,
     selectActivePlayer: (state) => state.gameState.turnState.activePlayerId,
     selectMyPlayerId: (state) => state.gameState.me.playerId,
+    selectActive: (state) => state.gameState.me.playerId === state.gameState.turnState.activePlayerId,
     selectOpponents: (state) => state.gameState.opponents,
     selectStatus: (state) => state.status,
     selectTrash: (state) => state.gameState.kingdomState.trash,
@@ -301,6 +298,9 @@ export const gameSlice = createAppSlice({
   },
 });
 
+export const selectKindgomCardIds = createSelector([gameSlice.selectors.selectKingdomCards], cards => cards.map(pile => pile.cardId));
+export const selectNonDefaultKingdomCardIds = createSelector([selectKindgomCardIds], (ids) => ids.filter(id => ![5, 6, 7, 8, 9, 10, 11].includes(id)));
+
 // Action creators are generated for each case reducer function.
 export const {
   updateState,
@@ -316,11 +316,11 @@ export const {
   selectGameId,
   selectGameDisplayName,
   selectKingdomCards,
-  selectNonDefaultKingdomCards,
   selectPlayerIds,
   selectCurrentPlayer,
   selectActivePlayer,
   selectMyPlayerId,
+  selectActive,
   selectOpponents,
   selectPhase,
   selectMyName,

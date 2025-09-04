@@ -1,5 +1,5 @@
 import {
-  selectNonDefaultKingdomCards,
+  selectNonDefaultKingdomCardIds,
 } from "../game/gameSlice";
 import { useAppSelector } from "../../app/hooks";
 import { Card } from "../card/Card";
@@ -12,18 +12,17 @@ export const KingdomButton = () => (<ModalButton icon="Kingdom" title="View King
 </ModalButton>);
 
 export const Kingdom = () => {
-  const kingdomCards = useAppSelector(selectNonDefaultKingdomCards);
+  const kingdomCards = useAppSelector(selectNonDefaultKingdomCardIds);
 
   return (
     <div className={styles.kingdom}>
       <h1>Kingdom Cards</h1>
       <div className={styles.cards} onClick={e => e.stopPropagation()}>
-        {kingdomCards.map((card, i) => (
-          <div style={{ width: "100%", height: "100%", gridArea: `pile${i + 1}` }}>
+        {kingdomCards.map((cardId, i) => (
+          <div key={cardId} style={{ width: "100%", height: "100%", gridArea: `pile${i + 1}` }}>
             <Card
-              key={card.cardId}
               selectable={false}
-              cardId={card.cardId}
+              cardId={cardId}
               zone={"Supply"}
               isCompact={false}
             />

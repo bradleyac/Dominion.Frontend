@@ -29,7 +29,7 @@
   align-self: end;
   place-items: center;
   place-content: center;
-  background-color: rgb(from var(--background-color) r g b / 1);
+  background-color: rgb(from var(--bg-color) r g b / 1);
   border-radius: .25em;
   width: 1.25em;
   height: 1.25em;

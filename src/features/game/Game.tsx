@@ -2,7 +2,7 @@ import { JSX, useContext, useEffect } from "react";
 import { Board } from "../board/Board";
 import { SignalrContext } from "../../app/signalrContext";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectActiveChoice, selectGameId, selectGameResult, updateState } from "./gameSlice";
+import { selectActive, selectActiveChoice, selectGameId, selectGameResult, updateState } from "./gameSlice";
 import { GameContext } from "./gameContext";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -39,6 +39,7 @@ export const Game = ({
   const loadedGameId = useAppSelector(selectGameId);
   const gameResult = useAppSelector(selectGameResult);
   const activeChoice = useAppSelector(selectActiveChoice);
+  const active = useAppSelector(selectActive);
   // const activePlayerId = useAppSelector(selectActivePlayer);
   // const currentPlayerId = useAppSelector(selectCurrentPlayer);
 
@@ -64,7 +65,7 @@ export const Game = ({
   const backendForDnd = isTouchDevice() ? TouchBackend : HTML5Backend;
 
   return (
-    <div className={styles.game}>
+    <div className={`${styles.game} ${active && styles.gameActive}`}>
       <DndProvider backend={backendForDnd}>
         <GameContext value={{ gameId }}>
 

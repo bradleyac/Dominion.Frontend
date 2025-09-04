@@ -14,6 +14,11 @@
   } */
 }
 
+.gameActive {
+  /* --background: linear-gradient(225deg, oklch(.8 .1 345 / .125), oklch(.8 .4 345 / .15)); */
+  /* background: var(--background); */
+}
+
 .overlay {
   width: 100dvw;
   height: 100dvh;
@@ -109,7 +114,6 @@
   width: max-content;
   height: max-content;
   background-color: var(--lighter-background);
-  box-shadow: 0 0 var(--shadow-depth) var(--shadow-color);
   border-radius: 0 0 .25em .25em;
 }
 

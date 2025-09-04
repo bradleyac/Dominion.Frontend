@@ -2,7 +2,6 @@
   background-size: 75%;
   background-position: center;
   background-repeat: no-repeat;
-  /* background-color: transparent !important; */
   border: none;
   box-shadow: none;
   width: var(--icon-width);
@@ -17,7 +16,6 @@
   border-radius: .25em .25em 0 0;
   touch-action: none;
   margin-bottom: -.125em;
-  /* box-shadow: 0 0 var(--shadow-depth) var(--shadow-color); */
   display: grid;
   z-index: 2;
 }
@@ -29,8 +27,12 @@
   display: grid;
   transform-origin: 50% 50%;
   border-radius: .25em;
+  box-shadow: 0 0 var(--shadow-depth) var(--shadow-color);
 
   &.hidden {
+    box-shadow: none;
+    pointer-events: none;
+
     .handle {
       width: calc(var(--icon-width));
       height: calc(var(--icon-width));
@@ -43,16 +45,14 @@
     }
 
     .eye {
-      /* border: .25em solid transparent; */
       background-color: var(--icon-color);
       transform: scale(1.5);
-      animation: 4s pulse infinite alternate;
+      animation: 2s pulse infinite alternate;
+      pointer-events: all;
     }
   }
 
   &.visible {
-    background: var(--interaction-gradient);
-
     .eye {
       background-color: var(--icon-color);
       border-radius: .25em 0;
@@ -62,7 +62,7 @@
 
 @keyframes pulse {
   from {
-    box-shadow: 0 0 var(--highlight-radius) .03125em var(--icon-color);
+    box-shadow: 0 0 var(--highlight-radius) .03125em var(--icon-highlight-color);
   }
 
   to {

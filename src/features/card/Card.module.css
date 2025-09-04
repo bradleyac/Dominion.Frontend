@@ -98,7 +98,7 @@ div[draggable="true"] .dimmed {
   font-size: .7em;
   box-sizing: content-box;
   grid-area: card-bottom;
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   font-weight: 300;
   border-radius: .25em;
   width: 1em;

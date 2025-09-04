@@ -12,13 +12,10 @@
   grid-template:
     "defaults nonDefaults" 1fr / max-content 1fr;
   justify-self: start;
-  /* border: 2px solid fuchsia; */
   gap: .3em;
 }
 
 .defaults {
-  /* font-size: .90em; */
-  /* font-size: clamp(1px, 3.4cqw, min(2.59cqw, 5.5cqh)); */
   font-size: min(2.59cqw, 5.5cqh);
   width: max-content;
   height: max-content;
@@ -41,19 +38,9 @@
   place-self: start;
 }
 
-/* @container board (max-aspect-ratio: 2) {
-  .defaults {
-    grid-template: "province gold" min-content "duchy silver" min-content "estate copper" min-content "curse ." min-content / var(--card-width) var(--card-width);
-  }
-
-  .nonDefaults {
-    font-size: clamp(1px, 3.3cqw, 7.25cqh);
-  }
-} */
-
 @container board (max-aspect-ratio: 1.2) {
   .board {
-    grid-template: "nonDefaults" max-content "defaults" min-content / 1fr
+    grid-template: "defaults" max-content "nonDefaults" min-content / 1fr
   }
 
   .defaults {

@@ -14,8 +14,8 @@ p {
 
 button {
   font-family: inherit;
-  background-color: var(--button-color);
-  color: inherit;
+  background-color: var(--button-bg-color);
+  color: var(--button-color);
   border: none;
   border-radius: 1em;
   box-shadow: 0 0 1px 1px var(--icon-highlight-color), -.05em .1em .1em black;
@@ -28,7 +28,7 @@ button {
   }
 
   &:hover:not(:disabled) {
-    background-color: oklch(from var(--button-color) calc(l + .1) c h);
+    background-color: oklch(from var(--button-bg-color) calc(l + .1) c h);
   }
 }
 
@@ -43,13 +43,14 @@ body {
   --card-width: 4.25em;
   --highlight-radius: 0.1em;
   --highlight-blur-radius: 0;
-  --background-color: oklch(24.995% 0.00302 16.842);
-  --lighter-background: oklch(from var(--background-color) calc(l + .1) c h);
-  --interaction-gradient: linear-gradient(45deg, oklch(.8 .2 120 / .06125), oklch(.8 .2 180 / .06125));
-  --icon-color: oklch(60% 0.1289 301.8);
+  --bg-color: oklch(24.995% 0.00302 16.842);
+  --lighter-background: oklch(.45 .08 320 / 1);
+  --interaction-gradient: linear-gradient(45deg, oklch(.3 .1 0 / 1), oklch(.3 .1 90 / 1));
+  --icon-color: oklch(60% 0.13 301.8);
   --icon-highlight-color: oklch(80% .2 301.8);
-  --button-color: oklch(37.53% 0.0000 0);
-  --color: oklch(from var(--icon-color) 70% c h);
+  --button-bg-color: oklch(.4 0.1 310);
+  --color: oklch(95% 0.04 310);
+  --button-color: oklch(from var(--color) l c h);
   --icon-width: 1.5em;
   --shadow-depth: .25em;
   --shadow-color: oklch(17.30% 0.0000 0);
@@ -65,8 +66,10 @@ body {
   text-align: center;
   overflow: hidden;
   font-size: var(--font-size);
-  background: linear-gradient(45deg, oklch(.8 .2 300 / .06125), oklch(.8 .2 360 / .06125));
-  background-color: var(--background-color);
+  --bg-start: oklch(.4 .06 320 / 1);
+  --bg-end: oklch(.35 .06 345 / 1);
+  --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
+  background: var(--bg);
   color: var(--color);
   margin: 0;
   font-family: "Jersey 15", sans-serif;
