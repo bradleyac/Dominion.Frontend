@@ -41,7 +41,7 @@ body {
   --bg-end: oklch(.35 .06 345 / 1);
   --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
   background: var(--bg);
-  background-color: var(--bg-end);
+  background-size: cover;
 }
 
 #root {
