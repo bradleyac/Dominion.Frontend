@@ -33,14 +33,15 @@ button {
 }
 
 body {
-  height: 100svh;
-  width: 100svh;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   margin: 0;
   --bg-start: oklch(.4 .06 320 / 1);
   --bg-end: oklch(.35 .06 345 / 1);
   --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
   background: var(--bg);
+  background-color: var(--bg-end);
 }
 
 #root {
