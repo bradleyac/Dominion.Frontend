@@ -37,6 +37,10 @@ body {
   width: 100%;
   overflow: hidden;
   margin: 0;
+  --bg-start: oklch(.4 .06 320 / 1);
+  --bg-end: oklch(.35 .06 345 / 1);
+  --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
+  background: var(--bg);
 }
 
 #root {
@@ -58,6 +62,7 @@ body {
     0 0 var(--highlight-blur-radius) var(--highlight-radius) var(--icon-highlight-color);
 
   display: grid;
+  background: var(--bg);
   grid-template: "root" 1fr / 1fr;
   place-items: center;
   place-content: center;
@@ -66,10 +71,6 @@ body {
   text-align: center;
   overflow: hidden;
   font-size: var(--font-size);
-  --bg-start: oklch(.4 .06 320 / 1);
-  --bg-end: oklch(.35 .06 345 / 1);
-  --bg: radial-gradient(ellipse at center, var(--bg-start), var(--bg-end));
-  background: var(--bg);
   color: var(--color);
   margin: 0;
   font-family: "Jersey 15", sans-serif;
