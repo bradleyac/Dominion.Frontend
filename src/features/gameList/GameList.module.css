@@ -103,9 +103,41 @@
 }
 
 .waiting {
-  height: 100%;
-  width: 100%;
+  height: min-content;
+  width: max-content;
   display: flex;
   place-items: center;
   place-content: center;
+  position: relative;
+}
+
+.waiting::before {
+  content: "";
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  width: 0;
+  animation: rotate 10s infinite linear, breathe 8s infinite alternate ease-in-out;
+  box-shadow: -.06em .06em .06em .06em white;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+@keyframes breathe {
+  from {
+    width: calc(100% + 3em);
+  }
+
+  to {
+    width: calc(100% + 5em);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
