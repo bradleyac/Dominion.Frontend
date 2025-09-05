@@ -116,8 +116,8 @@
   aspect-ratio: 1 / 1;
   position: absolute;
   width: 0;
-  animation: rotate 10s infinite linear, breathe 8s infinite alternate ease-in-out;
-  box-shadow: -.06em .06em .06em .06em white;
+  animation: breathe 8s infinite alternate ease-in-out;
+  box-shadow: 0 0 .06em .06em white;
   border-radius: 50%;
   z-index: -1;
 }
@@ -129,15 +129,5 @@
 
   to {
     width: calc(100% + 5em);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
